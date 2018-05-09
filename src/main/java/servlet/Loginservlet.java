@@ -59,9 +59,9 @@ public class Loginservlet extends HttpServlet {
         UserDao_1 userDao1 =new UserDao1Imp();
         System.out.println("@@@@@@@@@@"+ userDao1);
 		if (userDao1.getOne(user_id).getPassword()==password){
-            response.sendRedirect("/login1.jsp");
+            response.sendRedirect("/index.jsp");
 		}
-        response.sendRedirect("/login1.jsp");
+        response.sendRedirect("/index.jsp");
 	}
 
 }
