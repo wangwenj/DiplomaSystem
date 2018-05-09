@@ -22,7 +22,7 @@
             </interceptor-stack>
         </interceptors>
         <global-results>
-            <result name="login">/login.jsp</result>
+            <result name="login">/login1.jsp</result>
         </global-results>
         <action name="404">
             <result>/404.jsp</result>
@@ -32,7 +32,7 @@
         <action name="login-*" class="action.UserAction" method="{1}">
             <result name="RES" type="json"><param name="root">dataMap</param></result>
             <result name="success" type="json"><param name="root">dataMap</param></result>
-            <result name="loginPage">/login.jsp</result>
+            <result name="loginPage">/login1.jsp</result>
             <result name="registrationPage">/WEB-INF/pages/project_registration.jsp</result>
             <result name="replacepasswordPage">/WEB-INF/pages/project_replacepassword.jsp</result>
             <allowed-methods>login,registration,replacepassword,,jmpLogin,jmpRegistration,jmpReplacepassword,postVerification,postReplacepassword</allowed-methods>

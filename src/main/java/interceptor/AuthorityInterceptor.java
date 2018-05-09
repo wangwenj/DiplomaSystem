@@ -1,19 +1,14 @@
 package interceptor;
 
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
-import entity.UserEntity;
+import entity.UserEntity_1;
 import org.apache.struts2.ServletActionContext;
 
-import java.beans.EventHandler;
-import java.util.Map;
 import java.util.Objects;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
     public class AuthorityInterceptor extends AbstractInterceptor{
         //拦截action处理的拦截方法
@@ -22,7 +17,7 @@ import javax.servlet.http.HttpSession;
             //取得请求相关的ActionContext实例
             HttpSession session= ServletActionContext.getRequest().getSession();
             //取出名为user的session属性
-            UserEntity user= (UserEntity) session.getAttribute("user");
+            UserEntity_1 user= (UserEntity_1) session.getAttribute("user");
             String method =  invocation.getProxy().getMethod();
             if(user!=null){
                 if(Objects.equals(method, "jmpSysManager1")|| Objects.equals(method, "jmpSysManager2")){
