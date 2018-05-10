@@ -22,12 +22,71 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <style type="text/css">
-        table{
-            font-size:13px;
+        table {
+            font-size: 13px;
+        }
+        .modal-label{
+            margin-top: 8px;
         }
     </style>
 </head>
 <body class="gray-bg">
+
+
+<%--模态框--%>
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">员工</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="name" class="control-label">姓名:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="id" class="control-label">工号:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="id"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="gender"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="department" class="control-label">部门</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="department"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="position" class="control-label">职位</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="position"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="contact" class="control-label">联系方式</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="contact"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="info" class="control-label">个人简介</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="info"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="remark"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-sm-8">
@@ -37,16 +96,21 @@
                         <h4 class="example-title">用户管理</h4>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                                <button type="button" class="btn btn-outline btn-default"
-                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">增加
+                                <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
+                                        data-target="#Modal" data-whatever="增加"
+                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">
+                                    增加
                                     <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline btn-default"
-                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">修改
+                                <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
+                                        data-target="#Modal" data-whatever="修改"
+                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">
+                                    修改
                                     <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-outline btn-default"
-                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">删除
+                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">
+                                    删除
                                     <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -128,7 +192,7 @@
             <div class="ibox ">
                 <div class="ibox-content">
                     <div class="text-center">
-                        <h2 >张有为</h2>
+                        <h2>张有为</h2>
                         <button type="button" class="btn btn-outline btn-default">
                             导出员工详情
                         </button>
@@ -192,5 +256,17 @@
 <script src="js/demo/bootstrap-table-demo.min.js"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096"
         charset="UTF-8"></script>
+<script>
+    <!--modal框-->
+    $('#Modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var title = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text(title + '员工信息')
+        // modal.find('.modal-body input').val(title)
+    })
+</script>
 </body>
 </html>
