@@ -1,11 +1,8 @@
 package dao;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -105,16 +102,17 @@ public class DAO<T> {
 
 
 
-	public void update(String sql,Object ... args){
+	public int update(String sql, Object ... args){
 		Connection connection=null;
 		try{
 			connection=JdbcUtils.getConnection();
-			qr.update(connection, sql, args);
+			return qr.update(connection, sql, args);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			JdbcUtils.releaseConnection(connection);
 		}
+		return 0;
 	}
 	public void updateThrowException(String sql, Object ... args) throws SQLException {
 		Connection connection=null;

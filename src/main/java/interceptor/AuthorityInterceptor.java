@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
-import entity.UserEntity_1;
+import entity.User;
 import org.apache.struts2.ServletActionContext;
 
 import java.util.Objects;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
             //取得请求相关的ActionContext实例
             HttpSession session= ServletActionContext.getRequest().getSession();
             //取出名为user的session属性
-            UserEntity_1 user= (UserEntity_1) session.getAttribute("user");
+            User user= (User) session.getAttribute("user");
             String method =  invocation.getProxy().getMethod();
             if(user!=null){
                 if(Objects.equals(method, "jmpSysManager1")|| Objects.equals(method, "jmpSysManager2")){

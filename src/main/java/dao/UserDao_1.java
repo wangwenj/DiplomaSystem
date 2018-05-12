@@ -1,10 +1,14 @@
 package dao;
 
-import entity.UserEntity_1;
+import entity.User;
+
+import java.util.List;
 
 /**
  * Created by ${mjy} on 2018/5/6.
  */
 public interface UserDao_1 {
-    public UserEntity_1 getOne(String id_user);
+     User getOne(String id_user);
+     int add(int id_user,String name,String gender,int id_department,int id_position,int tel,String intro,String remark);
+     List<User> getAll();
 }

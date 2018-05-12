@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="entity.User" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/9
@@ -6,6 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html lang="en">
 <head>
 
@@ -43,44 +48,44 @@
                 <h4 class="modal-title" id="exampleModalLabel">员工</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="staff.manage" id="staff_modal">
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="name" class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="name"></div>
+                        <div class="col-md-2 modal-label"><label for="name" class="control-label" >姓名:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name" name="name"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="id" class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="id"></div>
+                        <div class="col-md-2 modal-label"><label for="id_user" class="control-label" >工号:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="id_user" name="id_user"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="gender"></div>
+                        <div class="col-md-2 modal-label"><label for="gender" class="control-label" >性别</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="gender" name="gender"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="department" class="control-label">部门</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="department"></div>
+                        <div class="col-md-2 modal-label"><label for="department" class="control-label" >部门</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="department" name="id_department"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="position" class="control-label">职位</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="position"></div>
+                        <div class="col-md-2 modal-label"><label for="position" class="control-label" >职位</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="position" name="id_position"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="contact" class="control-label">联系方式</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="contact"></div>
+                        <div class="col-md-2 modal-label"><label for="tel" class="control-label" >联系方式</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="tel" name="tel"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="info" class="control-label">个人简介</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="info"></div>
+                        <div class="col-md-2 modal-label"><label for="intro" class="control-label">个人简介</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="intro"  name="intro"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="remark"></div>
+                        <div class="col-md-2 modal-label"><label for="remark" class="control-label" >备注</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="remark" name="remark"></div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('staff_modal').submit();">确认</button>
             </div>
         </div>
     </div>
@@ -127,60 +132,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    List<User> userAll= (List<User>) request.getAttribute("userAll");
+                                %>
+                                <%
+                                    for(User user:userAll){
+                                %>
                                 <tr>
                                     <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
+                                    <td><%=user.getName()%></td>
+                                    <td><%=user.getId_user()%></td>
+                                    <td><%=user.getGender()%></td>
+                                    <td><%=user.getD_name()%></td>
+                                    <td><%=user.getP_name()%></td>
+                                    <td><%=user.getTel()%></td>
+
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>王文君</td>
-                                    <td>201426010321</td>
-                                    <td>女</td>
-                                    <td>财务部</td>
-                                    <td>部长</td>
-                                    <td>18712345612</td>
-                                </tr>
+                                <%
+                                    }
+                                %>
                                 </tbody>
                             </table>
                         </div>

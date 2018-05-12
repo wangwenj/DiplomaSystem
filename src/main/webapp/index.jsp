@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html>
 
 
@@ -76,7 +80,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="user_manage.jsp">用户管理</a>
+                            <a class="J_menuItem" href="getAll.manage">用户管理</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="department_manage.html">部门管理</a>

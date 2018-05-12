@@ -54,10 +54,10 @@ public class Loginservlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException, ParseException  {
 
 		String user_id=request.getParameter("id_user");
-        System.out.println(user_id);
+//        System.out.println(user_id);
 		String password=request.getParameter("password");
         UserDao_1 userDao1 =new UserDao1Imp();
-        System.out.println("@@@@@@@@@@"+ userDao1);
+//        System.out.println("@@@@@@@@@@"+ userDao1);
 		if (userDao1.getOne(user_id).getPassword()==password){
             response.sendRedirect("/index.jsp");
 		}
