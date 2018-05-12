@@ -1,5 +1,8 @@
 <%@ page import="java.util.List" %>
-<%@ page import="entity.User" %><%--
+<%@ page import="entity.User" %>
+<%@ page import="entity.Position" %>
+<%@ page import="entity.Department" %>
+<%@ page import="com.sun.xml.internal.ws.wsdl.writer.document.Documented" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/9
@@ -10,6 +13,11 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+
+<%
+    List<Position> positions = (List<Position>) request.getAttribute("positions");
+    List<Department> departments = (List<Department>) request.getAttribute("departments");
 %>
 <html lang="en">
 <head>
@@ -30,7 +38,8 @@
         table {
             font-size: 13px;
         }
-        .modal-label{
+
+        .modal-label {
             margin-top: 8px;
         }
     </style>
@@ -38,54 +47,129 @@
 <body class="gray-bg">
 
 
-<%--模态框--%>
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<%--增加的模态框--%>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
                 <h4 class="modal-title" id="exampleModalLabel">员工</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="staff.manage" id="staff_modal">
+                <form method="post" action="addStaff.manage" id="staff_modal">
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="name" class="control-label" >姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="name" name="name"></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="name"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="id_user" class="control-label" >工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="id_user" name="id_user"></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="id_user"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="gender" class="control-label" >性别</label></div>
+                        <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="gender" name="gender"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="department" class="control-label" >部门</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="department" name="id_department"></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control m-b" name="department">
+                                <%for (int j = 0; j < departments.size(); j++) { %>
+                                <option value="<%=departments.get(j).getId_department()%>">
+                                    <%=departments.get(j).getD_name()%>
+                                </option>
+                                <% }%>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="position" class="control-label" >职位</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="position" name="id_position"></div>
+                        <div class="col-md-2 modal-label"><label  class="control-label">职位</label></div>
+                        <div class="col-md-10">
+                            <select class="form-control m-b" >
+                            <%for (int j = 0; j < positions.size(); j++) { %>
+                            <option value="<%=positions.get(j).getId_position()%>">
+                                <%=positions.get(j).getP_name()%>
+                            </option>
+                            <% }%>
+                        </select>
+                        </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="tel" class="control-label" >联系方式</label></div>
+                        <div class="col-md-2 modal-label"><label for="tel" class="control-label">联系方式</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="tel" name="tel"></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="intro" class="control-label">个人简介</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="intro"  name="intro"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="intro" name="intro"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="remark" class="control-label" >备注</label></div>
+                        <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="remark" name="remark"></div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="document.getElementById('staff_modal').submit();">确认</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="document.getElementById('staff_modal').submit();">确认
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--修改的模态框--%>
+<div class="modal fade" id="ModifyStaff" tabindex="-1" role="dialog" aria-labelledby="modify">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modify">员工</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="staff.manage" id="modify_modal">
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="name" class="control-label">姓名:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name" name="name"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="id_user" class="control-label">工号:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="id_user" name="id_user">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="gender"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
+                        <div class="col-md-10"><select name="" id="" type="text" class="form-control"
+                                                       name="id_department">
+
+                        </select></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="position" class="control-label">职位</label></div>
+                        <div class="col-md-10"><select type="text" class="form-control" name="id_position"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="tel" class="control-label">联系方式</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="tel"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="intro" class="control-label">个人简介</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="intro"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="remark"></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="document.getElementById('modify_modal').submit();">确认
+                </button>
             </div>
         </div>
     </div>
@@ -101,52 +185,62 @@
                         <h4 class="example-title">用户管理</h4>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                                <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
-                                        data-target="#Modal" data-whatever="增加"
+                                <button class="btn btn-outline btn-default"
+                                        data-toggle="modal"
+                                        data-target="#addModal"
                                         style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">
                                     增加
                                     <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
-                                        data-target="#Modal" data-whatever="修改"
-                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">
-                                    修改
-                                    <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline btn-default"
-                                        style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">
-                                    删除
-                                    <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                </button>
+
+
                             </div>
                             <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                                 <thead>
                                 <tr>
-                                    <th data-field="state" data-checkbox="true"></th>
                                     <th data-field="name">姓名</th>
                                     <th data-field="id">工号</th>
                                     <th data-field="sex">性别</th>
                                     <th data-field="department">部门</th>
                                     <th data-field="position">职位</th>
                                     <th data-field="contact">联系方式</th>
+                                    <th data-field="address">地址</th>
+                                    <th data-field="option">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <%
-                                    List<User> userAll= (List<User>) request.getAttribute("userAll");
+                                    List<User> userAll = (List<User>) request.getAttribute("userAll");
                                 %>
                                 <%
-                                    for(User user:userAll){
+                                    for (User user : userAll) {
                                 %>
                                 <tr>
-                                    <td></td>
-                                    <td><%=user.getName()%></td>
-                                    <td><%=user.getId_user()%></td>
-                                    <td><%=user.getGender()%></td>
-                                    <td><%=user.getD_name()%></td>
-                                    <td><%=user.getP_name()%></td>
-                                    <td><%=user.getTel()%></td>
-
+                                    <td><%=user.getName()%>
+                                    </td>
+                                    <td><%=user.getId_user()%>
+                                    </td>
+                                    <td><%=user.getGender()%>
+                                    </td>
+                                    <td><%=user.getD_name()%>
+                                    </td>
+                                    <td><%=user.getP_name()%>
+                                    </td>
+                                    <td><%=user.getTel()%>
+                                    </td>
+                                    <td><%=user.getAddress()%>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
+                                                data-target="#ModifyStaff">
+                                            修改
+                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline btn-default">
+                                            删除
+                                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <%
                                     }

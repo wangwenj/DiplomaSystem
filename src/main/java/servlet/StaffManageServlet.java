@@ -1,7 +1,11 @@
 package servlet;
 
 import dao.UserDao_1;
+import daoImp.DepartmentImp;
+import daoImp.PositionImp;
 import daoImp.UserDao1Imp;
+import entity.Department;
+import entity.Position;
 import entity.User;
 
 
@@ -18,6 +22,10 @@ import java.util.List;
 public class StaffManageServlet extends HttpServlet {
 
     UserDao_1 userDao_1 = new UserDao1Imp();
+
+    DepartmentImp departmentImp = new DepartmentImp();
+
+    PositionImp positionImp = new PositionImp();
 
     public StaffManageServlet() {
         super();
@@ -55,23 +63,23 @@ public class StaffManageServlet extends HttpServlet {
 
     }
 
-    private void staff(HttpServletRequest request,
-                       HttpServletResponse response) throws ServletException, IOException, ParseException {
+    private void addStaff(HttpServletRequest request,
+                          HttpServletResponse response) throws ServletException, IOException, ParseException {
 
         int user_id = Integer.parseInt(request.getParameter("id_user"));
         String name = request.getParameter("name");
         String gender = request.getParameter("gender");
         String department = request.getParameter("department");
         String position = request.getParameter("position");
-        int tel = Integer.parseInt(request.getParameter("tel"));
+        String tel = request.getParameter("tel");
         String intro = request.getParameter("intro");
         String remark = request.getParameter("remark");
-       // int addId = userDao_1.add(user_id, name, gender, id_department, id_position, tel, intro, remark);
+        // int addId = userDao_1.add(user_id, name, gender, id_department, id_position, tel, intro, remark);
         System.out.println("@@@@@@@@@@" + user_id + name + gender);
 
-       // if (addId != 0) {
-          //  response.sendRedirect("/user_manage.jsp");
-      //  }
+        // if (addId != 0) {
+        //  response.sendRedirect("/user_manage.jsp");
+        //  }
 
 
 //        if (userDao1.getOne(user_id).getPassword() == password) {
@@ -82,11 +90,26 @@ public class StaffManageServlet extends HttpServlet {
 
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
-        List<User> userAll=userDao_1.getAll();
-        System.out.println("全部用户："+userAll);
-        request.setAttribute("userAll",userAll);
-        request.getRequestDispatcher("/user_manage.jsp").forward(request,response);
+        List<User> userAll = userDao_1.getAll();
+        System.out.println("全部用户：" + userAll);
+        request.setAttribute("userAll", userAll);
+        List<Department> departments = departmentImp.getDepartment();
+        System.out.println("部门"+departments);
+        List<Position> positions = positionImp.getPosition();
+        System.out.println("职位"+positions);
+        request.setAttribute("positions",positions);
+        request.setAttribute("departments",departments);
+        request.getRequestDispatcher("/user_manage.jsp").forward(request, response);
 
     }
+
+    private void refresh(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException, IOException, ParseException {
+
+        request.getRequestDispatcher("/user_manage.jsp").forward(request, response);
+
+
+    }
+
 
 }

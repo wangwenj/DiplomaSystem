@@ -8,6 +8,9 @@ public class Department {
     private String address;
     private int tel;
 
+    public Department() {
+    }
+
     public int getId_department() {
         return id_department;
     }
@@ -16,11 +19,11 @@ public class Department {
         this.id_department = id_department;
     }
 
-    public String getName() {
+    public String getD_name() {
         return d_name;
     }
 
-    public void setName(String d_name) {
+    public void setD_name(String d_name) {
         this.d_name = d_name;
     }
 
@@ -54,9 +57,6 @@ public class Department {
 
     public void setTel(int tel) {
         this.tel = tel;
-    }
-
-    public Department() {
     }
 
     public Department(int id_department, String d_name, String code, String intro, String address, int tel) {

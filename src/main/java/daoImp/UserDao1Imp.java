@@ -2,6 +2,8 @@ package daoImp;
 
 import dao.DAO;
 import dao.UserDao_1;
+import entity.Department;
+import entity.Position;
 import entity.User;
 import java.util.List;
 
@@ -28,6 +30,8 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
         String sql="SELECT `USER`.ID_USER,`USER`.`NAME`,`USER`.TEL,`USER`.INTRO,`USER`.ADDRESS,`USER`.REMARK,`USER`.GENDER,POSITION.P_NAME,DEPARTMENT.D_NAME FROM ((`USER`INNER JOIN POSITION ON `USER`.ID_POSITION=POSITION.ID_POSITION) INNER JOIN DEPARTMENT ON `USER`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT)";
         return getForList(sql);
     }
+
+
 
 
 }
