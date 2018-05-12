@@ -69,22 +69,20 @@ public class StaffManageServlet extends HttpServlet {
         int user_id = Integer.parseInt(request.getParameter("id_user"));
         String name = request.getParameter("name");
         String gender = request.getParameter("gender");
-        String department = request.getParameter("department");
-        String position = request.getParameter("position");
+        int id_department = Integer.parseInt(request.getParameter("department"));
+        System.out.println("部门获取的值是：" + id_department);
+        int id_position = Integer.parseInt(request.getParameter("position"));
         String tel = request.getParameter("tel");
         String intro = request.getParameter("intro");
         String remark = request.getParameter("remark");
-        // int addId = userDao_1.add(user_id, name, gender, id_department, id_position, tel, intro, remark);
+        String address = request.getParameter("address");
+        System.out.println(address);
+        int addId = userDao_1.add(user_id, name, gender, id_department, id_position, tel, intro, remark, address);
         System.out.println("@@@@@@@@@@" + user_id + name + gender);
+        if (addId != 0) {
+            response.sendRedirect("/user_manage.jsp");
+        }
 
-        // if (addId != 0) {
-        //  response.sendRedirect("/user_manage.jsp");
-        //  }
-
-
-//        if (userDao1.getOne(user_id).getPassword() == password) {
-//            response.sendRedirect("/index.jsp");
-//        }
 
     }
 
@@ -94,11 +92,11 @@ public class StaffManageServlet extends HttpServlet {
         System.out.println("全部用户：" + userAll);
         request.setAttribute("userAll", userAll);
         List<Department> departments = departmentImp.getDepartment();
-        System.out.println("部门"+departments);
+        System.out.println("部门" + departments);
         List<Position> positions = positionImp.getPosition();
-        System.out.println("职位"+positions);
-        request.setAttribute("positions",positions);
-        request.setAttribute("departments",departments);
+        System.out.println("职位" + positions);
+        request.setAttribute("positions", positions);
+        request.setAttribute("departments", departments);
         request.getRequestDispatcher("/user_manage.jsp").forward(request, response);
 
     }

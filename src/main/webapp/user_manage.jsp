@@ -72,8 +72,9 @@
                         <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
                         <div class="col-md-10">
                             <select class="form-control m-b" name="department">
+                                <option value="0" selected>请选择</option>
                                 <%for (int j = 0; j < departments.size(); j++) { %>
-                                <option value="<%=departments.get(j).getId_department()%>">
+                                <option value="<%=j+1%>">
                                     <%=departments.get(j).getD_name()%>
                                 </option>
                                 <% }%>
@@ -83,9 +84,10 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label  class="control-label">职位</label></div>
                         <div class="col-md-10">
-                            <select class="form-control m-b" >
+                            <select class="form-control m-b" name="position">
+                                <option value="0" selected></option>
                             <%for (int j = 0; j < positions.size(); j++) { %>
-                            <option value="<%=positions.get(j).getId_position()%>">
+                            <option value="<%=j+1%>">
                                 <%=positions.get(j).getP_name()%>
                             </option>
                             <% }%>
@@ -99,6 +101,10 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="intro" class="control-label">个人简介</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="intro" name="intro"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label for="address" class="control-label">地址</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="address" name="address"></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
@@ -146,7 +152,7 @@
                         </select></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="position" class="control-label">职位</label></div>
+                        <div class="col-md-2 modal-label"><label  class="control-label">职位</label></div>
                         <div class="col-md-10"><select type="text" class="form-control" name="id_position"></select>
                         </div>
                     </div>
@@ -231,12 +237,12 @@
                                     <td><%=user.getAddress()%>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-outline btn-default" data-toggle="modal"
+                                        <button type="button" class=" btn-outline btn-default" data-toggle="modal"
                                                 data-target="#ModifyStaff">
                                             修改
                                             <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline btn-default">
+                                        <button type="button" class=" btn-outline btn-default">
                                             删除
                                             <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                         </button>

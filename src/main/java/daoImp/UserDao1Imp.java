@@ -1,5 +1,6 @@
 package daoImp;
 
+import com.sun.jndi.cosnaming.IiopUrl;
 import dao.DAO;
 import dao.UserDao_1;
 import entity.Department;
@@ -19,9 +20,9 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     }
 
     @Override
-    public int add(int id_user, String name, String gender, int id_department, int id_position, int tel, String intro, String remark) {
-        String sql="INSERT INTO USER (id_user,name,gender,id_department,id_position,tel,intro,remark) VALUES (?,?,?,?,?,?,?,?)";
-        return update(sql,id_user,name,gender,id_department,id_position,tel,intro,remark);
+    public int add(int id_user, String name, String gender, int id_department, int id_position, String tel, String intro, String remark,String address) {
+        String sql="INSERT INTO USER (id_user,name,gender,id_department,id_position,tel,intro,remark,address) VALUES (?,?,?,?,?,?,?,?,?)";
+        return update(sql,id_user,name,gender,id_department,id_position,tel,intro,remark,address);
 
     }
 

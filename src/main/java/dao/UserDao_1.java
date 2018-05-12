@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserDao_1 {
      User getOne(String id_user);
-     int add(int id_user,String name,String gender,int id_department,int id_position,int tel,String intro,String remark);
+     int add(int id_user,String name,String gender,int id_department,int id_position,String tel,String intro,String remark,String address);
      List<User> getAll();
 
 }
