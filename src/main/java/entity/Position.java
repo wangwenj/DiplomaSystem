@@ -27,4 +27,5 @@ public class Position {
     public void setP_name(String p_name) {
         this.p_name = p_name;
     }
+
 }

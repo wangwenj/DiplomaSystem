@@ -9,7 +9,7 @@ import java.util.List;
 public class PositionImp extends DAO<Position> implements PositionDao{
     @Override
     public List<Position> getPosition() {
-        String sql="select p_name from position";
+        String sql="select * from position";
         return getForList(sql);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public class DepartmentImp extends DAO<Department> implements DepartmentDao {
     @Override
     public List<Department> getDepartment() {
-        String sql="select d_name from department";
+        String sql="select * from department";
         return getForList(sql);
     }
 }
