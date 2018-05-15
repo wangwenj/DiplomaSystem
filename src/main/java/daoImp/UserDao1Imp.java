@@ -45,8 +45,8 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     }
 
     @Override
-    public BigDecimal countUser(String name) {
-        String sql="select count(*) from user where name=?";
-        return getForValue(sql,name);
+    public User countUser(String name) {
+        String sql="select * from user where name=?";
+        return get(sql,name);
     }
 }

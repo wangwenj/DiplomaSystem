@@ -134,9 +134,9 @@ public class StaffManageServlet extends HttpServlet {
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("name");
         System.out.println("获取的名字---" + name);
-        int count = userDao_1.countUser(name).intValue();
-        System.out.println(count);
-        if (count==0) {
+        User user =(User) userDao_1.countUser(name);
+        System.out.println(user);
+        if (user==null) {
             System.out.println("成功返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");

@@ -404,7 +404,6 @@
             // $(ele).parent().addClass("has-error");
             $(ele).next(".notice").text("*"+msg);
             $("#addModal").prop('scrollTop',0);
-            $('#staff_modal').submit();
         }
     }
 
