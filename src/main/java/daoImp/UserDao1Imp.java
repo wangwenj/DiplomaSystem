@@ -36,8 +36,9 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
         return getForList(sql);
     }
 
-
-
-
-
+    @Override
+    public void deleteUser(int id_user) {
+        String sql="delete from user where id_user=?";
+        update(sql,id_user);
+    }
 }

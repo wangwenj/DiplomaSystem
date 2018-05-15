@@ -149,16 +149,14 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_id_user" name="id_user" readonly>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_id_user" name="id_user"
+                                                      readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
                         <div class="col-md-10">
-                            <select type="text" class="form-control" name="gender">
-                                <option value="男">男</option>
-                                <option value="女">女</option>
-                            </select>
+                            <input type="text" class="form-control" name="gender" id="m_gender" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -195,7 +193,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="intro" class="control-label">地址</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -210,6 +209,29 @@
     </div>
 </div>
 
+<%--删除的模态框--%>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <form method="post" action="deleteUser.manage" id="deleteModalForm" >
+            <div class="modal-body">
+                <p style="display: inline-block">您确认要删除&nbsp;<div style="display: inline-block;font-size: larger;color: black;" id="d_name"></div>&nbsp;吗？</p>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="deleteUserId" style="display: none" name="deleteUserId">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a href="deleteUser" onclick="document.getElementById('deleteModalForm').submit();" class="btn btn-success"
+                   data-dismiss="modal">确定</a>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -268,10 +290,11 @@
                                             修改
                                             <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                         </button>
-                                        <a type="button" class="btn btn-outline btn-default">
+                                        <button type="button" class="btn btn-outline btn-default"
+                                                onclick="deleteUser(this,<%=user.getId_user()%>)">
                                             删除
                                             <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                                 <%
@@ -318,6 +341,15 @@
         $("#uptDep" + depId).attr("selected", true);
         $("#uptPosi" + posiId).attr("selected", true);
         $('#ModifyStaff').modal('show');
+    }
+
+    //点击删除按钮，给模态框传入此时的id值，显示该用户name
+    function deleteUser(obj, userId) {
+        var tds = $(obj).parent().parent().find('td');
+        $("#d_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#deleteUserId").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $('#deleteModal').modal('show');
+
     }
 </script>
 </body>
