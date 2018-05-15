@@ -21,7 +21,7 @@ import java.util.List;
 
 public class StaffManageServlet extends HttpServlet {
 
-    UserDao_1 userDao_1 = new UserDao1Imp();
+    static UserDao_1 userDao_1 = new UserDao1Imp();
 
     DepartmentImp departmentImp = new DepartmentImp();
 
@@ -42,7 +42,7 @@ public class StaffManageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String servletpath = request.getServletPath();
         String MethodName = servletpath.substring(1);
-        MethodName = MethodName.substring(0, MethodName.length() - 7);
+        MethodName = MethodName.substring(0, MethodName.length() - 6);
         String strBackUrl = "http://" + request.getServerName() //服务器地址
                 + ":"
                 + request.getServerPort()           //端口号
@@ -88,7 +88,7 @@ public class StaffManageServlet extends HttpServlet {
         List<User> userAll = userDao_1.getAll();
         //   System.out.println("全部用户：" + userAll);
         request.setAttribute("userAll", userAll);
-        List<Department> departments = departmentImp.getDepartment();
+        List<Department> departments = departmentImp.getAllDepartment();
         // System.out.println("部门" + departments);
         List<Position> positions = positionImp.getPosition();
         //  System.out.println("职位" + positions);
@@ -127,8 +127,26 @@ public class StaffManageServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("deleteUserId"));
         System.out.println(id);
         userDao_1.deleteUser(id);
-        this.getAll(request,response);
+        this.getAll(request, response);
     }
+
+    private void getOneUser(HttpServletRequest request,
+                            HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String name = request.getParameter("name");
+        System.out.println("获取的名字---" + name);
+        int count = userDao_1.countUser(name).intValue();
+        System.out.println(count);
+        if (count==0) {
+            System.out.println("成功返回100");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("100");
+        } else {
+            System.out.println("失败返回200");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("200");
+        }
+    }
+
 
 
 }

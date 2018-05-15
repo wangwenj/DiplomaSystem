@@ -2,6 +2,7 @@ package dao;
 
 import entity.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,4 +14,5 @@ public interface UserDao_1 {
      int updateUser(String name, String gender, int id_department, int id_position, String tel, String address,int id_user);
      List<User> getAll();
      void deleteUser(int id_user);
+     BigDecimal countUser(String name);
 }

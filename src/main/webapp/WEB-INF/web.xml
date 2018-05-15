@@ -24,11 +24,18 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>StaffManageServlet</servlet-name>
-        <url-pattern>*.manage</url-pattern>
+        <url-pattern>*.staff</url-pattern>
     </servlet-mapping>
 
 
-
+    <servlet>
+        <servlet-name>DepartManageServlet</servlet-name>
+        <servlet-class>servlet.DepartManageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DepartManageServlet</servlet-name>
+        <url-pattern>*.depart</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

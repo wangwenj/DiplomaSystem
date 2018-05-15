@@ -56,14 +56,17 @@
                 <h4 class="modal-title" id="exampleModalLabel">增加员工</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="addStaff.manage" id="staff_modal">
+                <form method="post" action="addStaff.staff" id="staff_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" name="name"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name_add_input" name="name">
+                            <p class="notice" style="color: red;"></p>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" name="id_user"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="id_add_input" name="id_user">
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
@@ -125,8 +128,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="document.getElementById('staff_modal').submit();">确认
+                <button type="button" class="btn btn-primary" id="staff_save_btn"
+                        onclick="checkUser()">确认
                 </button>
             </div>
         </div>
@@ -141,7 +144,7 @@
                 <h4 class="modal-title" id="modify">修改员工</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="modifyStaff.manage" id="modify_modal">
+                <form method="post" action="modifyStaff.staff" id="modify_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="m_name" class="control-label">姓名:</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="m_name" name="name">
@@ -218,16 +221,17 @@
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">提示信息</h4>
             </div>
-            <form method="post" action="deleteUser.manage" id="deleteModalForm" >
-            <div class="modal-body">
-                <p style="display: inline-block">您确认要删除&nbsp;<div style="display: inline-block;font-size: larger;color: black;" id="d_name"></div>&nbsp;吗？</p>
-            </div>
-            <div class="modal-footer">
-                <input type="text" id="deleteUserId" style="display: none" name="deleteUserId">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <a href="deleteUser" onclick="document.getElementById('deleteModalForm').submit();" class="btn btn-success"
-                   data-dismiss="modal">确定</a>
-            </div>
+            <form method="post" action="deleteUser.staff" id="deleteModalForm">
+                <div class="modal-body">
+                    <p style="display: inline-block">您确认要删除&nbsp;
+                    <div style="display: inline-block;font-size: larger;color: black;" id="user_name"></div>&nbsp;吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="text" id="deleteUserId" style="display: none" name="deleteUserId">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <a onclick="document.getElementById('deleteModalForm').submit();" class="btn btn-success"
+                       data-dismiss="modal">确定</a>
+                </div>
             </form>
         </div>
     </div>
@@ -346,11 +350,65 @@
     //点击删除按钮，给模态框传入此时的id值，显示该用户name
     function deleteUser(obj, userId) {
         var tds = $(obj).parent().parent().find('td');
-        $("#d_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#user_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#deleteUserId").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $('#deleteModal').modal('show');
 
     }
+
+    function checkUser() {
+        var username = document.getElementById("name_add_input").value;
+        var JSONObejct = {
+            "name": username
+        };
+
+        $.ajax({
+            url: "getOneUser.staff",
+            data: JSONObejct,
+            dataType:"text",
+            type: "post",
+            success: function (result) {
+                alert("进入了success");
+                var x = parseInt(result);
+                alert(x);
+                if (x == 100) {
+                    show_validate_msg("#name_add_input", "success", "用户名可用");
+                    $("#staff_save_btn").attr("ajax-va", "success");
+                }
+                else {
+                    show_validate_msg("#name_add_input", "error", "用户名重复");
+                    $("#staff_save_btn").attr("ajax-va", "error");
+                }
+
+            },
+            error : function(xhr, status, errMsg)
+            {
+                alert("数据传输失败!");
+            }
+
+        });
+    }
+
+    function show_validate_msg(ele, status, msg) {
+        //清除当前元素的校验状态
+        alert("进入展示的js");
+        // $(ele).parent().removeClass("has-success has-error");
+        // $(ele).next("span").text("");
+        if ("success" == status) {
+            alert("成功了");
+            // $(ele).addClass("has-success");
+            $(ele).next(".notice").text("*"+msg);
+            $('#staff_modal').submit();
+        } else if ("error" == status) {
+            alert("失败了"+ele);
+            // $(ele).parent().addClass("has-error");
+            $(ele).next(".notice").text("*"+msg);
+            $("#addModal").prop('scrollTop',0);
+            $('#staff_modal').submit();
+        }
+    }
+
+
 </script>
 </body>
 </html>

@@ -5,5 +5,7 @@ import entity.Department;
 import java.util.List;
 
 public interface DepartmentDao {
-    List<Department> getDepartment();
+    List<Department> getAllDepartment();
+
+    //int updateDepart()
 }

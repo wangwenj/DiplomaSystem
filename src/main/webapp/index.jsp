@@ -80,10 +80,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="getAll.manage">用户管理</a>
+                            <a class="J_menuItem" href="getAll.staff">用户管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="department_manage.html">部门管理</a>
+                            <a class="J_menuItem" href="getAll.depart">部门管理</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="position_manage01.html">职位管理</a>

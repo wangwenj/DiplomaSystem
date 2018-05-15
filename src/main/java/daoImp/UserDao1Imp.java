@@ -3,6 +3,8 @@ package daoImp;
 import dao.DAO;
 import dao.UserDao_1;
 import entity.User;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -40,5 +42,11 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     public void deleteUser(int id_user) {
         String sql="delete from user where id_user=?";
         update(sql,id_user);
+    }
+
+    @Override
+    public BigDecimal countUser(String name) {
+        String sql="select count(*) from user where name=?";
+        return getForValue(sql,name);
     }
 }

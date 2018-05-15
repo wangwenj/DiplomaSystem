@@ -102,6 +102,8 @@ public class DAO<T> {
 
 
 
+
+
 	public int update(String sql, Object ... args){
 		Connection connection=null;
 		try{
@@ -132,5 +134,7 @@ public class DAO<T> {
             int id = Integer.valueOf(id0.toString());
             return id;
 	}
+
+
 
 }
