@@ -43,6 +43,10 @@
         .modal-label {
             margin-top: 8px;
         }
+
+        p {
+            margin-bottom: 0px;
+        }
     </style>
 </head>
 <body class="gray-bg">
@@ -61,7 +65,7 @@
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="name_add_input" name="name"
                                                       onchange="checkUserName('addUserName')">
-                            <p class="notice"></p>
+                            <p class="notice">请输入1--20个汉字</p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -88,8 +92,7 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
                         <div class="col-md-10">
-                            <select class="form-control m-b" name="department">
-                                <option value="0" selected>请选择</option>
+                            <select class="form-control " name="department">
                                 <%for (int j = 0; j < departments.size(); j++) { %>
                                 <option value="<%=departments.get(j).getId_department()%>">
                                     <%=departments.get(j).getD_name()%>
@@ -101,8 +104,7 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">职位</label></div>
                         <div class="col-md-10">
-                            <select class="form-control m-b" name="position">
-                                <option value="0" selected>请选择</option>
+                            <select class="form-control " name="position">
                                 <%for (int j = 0; j < positions.size(); j++) { %>
                                 <option value="<%=positions.get(j).getId_position()%>">
                                     <%=positions.get(j).getP_name()%>
@@ -172,7 +174,6 @@
                         <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
                         <div class="col-md-10">
                             <select class="form-control m-b" name="m_department" id="m_department">
-                                <option value="0" selected>请选择</option>
                                 <%for (int j = 0; j < departments.size(); j++) { %>
                                 <option value="<%=departments.get(j).getId_department()%>"
                                         id="uptDep<%=departments.get(j).getId_department()%>">
@@ -186,7 +187,6 @@
                         <div class="col-md-2 modal-label"><label class="control-label">职位</label></div>
                         <div class="col-md-10">
                             <select class="form-control m-b" name="m_position">
-                                <option value="0" selected>请选择</option>
                                 <%for (int j = 0; j < positions.size(); j++) { %>
                                 <option value="<%=positions.get(j).getId_position()%>"
                                         id="uptPosi<%=positions.get(j).getId_position()%>">
@@ -365,8 +365,14 @@
 
     //判断增加和修改框user是否重复
     function checkUserName(modal) {
-        if (modal == "addUserName")
+        if (modal == "addUserName") {
             var username = document.getElementById("name_add_input").value;
+            if (username.length == 0 || username.length > 15) {
+                alert("名字的字符长度为" + username.length);
+                setWrongNotice("#name_add_input", username, "请输入1--15个字符");
+                return false;
+            }
+        }
         else var username = document.getElementById("m_name").value;
         var JSONObejct = {
             "name": username
@@ -378,9 +384,7 @@
             dataType: "text",
             type: "post",
             success: function (result) {
-                // alert("进入了success");
                 var x = parseInt(result);
-                // alert(x);
                 if (x == 100) {
                     if (modal == "addUserName")
                         show_validate_msg("#name_add_input", "success", "用户名可用", "add");
@@ -391,7 +395,6 @@
                         show_validate_msg("#name_add_input", "error", "用户名重复", "add");
                     else show_validate_msg("#m_name", "error", "用户名重复", "update");
                 }
-
             },
             error: function (xhr, status, errMsg) {
                 alert("数据传输失败!");
@@ -413,9 +416,7 @@
             dataType: "text",
             type: "post",
             success: function (result) {
-                // alert("进入了success");
                 var x = parseInt(result);
-                // alert(x);
                 if (x == 100) {
                     show_validate_msg("#id_add_input", "success", "工号可用", "add");
                 }
@@ -434,23 +435,24 @@
     //在页面中展示是否重复或者可用
     function show_validate_msg(ele, status, msg, modal) {
         //清除当前元素的校验状态
-        // alert("进入展示的js");
         if ("success" == status) {
-            // alert("成功了");
             $(ele).next(".notice").text("*" + msg);
             $(ele).next(".notice").css({color: "green"});
-            // $('#staff_modal').submit();
         } else if ("error" == status) {
-            // alert("失败了"+ele);
-            $(ele).next(".notice").text("*" + msg);
-            $(ele).next(".notice").css({color: "red"});
-            $(ele).attr("placeholder",$(ele).val());
-            $(ele).val(null);
+            setWrongNotice(ele, $(ele).val(), msg);
             if (modal == "add")
                 $("#addModal").addClass("bounce");
             else
                 $("#ModifyStaff").addClass("bounce");
         }
+    }
+
+    //设置提示文字的颜色和输入框中的提示文字内容
+    function setWrongNotice(inputId, placeholder, msg) {
+        $(inputId).next(".notice").css({color: "red"});
+        $(inputId).next(".notice").text("*" + msg);
+        $(inputId).attr("placeholder", placeholder);
+        $(inputId).val(null);
     }
 
 
