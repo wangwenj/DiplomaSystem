@@ -64,7 +64,8 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="name_add_input" name="name" placeholder="请输入1--15个字符"
+                            <input type="text" class="form-control" id="name_add_input" name="name"
+                                   placeholder="请输入1--15个字符"
                                    onchange="checkRepeat('name','add',15,'getOneUser.staff','addModal','请输入1--15个字符','姓名重复','姓名可用')">
                             <p class="notice"></p>
                         </div>
@@ -72,7 +73,8 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="id_add_input" name="id_user" placeholder="请输入1--15个数字"
+                            <input type="text" class="form-control" id="id_add_input" name="id_user"
+                                   placeholder="请输入1--15个数字"
                                    onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个字符','工号重复','工号可用')">
                             <p class="notice"></p>
                         </div>
@@ -80,14 +82,15 @@
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="password" value="2233" placeholder="请输入1--15个字符">
+                            <input type="text" class="form-control" name="password" value="2233"
+                                   placeholder="请输入1--15个字符" id="password_add_input">
                             <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
                         <div class="col-md-10">
-                            <select type="text" class="form-control" id="gender" name="gender">
+                            <select type="text" class="form-control" id="gender_add_input" name="gender">
                                 <option value="男">男</option>
                                 <option value="女">女</option>
                             </select>
@@ -118,16 +121,19 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="tel" class="control-label">联系方式</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="tel" name="tel" placeholder="请输入1--15个数字">
+                            <input type="text" class="form-control" id="tel_add_input" name="tel"
+                                   placeholder="请输入1--15个数字">
                             <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="address" class="control-label">地址</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="address"
-                                                      name="address" placeholder="请输入1--50个字符">
+                        <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="address_add_input"
+                                   name="address" placeholder="请输入1--50个字符">
+                            <p class="notice"></p>
                         </div>
                     </div>
                 </form>
@@ -166,7 +172,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="gender" class="control-label">性别</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="gender" id="m_gender" readonly>
                         </div>
@@ -198,7 +204,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="tel" class="control-label">联系方式</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="m_tel" name="m_tel"></div>
                     </div>
                     <div class="form-group row">
@@ -362,6 +368,26 @@
         $("#user_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#deleteUserId").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $('#deleteModal').modal('show');
+    }
+
+    //判断所有输入框是否为空
+    function submitAction() {
+        var name_input = $("#name_add_input").val();
+        var id_input = $("#id_add_input").val();
+        var pass_input=$("#password_add_input").val();
+        var tel_input = $("#tel_add_input").val();
+        var address_input = $("#address_add_input").val();
+        debugger
+        if (name_input !== "" && id_input !== "" && pass_input !== "" && tel_input !== "" && address_input !== "") {
+            $('#staff_modal').submit();
+        }
+        else {
+            if (name_input == "") setWrongNotice("#name_add_input", null, "不能为空", "addModal");
+            if (id_input == "") setWrongNotice("#id_add_input", null, "不能为空", "addModal");
+            if (pass_input == "") setWrongNotice("#password_add_input", null, "不能为空", "addModal");
+            if (tel_input == "") setWrongNotice("#tel_add_input", null, "不能为空", "addModal");
+            if (address_input == "") setWrongNotice("#address_add_input", null, "不能为空", "addModal");
+        }
     }
 
 </script>
