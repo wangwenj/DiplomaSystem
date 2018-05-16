@@ -137,16 +137,30 @@ public class StaffManageServlet extends HttpServlet {
         User user =(User) userDao_1.countUser(name);
         System.out.println(user);
         if (user==null) {
-            System.out.println("成功返回100");
+            System.out.println("成功获取该name的数量，返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
         } else {
-            System.out.println("失败返回200");
+            System.out.println("失败获取该name的数量，返回200");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("200");
         }
     }
 
+    private void judgeUserId(HttpServletRequest request,
+                            HttpServletResponse response) throws ServletException, IOException, ParseException{
+        int id = Integer.parseInt(request.getParameter("id"));
+        User user=(User)userDao_1.countId(id);
+        if (user==null) {
+            System.out.println("成功获取该id的数量，返回100");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("100");
+        } else {
+            System.out.println("失败获取该id的数量，返回200");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("200");
+        }
 
+    }
 
 }

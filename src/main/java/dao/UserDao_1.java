@@ -15,4 +15,5 @@ public interface UserDao_1 {
      List<User> getAll();
      void deleteUser(int id_user);
      User countUser(String name);
+     User countId(int id);
 }

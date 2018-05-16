@@ -59,18 +59,21 @@
                 <form method="post" action="addStaff.staff" id="staff_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="name_add_input" name="name">
-                            <p class="notice" style="color: red;"></p>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name_add_input" name="name"
+                                                      onchange="checkUserName('addUserName')">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="id_add_input" name="id_user">
+                        <div class="col-md-10"><input type="text" class="form-control" id="id_add_input" name="id_user"
+                                                      onchange="checkUserId()">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" name="password"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="password" value="2233"></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
@@ -129,7 +132,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="staff_save_btn"
-                        onclick="checkUser()">确认
+                        onclick="document.getElementById('staff_modal').submit()">确认
                 </button>
             </div>
         </div>
@@ -147,7 +150,9 @@
                 <form method="post" action="modifyStaff.staff" id="modify_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="m_name" class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_name" name="name">
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_name" name="name"
+                                                      onchange="checkUserName('updateUsername')">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -338,6 +343,7 @@
     function update(obj, depId, posiId) {
         var tds = $(obj).parent().parent().find('td');
         $("#m_name").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#m_name").next(".notice").text(null);
         $("#m_id_user").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_gender").val(tds.eq(2).text().replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_tel").val(tds.eq(5).text().replace(/(^\s*)|(\s*$)/g, ""));
@@ -356,8 +362,11 @@
 
     }
 
-    function checkUser() {
-        var username = document.getElementById("name_add_input").value;
+    //判断增加和修改框user是否重复
+    function checkUserName(modal) {
+        if (modal == "addUserName")
+            var username = document.getElementById("name_add_input").value;
+        else var username = document.getElementById("m_name").value;
         var JSONObejct = {
             "name": username
         };
@@ -365,46 +374,78 @@
         $.ajax({
             url: "getOneUser.staff",
             data: JSONObejct,
-            dataType:"text",
+            dataType: "text",
             type: "post",
             success: function (result) {
-                alert("进入了success");
+                // alert("进入了success");
                 var x = parseInt(result);
-                alert(x);
+                // alert(x);
                 if (x == 100) {
-                    show_validate_msg("#name_add_input", "success", "用户名可用");
-                    $("#staff_save_btn").attr("ajax-va", "success");
+                    if (modal == "addUserName")
+                        show_validate_msg("#name_add_input", "success", "用户名可用");
+                    else show_validate_msg("#m_name", "success", "用户名可用");
                 }
                 else {
-                    show_validate_msg("#name_add_input", "error", "用户名重复");
-                    $("#staff_save_btn").attr("ajax-va", "error");
+                    if (modal == "addUserName")
+                        show_validate_msg("#name_add_input", "error", "用户名重复");
+                    else show_validate_msg("#m_name", "error", "用户名重复");
                 }
 
             },
-            error : function(xhr, status, errMsg)
-            {
+            error: function (xhr, status, errMsg) {
                 alert("数据传输失败!");
             }
 
         });
     }
 
+    //在页面中展示是否重复或者可用
     function show_validate_msg(ele, status, msg) {
         //清除当前元素的校验状态
-        alert("进入展示的js");
-        // $(ele).parent().removeClass("has-success has-error");
-        // $(ele).next("span").text("");
+        // alert("进入展示的js");
         if ("success" == status) {
-            alert("成功了");
-            // $(ele).addClass("has-success");
-            $(ele).next(".notice").text("*"+msg);
-            $('#staff_modal').submit();
+            // alert("成功了");
+            $(ele).next(".notice").text("*" + msg);
+            $(ele).next(".notice").css({color: "green"});
+            // $('#staff_modal').submit();
         } else if ("error" == status) {
-            alert("失败了"+ele);
-            // $(ele).parent().addClass("has-error");
-            $(ele).next(".notice").text("*"+msg);
-            $("#addModal").prop('scrollTop',0);
+            // alert("失败了"+ele);
+            $(ele).next(".notice").text("*" + msg);
+            $(ele).next(".notice").css({color: "red"});
+            $(ele).val(null);
+            $("#addModal").prop('scrollTop', 0);
         }
+    }
+
+    //判断userid是否重复
+    function checkUserId() {
+        var userId = document.getElementById("id_add_input").value;
+        var JSONObejct = {
+            "id": userId
+        };
+
+        $.ajax({
+            url: "judgeUserId.staff",
+            data: JSONObejct,
+            dataType: "text",
+            type: "post",
+            success: function (result) {
+                 // alert("进入了success");
+                var x = parseInt(result);
+                // alert(x);
+                if (x == 100) {
+                    show_validate_msg("#id_add_input", "success", "工号可用");
+                }
+                else {
+                    show_validate_msg("#id_add_input", "error", "工号重复");
+                }
+
+            },
+            error: function (xhr, status, errMsg) {
+                alert("数据传输失败!");
+            }
+
+        });
     }
 
 
