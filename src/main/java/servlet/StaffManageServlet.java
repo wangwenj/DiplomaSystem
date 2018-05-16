@@ -77,7 +77,7 @@ public class StaffManageServlet extends HttpServlet {
         String remark = request.getParameter("remark");
         String address = request.getParameter("address");
         System.out.println(address);
-        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, intro, remark, address);
+        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, address);
         this.getAll(request, response);
         //response.sendRedirect("user_manage.jsp");
 
@@ -132,7 +132,7 @@ public class StaffManageServlet extends HttpServlet {
 
     private void getOneUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
-        String name = request.getParameter("name");
+        String name = request.getParameter("parameter");
         System.out.println("获取的名字---" + name);
         User user =(User) userDao_1.countUser(name);
         System.out.println(user);
@@ -149,7 +149,7 @@ public class StaffManageServlet extends HttpServlet {
 
     private void judgeUserId(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException{
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("parameter"));
         User user=(User)userDao_1.countId(id);
         if (user==null) {
             System.out.println("成功获取该id的数量，返回100");

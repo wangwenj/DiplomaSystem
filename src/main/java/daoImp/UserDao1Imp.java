@@ -19,9 +19,9 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     }
 
     @Override
-    public int add(int id_user, String password,String name, String gender, int id_department, int id_position, String tel, String intro, String remark,String address) {
-        String sql="INSERT INTO USER (id_user,password,name,gender,id_department,id_position,tel,intro,remark,address) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        return update(sql,id_user,password,name,gender,id_department,id_position,tel,intro,remark,address);
+    public int add(int id_user, String password,String name, String gender, int id_department, int id_position, String tel, String address) {
+        String sql="INSERT INTO USER (id_user,password,name,gender,id_department,id_position,tel,address) VALUES (?,?,?,?,?,?,?,?)";
+        return update(sql,id_user,password,name,gender,id_department,id_position,tel,address);
 
     }
 

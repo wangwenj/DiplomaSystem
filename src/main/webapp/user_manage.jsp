@@ -63,21 +63,25 @@
                 <form method="post" action="addStaff.staff" id="staff_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="name_add_input" name="name"
-                                                      onchange="checkUserName('addUserName')">
-                            <p class="notice">请输入1--20个汉字</p>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="name_add_input" name="name" placeholder="请输入1--15个字符"
+                                   onchange="checkRepeat('name','add',15,'getOneUser.staff','addModal','请输入1--15个字符','姓名重复','姓名可用')">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="id_add_input" name="id_user"
-                                                      onchange="checkUserId()">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="id_add_input" name="id_user" placeholder="请输入1--15个数字"
+                                   onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个字符','工号重复','工号可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" name="password" value="2233">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="password" value="2233" placeholder="请输入1--15个字符">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -115,27 +119,23 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label for="tel" class="control-label">联系方式</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="tel" name="tel"></div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="intro" class="control-label">个人简介</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="intro" name="intro"></div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="address" class="control-label">地址</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="address" name="address">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="tel" name="tel" placeholder="请输入1--15个数字">
+                            <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="remark" class="control-label">备注</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="remark" name="remark"></div>
+                        <div class="col-md-2 modal-label"><label for="address" class="control-label">地址</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="address"
+                                                      name="address" placeholder="请输入1--50个字符">
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="staff_save_btn"
-                        onclick="document.getElementById('staff_modal').submit()">确认
+                        onclick="submitAction()">确认
                 </button>
             </div>
         </div>
@@ -152,9 +152,10 @@
             <div class="modal-body">
                 <form method="post" action="modifyStaff.staff" id="modify_modal">
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="m_name" class="control-label">姓名:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_name" name="name"
-                                                      onchange="checkUserName('updateUsername')">
+                        <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="name_update_input"
+                                                      name="name"
+                                                      onchange="checkRepeat('name','update',15,'getOneUser.staff','ModifyStaff','请输入1--15个字符','姓名重复','姓名可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -201,7 +202,7 @@
                         <div class="col-md-10"><input type="text" class="form-control" id="m_tel" name="m_tel"></div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label for="intro" class="control-label">地址</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address">
                         </div>
                     </div>
@@ -328,6 +329,7 @@
 <script src="js/demo/bootstrap-table-demo.min.js"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096"
         charset="UTF-8"></script>
+<script src="js/wwj.js"></script>
 <script>
     <!--modal框-->
     $('#Modal').on('show.bs.modal', function (event) {
@@ -343,8 +345,8 @@
     // 点击修改按钮，给模态框加载信息并且弹出模态框
     function update(obj, depId, posiId) {
         var tds = $(obj).parent().parent().find('td');
-        $("#m_name").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_name").next(".notice").text(null);
+        $("#name_update_input").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#name_update_input").next(".notice").text(null);
         $("#m_id_user").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_gender").val(tds.eq(2).text().replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_tel").val(tds.eq(5).text().replace(/(^\s*)|(\s*$)/g, ""));
@@ -360,101 +362,7 @@
         $("#user_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#deleteUserId").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $('#deleteModal').modal('show');
-
     }
-
-    //判断增加和修改框user是否重复
-    function checkUserName(modal) {
-        if (modal == "addUserName") {
-            var username = document.getElementById("name_add_input").value;
-            if (username.length == 0 || username.length > 15) {
-                alert("名字的字符长度为" + username.length);
-                setWrongNotice("#name_add_input", username, "请输入1--15个字符");
-                return false;
-            }
-        }
-        else var username = document.getElementById("m_name").value;
-        var JSONObejct = {
-            "name": username
-        };
-
-        $.ajax({
-            url: "getOneUser.staff",
-            data: JSONObejct,
-            dataType: "text",
-            type: "post",
-            success: function (result) {
-                var x = parseInt(result);
-                if (x == 100) {
-                    if (modal == "addUserName")
-                        show_validate_msg("#name_add_input", "success", "用户名可用", "add");
-                    else show_validate_msg("#m_name", "success", "用户名可用", "update");
-                }
-                else {
-                    if (modal == "addUserName")
-                        show_validate_msg("#name_add_input", "error", "用户名重复", "add");
-                    else show_validate_msg("#m_name", "error", "用户名重复", "update");
-                }
-            },
-            error: function (xhr, status, errMsg) {
-                alert("数据传输失败!");
-            }
-
-        });
-    }
-
-    //判断userid是否重复
-    function checkUserId() {
-        var userId = document.getElementById("id_add_input").value;
-        var JSONObejct = {
-            "id": userId
-        };
-
-        $.ajax({
-            url: "judgeUserId.staff",
-            data: JSONObejct,
-            dataType: "text",
-            type: "post",
-            success: function (result) {
-                var x = parseInt(result);
-                if (x == 100) {
-                    show_validate_msg("#id_add_input", "success", "工号可用", "add");
-                }
-                else {
-                    show_validate_msg("#id_add_input", "error", "工号重复", "add");
-                }
-
-            },
-            error: function (xhr, status, errMsg) {
-                alert("数据传输失败!");
-            }
-
-        });
-    }
-
-    //在页面中展示是否重复或者可用
-    function show_validate_msg(ele, status, msg, modal) {
-        //清除当前元素的校验状态
-        if ("success" == status) {
-            $(ele).next(".notice").text("*" + msg);
-            $(ele).next(".notice").css({color: "green"});
-        } else if ("error" == status) {
-            setWrongNotice(ele, $(ele).val(), msg);
-            if (modal == "add")
-                $("#addModal").addClass("bounce");
-            else
-                $("#ModifyStaff").addClass("bounce");
-        }
-    }
-
-    //设置提示文字的颜色和输入框中的提示文字内容
-    function setWrongNotice(inputId, placeholder, msg) {
-        $(inputId).next(".notice").css({color: "red"});
-        $(inputId).next(".notice").text("*" + msg);
-        $(inputId).attr("placeholder", placeholder);
-        $(inputId).val(null);
-    }
-
 
 </script>
 </body>
