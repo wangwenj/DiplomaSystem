@@ -4,12 +4,22 @@
 //url:servlet中判断是否重复的方法
 //modalId:模态框的id
 
-function juedgeLength(inputValue, length, inputId, msg_judgeLength, modalId) {
+
+var http = require("http");
+var jsdom = require("jsdom");
+var window = jsdom.jsdom().defaultView;
+var $ = require('jquery')(window);
+
+
+function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
+    debugger
     if (inputValue.length == 0 || inputValue.length > length) {
         setWrongNotice(inputId, inputValue, msg_judgeLength, modalId);
         return "noLength"
     }
+    else setSuccessNotice(inputId,msg_success);
 }
+
 
 function judgeIsNum( inputId,inputVal,modalId) {
     var r = /^\+?[1-9][0-9]*$/;　　//判断是否为正整数
@@ -19,17 +29,20 @@ function judgeIsNum( inputId,inputVal,modalId) {
     }
 }
 
-function checkRepeat(item, modalType, length, url, modalId, msg_judgeLength, msg_repeat, msg_notRepeat) {
+/*
+* 先判断数字---->再判断长度--->最后是否重复-->输出可用
+* */
+function checkRepeat(item, modalType, length, url, modalId, msg_judgeLength, msg_repeat, mag_success) {
     // alert("进入了重复判断");
     var inputId = "#" + item + "_" + modalType + "_input";
     debugger
     var inputVal = $(inputId).val();
-    if (juedgeLength(inputVal, length, inputId, msg_judgeLength, modalId) == "noLength")
-        return false;
     if (item == "id") {
         if(judgeIsNum(inputId,inputVal,modalId)=="notNumber")
         return false;
     }
+    if (judgeLength(inputVal, length, inputId, msg_judgeLength, modalId) == "noLength")
+        return false;
     $.ajax({
         url: url,
         data: {"parameter": inputVal},
@@ -38,7 +51,7 @@ function checkRepeat(item, modalType, length, url, modalId, msg_judgeLength, msg
         success: function (result) {
             var x = parseInt(result);
             if (x == 100) {
-                setSuccessNotice(inputId, msg_notRepeat)
+                setSuccessNotice(inputId, mag_success)
             }
             else {
                 setWrongNotice(inputId, inputVal, msg_repeat, modalId);
@@ -64,5 +77,14 @@ function setSuccessNotice(inputId, msg) {
     $(inputId).next(".notice").css({color: "green"});
     $(inputId).next(".notice").text("*" + msg);
 
+}
+
+function judgeLengthAndIsNum(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
+    debugger
+    var isNum=judgeIsNum( inputId,inputValue,modalId);
+    var length=judgeLength(inputValue, length, inputId, msg_judgeLength, modalId);
+    if(isNum=="notNumber") return false;
+    if(length=="noLength") return false;
+    else setSuccessNotice(inputId,msg_success);
 }
 

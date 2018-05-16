@@ -75,15 +75,16 @@
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="id_add_input" name="id_user"
                                    placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个字符','工号重复','工号可用')">
+                                   onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个数字','工号重复','工号可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="password" value="2233"
-                                   placeholder="请输入1--15个字符" id="password_add_input">
+                            <input type="text" class="form-control" name="password"
+                                   placeholder="请输入1--15个字符" id="password_add_input"  value="2233"
+                                   onchange="judgeLength(this.value,15,'#password_add_input','请输入1--15个字符','addModal')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -124,7 +125,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="tel_add_input" name="tel"
-                                   placeholder="请输入1--15个数字">
+                                   placeholder="请输入1--15个数字"
+                                   onchange="judgeLengthAndIsNum(this.value,15,'#tel_add_input','请输入1--15个数字','addModal','格式正确')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -132,7 +134,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="address_add_input"
-                                   name="address" placeholder="请输入1--50个字符">
+                                   name="address" placeholder="请输入1--50个字符"
+                                   onchange="judgeLength(this.value,50,'#address_add_input','请输入1--50个字符','addModal','格式正确')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -141,7 +144,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="staff_save_btn"
-                        onclick="submitAction()">确认
+                        onclick="submitAddAction()">确认
                 </button>
             </div>
         </div>
@@ -149,7 +152,7 @@
 </div>
 
 <%--修改的模态框--%>
-<div class="modal fade" id="ModifyStaff" tabindex="-1" role="dialog" aria-labelledby="modify">
+<div class="modal fade animated" id="ModifyStaff" tabindex="-1" role="dialog" aria-labelledby="modify">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -161,6 +164,7 @@
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="name_update_input"
                                                       name="name"
+                                                      placeholder="请输入1--15个字符"
                                                       onchange="checkRepeat('name','update',15,'getOneUser.staff','ModifyStaff','请输入1--15个字符','姓名重复','姓名可用')">
                             <p class="notice"></p>
                         </div>
@@ -205,11 +209,21 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_tel" name="m_tel"></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="m_tel" name="m_tel"
+                                   placeholder="请输入1--15个数字"
+                                   onchange="judgeLengthAndIsNum(this.value,15,'#m_tel','请输入1--15个数字','ModifyStaff','格式正确')">
+
+                            <p class="notice"></p>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address">
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address"
+                                                      placeholder="请输入1--50个字符"
+                                                      onchange="judgeLength(this.value,50,'#m_address','请输入1--50个字符','ModifyStaff','格式正确')">
+
+                            <p class="notice"></p>
                         </div>
                     </div>
                 </form>
@@ -218,7 +232,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary"
-                        onclick="document.getElementById('modify_modal').submit();">确认
+                        onclick="submitUpdateAction();">确认
                 </button>
             </div>
         </div>
@@ -242,7 +256,7 @@
                 <div class="modal-footer">
                     <input type="text" id="deleteUserId" style="display: none" name="deleteUserId">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <a onclick="document.getElementById('deleteModalForm').submit();" class="btn btn-success"
+                    <a onclick="document.getElementById('deleteModalForm').submit()" class="btn btn-success"
                        data-dismiss="modal">确定</a>
                 </div>
             </form>
@@ -337,6 +351,10 @@
         charset="UTF-8"></script>
 <script src="js/wwj.js"></script>
 <script>
+    var http = require("http");
+    var jsdom = require("jsdom");
+    var window = jsdom.jsdom().defaultView;
+    var $ = require('jquery')(window);
     <!--modal框-->
     $('#Modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -356,7 +374,9 @@
         $("#m_id_user").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_gender").val(tds.eq(2).text().replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_tel").val(tds.eq(5).text().replace(/(^\s*)|(\s*$)/g, ""));
+        $("#m_tel").next(".notice").text(null);
         $("#m_address").val(tds.eq(6).text().replace(/(^\s*)|(\s*$)/g, ""));
+        $("#m_address").next(".notice").text(null);
         $("#uptDep" + depId).attr("selected", true);
         $("#uptPosi" + posiId).attr("selected", true);
         $('#ModifyStaff').modal('show');
@@ -370,26 +390,48 @@
         $('#deleteModal').modal('show');
     }
 
-    //判断所有输入框是否为空
-    function submitAction() {
+    //判断增加的所有输入框是否为空
+    function submitAddAction() {
         var name_input = $("#name_add_input").val();
         var id_input = $("#id_add_input").val();
-        var pass_input=$("#password_add_input").val();
+        var pass_input = $("#password_add_input").val();
         var tel_input = $("#tel_add_input").val();
         var address_input = $("#address_add_input").val();
-        debugger
         if (name_input !== "" && id_input !== "" && pass_input !== "" && tel_input !== "" && address_input !== "") {
             $('#staff_modal').submit();
         }
         else {
-            if (name_input == "") setWrongNotice("#name_add_input", null, "不能为空", "addModal");
-            if (id_input == "") setWrongNotice("#id_add_input", null, "不能为空", "addModal");
-            if (pass_input == "") setWrongNotice("#password_add_input", null, "不能为空", "addModal");
-            if (tel_input == "") setWrongNotice("#tel_add_input", null, "不能为空", "addModal");
-            if (address_input == "") setWrongNotice("#address_add_input", null, "不能为空", "addModal");
+            if (name_input == "") setWrongNotice("#name_add_input", "请输入1--15个字符", "不能为空", "addModal");
+            if (id_input == "") setWrongNotice("#id_add_input", "请输入1--15个数字", "不能为空", "addModal");
+            if (pass_input == "") setWrongNotice("#password_add_input", "请输入1--15个字符", "不能为空", "addModal");
+            if (tel_input == "") setWrongNotice("#tel_add_input", "请输入1--15个数字", "不能为空", "addModal");
+            if (address_input == "") setWrongNotice("#address_add_input", "请输入1--50个字符", "不能为空", "addModal");
         }
     }
 
+    //判断更新的所有输入框是否为空
+    function submitUpdateAction() {
+        var name_input = $("#name_update_input").val();
+        var tel_input = $("#m_tel").val();
+        var address_input = $("#m_address").val();
+        debugger
+        if (name_input !== "" && tel_input !== "" && address_input !== "") {
+            $('#modify_modal').submit();
+        }
+        else {
+            if (name_input == "") setWrongNotice("#name_update_input",  "请输入1--15个字符", "不能为空", "ModifyStaff");
+            if (tel_input == "") setWrongNotice("#m_tel",  "请输入1--15个数字", "不能为空", "ModifyStaff");
+            if (address_input == "") setWrongNotice("#m_address",  "请输入1--50个字符", "不能为空", "ModifyStaff");
+        }
+    }
+
+    // function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId) {
+    //     debugger
+    //     if (inputValue.length == 0 || inputValue.length > length) {
+    //         setWrongNotice(inputId, inputValue, msg_judgeLength, modalId);
+    //         return "noLength"
+    //     }
+    // }
 </script>
 </body>
 </html>
