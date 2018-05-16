@@ -49,7 +49,7 @@
 
 
 <%--增加的模态框--%>
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal">
+<div class="modal fade animated " id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -73,7 +73,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" name="password" value="2233"></div>
+                        <div class="col-md-10"><input type="text" class="form-control" name="password" value="2233">
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
@@ -382,13 +383,13 @@
                 // alert(x);
                 if (x == 100) {
                     if (modal == "addUserName")
-                        show_validate_msg("#name_add_input", "success", "用户名可用");
-                    else show_validate_msg("#m_name", "success", "用户名可用");
+                        show_validate_msg("#name_add_input", "success", "用户名可用", "add");
+                    else show_validate_msg("#m_name", "success", "用户名可用", "update");
                 }
                 else {
                     if (modal == "addUserName")
-                        show_validate_msg("#name_add_input", "error", "用户名重复");
-                    else show_validate_msg("#m_name", "error", "用户名重复");
+                        show_validate_msg("#name_add_input", "error", "用户名重复", "add");
+                    else show_validate_msg("#m_name", "error", "用户名重复", "update");
                 }
 
             },
@@ -397,24 +398,6 @@
             }
 
         });
-    }
-
-    //在页面中展示是否重复或者可用
-    function show_validate_msg(ele, status, msg) {
-        //清除当前元素的校验状态
-        // alert("进入展示的js");
-        if ("success" == status) {
-            // alert("成功了");
-            $(ele).next(".notice").text("*" + msg);
-            $(ele).next(".notice").css({color: "green"});
-            // $('#staff_modal').submit();
-        } else if ("error" == status) {
-            // alert("失败了"+ele);
-            $(ele).next(".notice").text("*" + msg);
-            $(ele).next(".notice").css({color: "red"});
-            $(ele).val(null);
-            $("#addModal").prop('scrollTop', 0);
-        }
     }
 
     //判断userid是否重复
@@ -430,14 +413,14 @@
             dataType: "text",
             type: "post",
             success: function (result) {
-                 // alert("进入了success");
+                // alert("进入了success");
                 var x = parseInt(result);
                 // alert(x);
                 if (x == 100) {
-                    show_validate_msg("#id_add_input", "success", "工号可用");
+                    show_validate_msg("#id_add_input", "success", "工号可用", "add");
                 }
                 else {
-                    show_validate_msg("#id_add_input", "error", "工号重复");
+                    show_validate_msg("#id_add_input", "error", "工号重复", "add");
                 }
 
             },
@@ -446,6 +429,28 @@
             }
 
         });
+    }
+
+    //在页面中展示是否重复或者可用
+    function show_validate_msg(ele, status, msg, modal) {
+        //清除当前元素的校验状态
+        // alert("进入展示的js");
+        if ("success" == status) {
+            // alert("成功了");
+            $(ele).next(".notice").text("*" + msg);
+            $(ele).next(".notice").css({color: "green"});
+            // $('#staff_modal').submit();
+        } else if ("error" == status) {
+            // alert("失败了"+ele);
+            $(ele).next(".notice").text("*" + msg);
+            $(ele).next(".notice").css({color: "red"});
+            $(ele).attr("placeholder",$(ele).val());
+            $(ele).val(null);
+            if (modal == "add")
+                $("#addModal").addClass("bounce");
+            else
+                $("#ModifyStaff").addClass("bounce");
+        }
     }
 
 
