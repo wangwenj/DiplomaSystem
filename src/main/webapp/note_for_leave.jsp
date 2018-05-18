@@ -54,8 +54,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="name_apply_input" id="name_apply_input"
-                                       onchange="checkRepeat('name','apply',15,'checkUserExist.vacate',null,'请输入用户名','没有该用户','用户存在')">
+                                <input type="text" class="form-control" name="name_apply_input" id="name_apply_input">
                                 <p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">申请时间<label style="color: red">*</label></label>
@@ -68,27 +67,25 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属部门<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control " name="department"
-                                       >
+                                <input type="text" class="form-control " name="department" id="apply_department_input">
 
                             </div>
                             <label class="col-sm-2 control-label">岗位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control " name="position"
-                                    >
+                                <input type="text" class="form-control " name="position" id="apply_positon_input">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">开始时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input id="time_start" type="text" class="form-control"
+                                <input id="time_start" type="text" class="form-control" name="time_start"
                                        data-date-format="yyyy-mm-dd">
                                 <p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">结束时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input id="time_end" type="text" class="form-control"
+                                <input id="time_end" type="text" class="form-control" name="time_end"
                                        data-date-format="yyyy-mm-dd"
                                        onchange="compareTime()">
                                 <p class="notice"></p>
@@ -97,11 +94,19 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">审批人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input class="form-control " name="manager">
+                                <%--<input type="text" class="form-control " name="position" id="admin_input">--%>
+                                    <select class="form-control " name="admin_user" id="admin_input">
+                                        <option value="">请选择</option>
+                                        <%for (int j = 0; j < managers.size(); j++) { %>
+                                        <option value="<%=managers.get(j).getName()%>">
+                                            <%=managers.get(j).getName()%>
+                                        </option>
+                                        <% }%>
+                                    </select>
                             </div>
                             <label class="col-sm-2 control-label">审批人职位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input class="form-control " name="position">
+                                <input class="form-control " name="admin_position" id="admin_position">
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,9 +120,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假原因<label style="color: red">*</label></label>
                             <div class="col-sm-10">
-                                <textarea type="text" class="form-control" name="reason_input" id="reason_input"
-                                          onchange="judgeLength(this.value,200,'#reason_input','请输入1--200个字符','updateModal','格式正确')">
-                                </textarea>
+                                <input  type="text" class="form-control" name="reason_input" id="reason_input">
                                 <p class="notice"></p>
                             </div>
                         </div>
@@ -200,6 +203,44 @@
             if (reason_input == "") setWrongNotice("#reason_input", "请输入1--100字的理由", "不能为空", null);
         }
     }
+    
+    $("#name_apply_input").change(function(){
+
+        var name_apply=this.value;
+        $.ajax({
+            url:"getUserApplyInfo.vacate",
+            type:"POST",
+            data:{"name_apply":name_apply},
+            success:function (result) {
+                debugger
+                var apply_info=JSON.parse(result);//转成json对象
+                var apply_info_content=apply_info.apply_info;//后面内容是数组
+                var content=apply_info_content[0];//数组第一个
+                var d_name=content.d_name;
+                var p_name=content.p_name;
+
+                debugger
+                $("#apply_department_input").val(d_name);
+                $("#apply_positon_input").val(p_name);
+            }
+        });
+    });
+
+    $("#admin_input").change(function(){
+        var admin_user_id=this.value;
+        $.ajax({
+            url:"getUserAdminInfo.vacate",
+            type:"POST",
+            data:{"admin_user_id":admin_user_id},
+            success:function(result){
+                debugger
+                var admin_user_info=JSON.parse(result);
+                var admin_user_info_content=admin_user_info.admin_user_info;
+                var p_name=admin_user_info_content[0].p_name;
+                $("#admin_position").val(p_name);
+            }
+        });
+    });
 
 </script>
 </body>

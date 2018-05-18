@@ -18,10 +18,14 @@ public class Vacate {
 
     private String days;
 
+    private String p_name;
+
+    private String d_name;
+
     public Vacate() {
     }
 
-    public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval, String reason, String days) {
+    public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval, String reason, String days, String p_name, String d_name) {
         this.id_vacate = id_vacate;
         this.id_user = id_user;
         this.time = time;
@@ -30,6 +34,8 @@ public class Vacate {
         this.id_approval = id_approval;
         this.reason = reason;
         this.days = days;
+        this.p_name = p_name;
+        this.d_name = d_name;
     }
 
     public int getId_vacate() {
@@ -94,5 +100,21 @@ public class Vacate {
 
     public void setDays(String days) {
         this.days = days;
+    }
+
+    public String getP_name() {
+        return p_name;
+    }
+
+    public void setP_name(String p_name) {
+        this.p_name = p_name;
+    }
+
+    public String getD_name() {
+        return d_name;
+    }
+
+    public void setD_name(String d_name) {
+        this.d_name = d_name;
     }
 }

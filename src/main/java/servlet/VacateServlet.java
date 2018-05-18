@@ -3,18 +3,25 @@ package servlet;
 import dao.DepartmentDao;
 import dao.PositionDao;
 import dao.UserDao_1;
+import dao.VacateDao;
 import daoImp.DepartmentImp;
 import daoImp.PositionImp;
 import daoImp.UserDao1Imp;
+import daoImp.VacateDaoImp;
 import entity.Department;
 import entity.Position;
 import entity.User;
+import entity.Vacate;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
@@ -24,6 +31,7 @@ public class VacateServlet extends HttpServlet {
     UserDao_1 userDao_1 = new UserDao1Imp();
     DepartmentDao departmentDao = new DepartmentImp();
     PositionDao positionDao = new PositionImp();
+    VacateDao vacateDao=new VacateDaoImp();
 
     public VacateServlet() {
         super();
@@ -94,16 +102,57 @@ public class VacateServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
             request.setAttribute("user_apply", user);
-            getAll(request,response);
+
 
         }
 
 
     }
 
-//    private void addVacateForm(HttpServletRequest request,
-//                               HttpServletResponse response) throws ServletException, IOException, ParseException {
-//
-//
-//    }
+    private void getUserApplyInfo(HttpServletRequest request,
+                             HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String name=request.getParameter("name_apply");
+
+        Vacate apply_info=  vacateDao.getInfo(name);
+        response.setContentType("text/html; charset=utf-8");
+        //调用JSONArray.fromObject方法把array中的对象转化为JSON格式的数组
+        JSONArray json =JSONArray.fromObject(apply_info);
+        JSONObject jb =new JSONObject();
+        jb.put("apply_info", json);
+        response.getWriter().write(jb.toString());
+        //System.out.println(json.toString());
+        //返回给前段页面
+    }
+
+
+    private void getUserAdminInfo(HttpServletRequest request,
+                                  HttpServletResponse response) throws ServletException, IOException, ParseException {
+
+    String admin_user_name= request.getParameter("admin_user_id");
+    Vacate admin_user_info=vacateDao.getInfo(admin_user_name);
+        response.setContentType("text/html; charset=utf-8");
+        //调用JSONArray.fromObject方法把array中的对象转化为JSON格式的数组
+        JSONArray json =JSONArray.fromObject(admin_user_info);
+        JSONObject jb =new JSONObject();
+        jb.put("admin_user_info", json);
+        response.getWriter().write(jb.toString());
+    }
+
+    private void addVacateForm(HttpServletRequest request,
+                               HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String apply_name=request.getParameter("name_apply_input");
+        int apply_name_id=userDao_1.countUser(apply_name).getId_user();
+        String time_apply=request.getParameter("time_apply");
+        String time_start=request.getParameter("time_start");
+        String time_end=request.getParameter("time_end");
+        String admin_user=request.getParameter("admin_user");
+        int admin_user_id=userDao_1.countUser(admin_user).getId_user();
+        String total_time=request.getParameter("total_time");
+        String reason_input=request.getParameter("reason_input");
+
+        vacateDao.add(apply_name_id,time_apply,time_start,time_end,admin_user_id,reason_input,total_time);
+        this.getAll(request,response);
+
+
+    }
 }
