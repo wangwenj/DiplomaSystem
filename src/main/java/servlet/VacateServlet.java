@@ -68,6 +68,10 @@ public class VacateServlet extends HttpServlet {
         }
     }
 
+    /*
+     * 获取所有请假单信息，点击导航栏链接调用
+     * @wwj
+     * */
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<User> userAll = userDao_1.getAll();
@@ -86,6 +90,10 @@ public class VacateServlet extends HttpServlet {
 
     }
 
+    /*
+    * 判断输入的名字是否存在，输入框应该输入存在名字，ajax请求
+    * @wwj
+    * */
     //返回100，输出成功提示；返回200，输出失败提示；
     private void checkUserExist(HttpServletRequest request,
                                 HttpServletResponse response) throws ServletException, IOException, ParseException {
@@ -109,6 +117,11 @@ public class VacateServlet extends HttpServlet {
 
     }
 
+    /*
+     * 获取请假申请人相关信息，ajax请求
+     * 返回json数据
+     * @wwj
+     * */
     private void getUserApplyInfo(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name=request.getParameter("name_apply");
@@ -125,6 +138,11 @@ public class VacateServlet extends HttpServlet {
     }
 
 
+    /*
+     * 获取请假管理员（审批人）的相关信息，ajax请求
+     * 返回json数据
+     * @wwj
+     * */
     private void getUserAdminInfo(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
 
@@ -138,6 +156,10 @@ public class VacateServlet extends HttpServlet {
         response.getWriter().write(jb.toString());
     }
 
+    /*
+    * 增加请假的信息进入数据库
+    * @wwj
+    * */
     private void addVacateForm(HttpServletRequest request,
                                HttpServletResponse response) throws ServletException, IOException, ParseException {
         String apply_name=request.getParameter("name_apply_input");
