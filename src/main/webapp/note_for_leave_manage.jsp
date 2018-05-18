@@ -1,4 +1,5 @@
-<%--
+<%@ page import="entity.Position" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/18

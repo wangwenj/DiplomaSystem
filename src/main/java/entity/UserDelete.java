@@ -1,6 +1,6 @@
 package entity;
 
-public class User{
+public class UserDelete {
     private int id_user;
     private String password;
     private String name;
@@ -13,12 +13,13 @@ public class User{
     private String gender;
     private String d_name;
     private String p_name;
+    private String delete_time;
     private String role;
 
-    public User() {
+    public UserDelete() {
     }
 
-    public User(int id_user, String password, String name, String tel, String intro, String address, int id_department, int id_position, String remark, String gender, String d_name, String p_name, String role) {
+    public UserDelete(int id_user, String password, String name, String tel, String intro, String address, int id_department, int id_position, String remark, String gender, String d_name, String p_name, String delete_time, String role) {
         this.id_user = id_user;
         this.password = password;
         this.name = name;
@@ -31,6 +32,7 @@ public class User{
         this.gender = gender;
         this.d_name = d_name;
         this.p_name = p_name;
+        this.delete_time = delete_time;
         this.role = role;
     }
 
@@ -128,6 +130,14 @@ public class User{
 
     public void setP_name(String p_name) {
         this.p_name = p_name;
+    }
+
+    public String getDelete_time() {
+        return delete_time;
+    }
+
+    public void setDelete_time(String delete_time) {
+        this.delete_time = delete_time;
     }
 
     public String getRole() {

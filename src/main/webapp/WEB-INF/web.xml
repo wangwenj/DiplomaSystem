@@ -54,6 +54,14 @@
         <servlet-name>VacateServlet</servlet-name>
         <url-pattern>*.vacate</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <servlet-class>servlet.UserDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDeleteServlet</servlet-name>
+        <url-pattern>*.userDelete</url-pattern>
+    </servlet-mapping>
 
 </web-app>
