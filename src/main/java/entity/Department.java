@@ -3,10 +3,9 @@ package entity;
 public class Department {
     private int id_department;
     private String d_name;
-    private String code;
     private String intro;
     private String address;
-    private int tel;
+    private String tel;
 
     public Department() {
     }
@@ -27,13 +26,7 @@ public class Department {
         this.d_name = d_name;
     }
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getIntro() {
         return intro;
@@ -51,18 +44,17 @@ public class Department {
         this.address = address;
     }
 
-    public int getTel() {
+    public String  getTel() {
         return tel;
     }
 
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
-    public Department(int id_department, String d_name, String code, String intro, String address, int tel) {
+    public Department(int id_department, String d_name, String intro, String address, String tel) {
         this.id_department = id_department;
         this.d_name = d_name;
-        this.code = code;
         this.intro = intro;
         this.address = address;
         this.tel = tel;

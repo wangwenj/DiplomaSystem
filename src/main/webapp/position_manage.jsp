@@ -1,5 +1,6 @@
 <%@ page import="entity.Department" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="entity.Position" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/15
@@ -12,7 +13,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%
-    List<Department> departments = (List<Department>) request.getAttribute("departments");
+    List<Position> positions = (List<Position>) request.getAttribute("positions");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>部门管理</title>
+    <title>职位管理</title>
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -47,16 +48,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">增加部门</h4>
+                <h4 class="modal-title">增加职位</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="addDepart.depart" id="addDepartment_modal">
+                <form method="post" action="addPosition.posi" id="add_modal">
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">部门:</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">职位:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="d_name" id="name_add_input"
                                    placeholder="请输入1--15个字符"
-                                   onchange="checkRepeat('name','add',15,'judgeRepeat_D_name.depart','addModal','请输入1--15个字符','部门名称重复','部门名称可用')">
+                                   onchange="checkRepeat('name','add',15,'judgeRepeat_P_name.posi','addModal','请输入1--15个字符','职位名称重复','职位名称可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="d_id" id="id_add_input"
                                    placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','add',15,'judgeRepeat_D_id.depart','addModal','请输入1--15个字符','部门代码重复','部门代码可用')">
+                                   onchange="checkRepeat('id','add',15,'judgeRepeat_P_id.posi','addModal','请输入1--15个数字','职位代码重复','职位代码可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -73,26 +74,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">简介:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="d_intro" id="intro_add_input"
-                                   placeholder="请输入1--100个字符"
-                                   onchange="judgeLength(this.value,100,'#intro_add_input','请输入1--100个字符','addModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">位置</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" name="d_address" id="address_add_input"
                                    placeholder="请输入1--50个字符"
-                                   onchange="judgeLength(this.value,50,'#address_add_input','请输入1--50个字符','addModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" name="d_tel" id="tel_add_input"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="judgeLengthAndIsNum(this.value,15,'#tel_add_input','请输入1--15个数字','addModal','格式正确')">
+                                   onchange="judgeLength(this.value,50,'#intro_add_input','请输入1--50个字符','addModal','格式正确')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -113,16 +96,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">修改部门</h4>
+                <h4 class="modal-title" id="exampleModalLabel">修改职位</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="updateDepartment.depart" id="updateDepartment_modal">
+                <form method="post" action="updatePosition.posi" id="update_modal">
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">部门:</label></div>
+                        <div class="col-md-2 modal-label"><label class="control-label">职位:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="name_update_input" name="m_name"
                                    placeholder="请输入1--15个字符"
-                                   onchange="checkRepeat('name','update',15,'judgeRepeat_D_name.depart','updateModal','请输入1--15个字符','部门名字重复','部门名字可用')">
+                                   onchange="checkRepeat('name','update',15,'judgeRepeat_P_name.posi','updateModal','请输入1--15个字符','部门名字重复','部门名字可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
@@ -130,8 +113,7 @@
                         <div class="col-md-2 modal-label"><label class="control-label">代码:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="id_update_input" name="m_id"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','update',15,'judgeRepeat_D_id.depart','updateModal','请输入1--15个字符','部门名字重复','部门名字可用')"
+                                   placeholder="请输入1--15个数字" )
                                    readonly>
                             <p class="notice"></p>
                         </div>
@@ -141,28 +123,12 @@
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="intro_update_input" name="m_intro"
                                    placeholder="请输入1--100个字符"
-                                   onchange="judgeLength(this.value,100,'#intro_update_input','请输入1--100个字符','updateModal','格式正确')">
+                                   onchange="judgeLength(this.value,50,'#intro_update_input','请输入1--50个字符','updateModal','格式正确')">
                             <p class="notice"></p>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">位置</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="address_update_input" name="m_address"
-                                   placeholder="请输入1--50个字符"
-                                   onchange="judgeLength(this.value,50,'#address_update_input','请输入1--50个字符','updateModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="tel_update_input" name="m_tel"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="judgeLengthAndIsNum(this.value,15,'#tel_update_input','请输入1--15个数字','updateModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
+
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -184,14 +150,14 @@
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">提示信息</h4>
             </div>
-            <form method="post" action="deleteDepart.depart" id="deleteModalForm">
+            <form method="post" action="deletePosition.posi" id="deleteModalForm">
                 <div class="modal-body">
                     <p style="display: inline-block">您确认要删除&nbsp;
                     <div style="display: inline-block;font-size: larger;color: black;"
-                         id="depart_name"></div>&nbsp;吗？</p>
+                         id="delete_name"></div>&nbsp;吗？</p>
                 </div>
                 <div class="modal-footer">
-                    <input type="text" id="deleteDepartId" style="display: none" name="deleteDepartId">
+                    <input type="text" id="deleteId" style="display: none" name="deleteId">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <a onclick="document.getElementById('deleteModalForm').submit();"
                        class="btn btn-success"
@@ -225,35 +191,28 @@
                                 <th data-field="departName" class="col-lg-2">部门</th>
                                 <th data-field="departId" class="col-lg-2">代码</th>
                                 <th data-field="intro" class="col-lg-2">简介</th>
-                                <th data-field="location" class="col-lg-2">位置</th>
-                                <th data-field="contact" class="col-lg-2">联系方式</th>
                                 <th data-field="option" class="col-lg-2">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                                for (Department department : departments) {
+                                for (Position position : positions) {
                             %>
                             <tr>
-                                <td><%=department.getD_name()%>
+                                <td><%=position.getP_name()%>
                                 </td>
-                                <td><%=department.getId_department()%>
+                                <td><%=position.getId_position()%>
                                 </td>
-                                <td><%=department.getIntro()%>
-                                </td>
-                                </td>
-                                <td><%=department.getAddress()%>
-                                </td>
-                                <td><%=department.getTel()%>
+                                <td><%=position.getIntro()%>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-outline btn-default"
-                                            onclick="updateDepart(this)">
+                                            onclick="updateAction(this)">
                                         修改
                                         <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                     </button>
                                     <button type="button" class="btn btn-outline btn-default"
-                                            onclick="deleteDepart(this,<%=department.getId_department()%>)">
+                                            onclick="deleteAction(this,<%=position.getId_position()%>)">
                                         删除
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>
@@ -285,7 +244,7 @@
 
     <%--修改部门信息模态框--%>
 
-    function updateDepart(obj) {
+    function updateAction(obj) {
         var tds = $(obj).parent().parent().find('td');
         $("#name_update_input").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#name_update_input").next(".notice").text(null);
@@ -293,19 +252,15 @@
         $("#id_update_input").next(".notice").text(null);
         $("#intro_update_input").val((tds.eq(2).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#intro_update_input").next(".notice").text(null);
-        $("#address_update_input").val((tds.eq(3).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#address_update_input").next(".notice").text(null);
-        $("#tel_update_input").val((tds.eq(4).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#tel_update_input").next(".notice").text(null);
         $("#updateModal").modal("show");
     }
 
     <%--删除框弹出，将id传到删除模态框中--%>
 
-    function deleteDepart(obj, departId) {
+    function deleteAction(obj, departId) {
         var tds = $(obj).parent().parent().find('td');
-        $("#depart_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#deleteDepartId").val(departId);
+        $("#delete_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#deleteId").val(departId);
         $("#deleteModal").modal("show");
     }
 
@@ -314,18 +269,14 @@
         var name_input = $("#name_add_input").val();
         var id_input = $("#id_add_input").val();
         var intro_input = $("#intro_add_input").val();
-        var address_input = $("#address_add_input").val();
-        var tel_input = $("#tel_add_input").val();
         debugger
-        if (name_input !== "" && id_input !== "" && intro_input !== "" && address_input !== "" && tel_input !== "") {
-            $('#addDepartment_modal').submit();
+        if (name_input !== "" && id_input !== "" && intro_input !== "") {
+            $('#add_modal').submit();
         }
         else {
             if (name_input == "") setWrongNotice("#name_add_input", "请输入1--15个字符", "不能为空", "addModal");
             if (id_input == "") setWrongNotice("#id_add_input", "请输入1--15个数字", "不能为空", "addModal");
             if (intro_input == "") setWrongNotice("#intro_add_input", "请输入1--100个字符", "不能为空", "addModal");
-            if (address_input == "") setWrongNotice("#address_add_input", "请输入1--50个数字", "不能为空", "addModal");
-            if (tel_input == "") setWrongNotice("#tel_add_input", "请输入1--15个数字", "不能为空", "addModal");
         }
     }
 
@@ -333,17 +284,13 @@
     function submitUpdateAction() {
         var name_input = $("#name_update_input").val();
         var intro_input = $("#intro_update_input").val();
-        var address_input = $("#address_update_input").val();
-        var tel_input = $("#tel_update_input").val();
         debugger
-        if (name_input !== "" && intro_input !== "" && tel_input !== "" && address_input !== "") {
-            $('#updateDepartment_modal').submit();
+        if (name_input !== "" && intro_input !== "") {
+            $('#update_modal').submit();
         }
         else {
             if (name_input == "") setWrongNotice("#name_update_input", "请输入1--15个字符", "不能为空", "updateModal");
-            if (intro_input == "") setWrongNotice("#intro_update_input", "请输入1--100个字符", "不能为空", "updateModal");
-            if (address_input == "") setWrongNotice("#address_update_input", "请输入1--50个数字", "不能为空", "updateModal");
-            if (tel_input == "") setWrongNotice("#tel_update_input", "请输入1--15个数字", "不能为空", "updateModal");
+            if (intro_input == "") setWrongNotice("#intro_update_input", "请输入1--50个字符", "不能为空", "updateModal");
         }
     }
 

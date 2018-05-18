@@ -37,5 +37,14 @@
         <url-pattern>*.depart</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PosiManageServlet</servlet-name>
+        <servlet-class>servlet.PosiManageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PosiManageServlet</servlet-name>
+        <url-pattern>*.posi</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

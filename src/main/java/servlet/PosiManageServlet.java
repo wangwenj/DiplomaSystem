@@ -1,29 +1,30 @@
 package servlet;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import dao.DepartmentDao;
+import dao.PositionDao;
 import daoImp.DepartmentImp;
+import daoImp.PositionImp;
 import entity.Department;
+import entity.Position;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.List;
 
-public class DepartManageServlet extends HttpServlet {
-
+public class PosiManageServlet extends HttpServlet {
+    PositionDao positionDao = new PositionImp();
     DepartmentDao departmentDao = new DepartmentImp();
 
-    public DepartManageServlet() {
+
+    public PosiManageServlet() {
         super();
     }
-
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
@@ -35,7 +36,7 @@ public class DepartManageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String servletpath = request.getServletPath();
         String MethodName = servletpath.substring(1);
-        MethodName = MethodName.substring(0, MethodName.length() - 7);
+        MethodName = MethodName.substring(0, MethodName.length() - 5);
         String strBackUrl = "http://" + request.getServerName() //服务器地址
                 + ":"
                 + request.getServerPort()           //端口号
@@ -57,80 +58,76 @@ public class DepartManageServlet extends HttpServlet {
 
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
-        List<Department> departments = departmentDao.getAllDepartment();
-        request.setAttribute("departments", departments);
-        request.getRequestDispatcher("/department_manage.jsp").forward(request, response);
-
+        List<Position> positions = positionDao.getAllPosition();
+        List<Department> departments=departmentDao.getAllDepartment();
+        request.setAttribute("positions", positions);
+        request.setAttribute("departments",departments);
+        request.getRequestDispatcher("/position_manage.jsp").forward(request, response);
     }
 
-    private void updateDepartment(HttpServletRequest request,
+    private void updatePosition(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("m_name");
         int id= Integer.parseInt(request.getParameter("m_id"));
         String intro = request.getParameter("m_intro");
-        String address = request.getParameter("m_address");
-        String tel = request.getParameter("m_tel");
-        departmentDao.updateDepart(name, intro, address, tel,id);
+        positionDao.updatePosition(name,intro,id);
         this.getAll(request, response);
     }
 
 
-    private void addDepart(HttpServletRequest request,
+    private void addPosition(HttpServletRequest request,
                            HttpServletResponse response) throws ServletException, IOException, ParseException {
-        System.out.println("进入加入部门的函数");
+        System.out.println("进入增加职位的函数");
         String name = request.getParameter("d_name");
         int id = Integer.parseInt(request.getParameter("d_id"));
         String intro = request.getParameter("d_intro");
-        String address = request.getParameter("d_address");
-        String tel = request.getParameter("d_tel");
-        System.out.println("加入部门信息"+name+id+intro+address+tel);
-        departmentDao.addDepart(name, id, intro, address, tel);
+        System.out.println("加入部门信息"+name+id+intro);
+        positionDao.addPosition(name,intro,id);
         this.getAll(request, response);
 
 
     }
 
-    private void deleteDepart(HttpServletRequest request,
+    private void deletePosition(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
-        int id = Integer.parseInt(request.getParameter("deleteDepartId"));
-        departmentDao.deleteDepart(id);
+        int id = Integer.parseInt(request.getParameter("deleteId"));
+        positionDao.deletePosition(id);
         this.getAll(request, response);
     }
 
-    private void judgeRepeat_D_name(HttpServletRequest request,
+    private void judgeRepeat_P_name(HttpServletRequest request,
                                     HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("parameter");
         System.out.println("获取的名字---" + name);
-        Department department = departmentDao.checkRepeatD_Name(name);
-        System.out.println(department);
-        if (department == null) {
-            System.out.println("成功获取该depart的数量,数量为空，返回100");
+        Position position = positionDao.checkRepeatP_Name(name);
+        System.out.println(position);
+        if (position == null) {
+            System.out.println("成功获取该position_name的数量,数量为空，返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
         } else {
-            System.out.println("数据库中已经存在该depart的name，返回200");
+            System.out.println("数据库中已经存在该position的name，返回200");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("200");
         }
 
     }
 
-    private void judgeRepeat_D_id(HttpServletRequest request,
+    private void judgeRepeat_P_id(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("parameter"));
         System.out.println("获取的id---" + id);
-        Department department = departmentDao.checkRepeatD_Id(id);
-        System.out.println(department);
-        if (department == null) {
-            System.out.println("成功获取该depart_id的数量,数量为空，返回100");
+        Position position = positionDao.checkRepeatP_Id(id);
+        System.out.println(position);
+        if (position == null) {
+            System.out.println("成功获取该position_id的数量,数量为空，返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
         } else {
-            System.out.println("数据库中已经存在该depart的id，返回200");
+            System.out.println("数据库中已经存在该position的id，返回200");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("200");
         }
 
     }
-
 }

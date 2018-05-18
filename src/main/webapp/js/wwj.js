@@ -5,11 +5,6 @@
 //modalId:模态框的id
 
 
-var http = require("http");
-var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
-var $ = require('jquery')(window);
-
 
 function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
     debugger
@@ -24,7 +19,7 @@ function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_s
 function judgeIsNum( inputId,inputVal,modalId) {
     var r = /^\+?[1-9][0-9]*$/;　　//判断是否为正整数
     if(r.test(inputVal)==false){
-        setWrongNotice(inputId, inputVal, "必须输入数字", modalId);
+        setWrongNotice(inputId, inputVal, '必须输入数字', modalId);
         return "notNumber";
     }
 }
@@ -82,8 +77,8 @@ function setSuccessNotice(inputId, msg) {
 function judgeLengthAndIsNum(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
     debugger
     var isNum=judgeIsNum( inputId,inputValue,modalId);
-    var length=judgeLength(inputValue, length, inputId, msg_judgeLength, modalId);
     if(isNum=="notNumber") return false;
+    var length=judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_success);
     if(length=="noLength") return false;
     else setSuccessNotice(inputId,msg_success);
 }

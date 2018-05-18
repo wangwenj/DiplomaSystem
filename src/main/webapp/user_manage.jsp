@@ -26,7 +26,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <title>员工管理</title>
 
     <link rel="shortcut icon" href="favicon.ico">
@@ -83,7 +82,7 @@
                         <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="password"
-                                   placeholder="请输入1--15个字符" id="password_add_input"  value="2233"
+                                   placeholder="请输入1--15个字符" id="password_add_input" value="2233"
                                    onchange="judgeLength(this.value,15,'#password_add_input','请输入1--15个字符','addModal')">
                             <p class="notice"></p>
                         </div>
@@ -419,19 +418,12 @@
             $('#modify_modal').submit();
         }
         else {
-            if (name_input == "") setWrongNotice("#name_update_input",  "请输入1--15个字符", "不能为空", "ModifyStaff");
-            if (tel_input == "") setWrongNotice("#m_tel",  "请输入1--15个数字", "不能为空", "ModifyStaff");
-            if (address_input == "") setWrongNotice("#m_address",  "请输入1--50个字符", "不能为空", "ModifyStaff");
+            if (name_input == "") setWrongNotice("#name_update_input", "请输入1--15个字符", "不能为空", "ModifyStaff");
+            if (tel_input == "") setWrongNotice("#m_tel", "请输入1--15个数字", "不能为空", "ModifyStaff");
+            if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "ModifyStaff");
         }
     }
 
-    // function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId) {
-    //     debugger
-    //     if (inputValue.length == 0 || inputValue.length > length) {
-    //         setWrongNotice(inputId, inputValue, msg_judgeLength, modalId);
-    //         return "noLength"
-    //     }
-    // }
 </script>
 </body>
 </html>

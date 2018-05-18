@@ -21,7 +21,7 @@ import java.util.List;
 
 public class StaffManageServlet extends HttpServlet {
 
-    static UserDao_1 userDao_1 = new UserDao1Imp();
+     UserDao_1 userDao_1 = new UserDao1Imp();
 
     DepartmentImp departmentImp = new DepartmentImp();
 
@@ -90,7 +90,7 @@ public class StaffManageServlet extends HttpServlet {
         request.setAttribute("userAll", userAll);
         List<Department> departments = departmentImp.getAllDepartment();
         // System.out.println("部门" + departments);
-        List<Position> positions = positionImp.getPosition();
+        List<Position> positions = positionImp.getAllPosition();
         //  System.out.println("职位" + positions);
         request.setAttribute("positions", positions);
         request.setAttribute("departments", departments);

@@ -86,7 +86,7 @@
                             <a class="J_menuItem" href="getAll.depart">部门管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="position_manage01.html">职位管理</a>
+                            <a class="J_menuItem" href="getAll.posi">职位管理</a>
                         </li>
                     </ul>
                 </li>
