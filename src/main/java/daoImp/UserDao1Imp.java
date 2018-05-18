@@ -39,6 +39,12 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     }
 
     @Override
+    public List<User> getAllManager() {
+        String sql="select * from user where role='管理员'";
+        return getForList(sql);
+    }
+
+    @Override
     public void deleteUser(int id_user) {
         String sql="delete from user where id_user=?";
         update(sql,id_user);
@@ -54,5 +60,11 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     public User countId(int id) {
         String sql="select * from user where id_user=?";
         return get(sql,id);
+    }
+
+    @Override
+    public User checkUserExist(String name) {
+        String sql="select * from user where name=?";
+        return get(sql,name);
     }
 }

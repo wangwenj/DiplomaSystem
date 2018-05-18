@@ -365,7 +365,7 @@
         // modal.find('.modal-body input').val(title)
     })
 
-    // 点击修改按钮，给模态框加载信息并且弹出模态框
+    // 点击修改的确认按钮，给模态框加载信息并且弹出模态框
     function update(obj, depId, posiId) {
         var tds = $(obj).parent().parent().find('td');
         $("#name_update_input").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));

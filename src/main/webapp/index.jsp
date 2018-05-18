@@ -95,7 +95,7 @@
                     <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">考勤管理</span>
                         <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="note_for_leave.html">请假</a>
+                        <li><a class="J_menuItem" href="getAll.vacate">请假</a>
                         </li>
                         <li><a class="J_menuItem" href="sign_manage.html">签到管理</a>
                         </li>

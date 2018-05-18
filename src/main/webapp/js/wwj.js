@@ -5,20 +5,19 @@
 //modalId:模态框的id
 
 
-
-function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
+function judgeLength(inputValue, length, inputId, msg_judgeLength, modalId, msg_success) {
     debugger
     if (inputValue.length == 0 || inputValue.length > length) {
         setWrongNotice(inputId, inputValue, msg_judgeLength, modalId);
         return "noLength"
     }
-    else setSuccessNotice(inputId,msg_success);
+    else setSuccessNotice(inputId, msg_success);
 }
 
 
-function judgeIsNum( inputId,inputVal,modalId) {
+function judgeIsNum(inputId, inputVal, modalId) {
     var r = /^\+?[1-9][0-9]*$/;　　//判断是否为正整数
-    if(r.test(inputVal)==false){
+    if (r.test(inputVal) == false) {
         setWrongNotice(inputId, inputVal, '必须输入数字', modalId);
         return "notNumber";
     }
@@ -28,13 +27,13 @@ function judgeIsNum( inputId,inputVal,modalId) {
 * 先判断数字---->再判断长度--->最后是否重复-->输出可用
 * */
 function checkRepeat(item, modalType, length, url, modalId, msg_judgeLength, msg_repeat, mag_success) {
-    // alert("进入了重复判断");
+debugger
     var inputId = "#" + item + "_" + modalType + "_input";
     debugger
     var inputVal = $(inputId).val();
     if (item == "id") {
-        if(judgeIsNum(inputId,inputVal,modalId)=="notNumber")
-        return false;
+        if (judgeIsNum(inputId, inputVal, modalId) == "notNumber")
+            return false;
     }
     if (judgeLength(inputVal, length, inputId, msg_judgeLength, modalId) == "noLength")
         return false;
@@ -74,12 +73,23 @@ function setSuccessNotice(inputId, msg) {
 
 }
 
-function judgeLengthAndIsNum(inputValue, length, inputId, msg_judgeLength, modalId,msg_success) {
+function judgeLengthAndIsNum(inputValue, length, inputId, msg_judgeLength, modalId, msg_success) {
     debugger
-    var isNum=judgeIsNum( inputId,inputValue,modalId);
-    if(isNum=="notNumber") return false;
-    var length=judgeLength(inputValue, length, inputId, msg_judgeLength, modalId,msg_success);
-    if(length=="noLength") return false;
-    else setSuccessNotice(inputId,msg_success);
+    var isNum = judgeIsNum(inputId, inputValue, modalId);
+    if (isNum == "notNumber") return false;
+    var length = judgeLength(inputValue, length, inputId, msg_judgeLength, modalId, msg_success);
+    if (length == "noLength") return false;
+    else setSuccessNotice(inputId, msg_success);
 }
+
+function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
+    var aDate, oDate1, oDate2, iDays;
+    aDate = sDate1.split("-");
+    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+    aDate = sDate2.split("-");
+    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+    return iDays;  //返回相差天数
+}
+
 

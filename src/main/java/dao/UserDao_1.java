@@ -17,9 +17,13 @@ public interface UserDao_1 {
 
     List<User> getAll();
 
+    List<User> getAllManager();
+
     void deleteUser(int id_user);
 
     User countUser(String name);
 
     User countId(int id);
+
+    User checkUserExist(String name);
 }

@@ -46,5 +46,14 @@
         <url-pattern>*.posi</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>VacateServlet</servlet-name>
+        <servlet-class>servlet.VacateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VacateServlet</servlet-name>
+        <url-pattern>*.vacate</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
