@@ -63,6 +63,10 @@ public class StaffManageServlet extends HttpServlet {
 
     }
 
+    /*
+    * 增加员工信息
+    * @wwj
+    * */
     private void addStaff(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException, ParseException {
 
@@ -83,6 +87,10 @@ public class StaffManageServlet extends HttpServlet {
 
     }
 
+    /*
+    * 获取所有用户信息，点击导航栏链接调用
+    * @wwj
+    * */
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<User> userAll = userDao_1.getAll();
@@ -98,6 +106,10 @@ public class StaffManageServlet extends HttpServlet {
 
     }
 
+    /*
+     * 更新用户信息
+     * @wwj
+     * */
     private void modifyStaff(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException, ParseException {
 
@@ -122,6 +134,10 @@ public class StaffManageServlet extends HttpServlet {
 
     }
 
+    /*
+     * 删除用户信息
+     * @wwj
+     * */
     private void deleteUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteUserId"));
@@ -130,6 +146,10 @@ public class StaffManageServlet extends HttpServlet {
         this.getAll(request, response);
     }
 
+    /*
+    * 判断用户的姓名是否重复（建议方法名和查重有关）,ajax请求
+    * @wwj
+    * */
     private void getOneUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("parameter");
@@ -147,6 +167,10 @@ public class StaffManageServlet extends HttpServlet {
         }
     }
 
+    /*
+    * 判断用户的id是否重复（建议方法名和查重有关），ajax请求
+    * @wwj
+    * */
     private void judgeUserId(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException{
         int id = Integer.parseInt(request.getParameter("parameter"));

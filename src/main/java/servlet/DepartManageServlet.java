@@ -55,6 +55,9 @@ public class DepartManageServlet extends HttpServlet {
         }
     }
 
+    /*
+    * 获取全部部门信息（进入页面就调用该方法）
+    * */
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<Department> departments = departmentDao.getAllDepartment();
@@ -63,6 +66,9 @@ public class DepartManageServlet extends HttpServlet {
 
     }
 
+    /*
+    * 更新部门信息
+    * */
     private void updateDepartment(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("m_name");
@@ -90,6 +96,9 @@ public class DepartManageServlet extends HttpServlet {
 
     }
 
+    /*
+    * 删除部门信息
+    * */
     private void deleteDepart(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteDepartId"));
@@ -97,6 +106,9 @@ public class DepartManageServlet extends HttpServlet {
         this.getAll(request, response);
     }
 
+    /*
+    * 判断部门名字是否重复，ajax-->js验证
+    * */
     private void judgeRepeat_D_name(HttpServletRequest request,
                                     HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("parameter");
@@ -115,6 +127,9 @@ public class DepartManageServlet extends HttpServlet {
 
     }
 
+    /*
+    * 验证部门代码id是否重复，ajax-->js验证
+    * */
     private void judgeRepeat_D_id(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("parameter"));

@@ -25,6 +25,7 @@ public class PosiManageServlet extends HttpServlet {
     public PosiManageServlet() {
         super();
     }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
@@ -56,45 +57,65 @@ public class PosiManageServlet extends HttpServlet {
         }
     }
 
+
+    /*
+     * 获取全部职位信息（进入页面就调用该方法）
+     * @wwj
+     * */
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<Position> positions = positionDao.getAllPosition();
-        List<Department> departments=departmentDao.getAllDepartment();
+        List<Department> departments = departmentDao.getAllDepartment();
         request.setAttribute("positions", positions);
-        request.setAttribute("departments",departments);
+        request.setAttribute("departments", departments);
         request.getRequestDispatcher("/position_manage.jsp").forward(request, response);
     }
 
+    /*
+     * 更新职位信息
+     * @wwj
+     * */
     private void updatePosition(HttpServletRequest request,
-                                  HttpServletResponse response) throws ServletException, IOException, ParseException {
+                                HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("m_name");
-        int id= Integer.parseInt(request.getParameter("m_id"));
+        int id = Integer.parseInt(request.getParameter("m_id"));
         String intro = request.getParameter("m_intro");
-        positionDao.updatePosition(name,intro,id);
+        positionDao.updatePosition(name, intro, id);
         this.getAll(request, response);
     }
 
-
+    /*
+     *增加职位信息
+     * @wwj
+     * */
     private void addPosition(HttpServletRequest request,
-                           HttpServletResponse response) throws ServletException, IOException, ParseException {
+                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         System.out.println("进入增加职位的函数");
         String name = request.getParameter("d_name");
         int id = Integer.parseInt(request.getParameter("d_id"));
         String intro = request.getParameter("d_intro");
-        System.out.println("加入部门信息"+name+id+intro);
-        positionDao.addPosition(name,intro,id);
+        System.out.println("加入部门信息" + name + id + intro);
+        positionDao.addPosition(name, intro, id);
         this.getAll(request, response);
 
 
     }
 
+    /*
+     * 删除职位信息
+     * @wwj
+     * */
     private void deletePosition(HttpServletRequest request,
-                              HttpServletResponse response) throws ServletException, IOException, ParseException {
+                                HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteId"));
         positionDao.deletePosition(id);
         this.getAll(request, response);
     }
 
+    /*
+    * 职位名称查重  ajax--->js验证
+    * @wwj
+    * */
     private void judgeRepeat_P_name(HttpServletRequest request,
                                     HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("parameter");
@@ -113,6 +134,10 @@ public class PosiManageServlet extends HttpServlet {
 
     }
 
+    /*
+     * 职位代码id查重  ajax--->js验证
+     * @wwj
+     * */
     private void judgeRepeat_P_id(HttpServletRequest request,
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("parameter"));
