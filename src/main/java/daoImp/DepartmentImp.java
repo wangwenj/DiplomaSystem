@@ -49,5 +49,11 @@ public class DepartmentImp extends DAO<Department> implements DepartmentDao {
         update(sql,id);
     }
 
+    @Override
+    public Department getOne(int id) {
+        String sql="select * from department where id_department=?";
+        return get(sql,id);
+    }
+
 
 }

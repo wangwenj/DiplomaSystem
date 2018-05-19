@@ -2,6 +2,8 @@ package servlet;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import dao.DepartmentDao;
+import dao.DepartmentDeleteDao;
+import daoImp.DepartmentDeleteDaoImpl;
 import daoImp.DepartmentImp;
 import entity.Department;
 
@@ -14,11 +16,15 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DepartManageServlet extends HttpServlet {
 
     DepartmentDao departmentDao = new DepartmentImp();
+
+    DepartmentDeleteDao departmentDeleteDao=new DepartmentDeleteDaoImpl();
 
     public DepartManageServlet() {
         super();
@@ -102,6 +108,10 @@ public class DepartManageServlet extends HttpServlet {
     private void deleteDepart(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteDepartId"));
+        Department department=departmentDao.getOne(id);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        departmentDeleteDao.add_department_delete(department.getId_department(),department.getD_name(),department.getIntro(),department.getAddress(),department.getTel(),date);
         departmentDao.deleteDepart(id);
         this.getAll(request, response);
     }
@@ -147,5 +157,4 @@ public class DepartManageServlet extends HttpServlet {
         }
 
     }
-
 }

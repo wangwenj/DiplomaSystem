@@ -137,7 +137,7 @@
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="getAll.userDelete">员工删除历史</a>
                         </li>
-                        <li><a class="J_menuItem" href="">部门删除历史</a>
+                        <li><a class="J_menuItem" href="getAll.departDelete">部门删除历史</a>
                         </li>
                         <li><a class="J_menuItem" href="getAll.positionDelete">职位删除历史</a>
                         </li>

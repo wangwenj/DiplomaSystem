@@ -18,4 +18,6 @@ public interface DepartmentDao {
     String findD_name(int id);
 
     void deleteDepart(int id);
+
+    Department getOne(int id);
 }
