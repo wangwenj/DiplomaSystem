@@ -1,10 +1,10 @@
 package servlet;
 
-import dao.PositionDao;
-import dao.PositionDeleteDao;
-import daoImp.PositionImp;
-import daoImp.PositonDeleteDaoImpl;
-import entity.PositionDelete;
+import dao.DepartmentDao;
+import dao.DepartmentDeleteDao;
+import daoImp.DepartmentDeleteDaoImpl;
+import daoImp.DepartmentImp;
+import entity.DepartmentDelete;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,11 +16,9 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.List;
 
-public class PositionDeleteServlet extends HttpServlet{
-
-    PositionDeleteDao positionDeleteDao=new PositonDeleteDaoImpl();
-
-    PositionDao positionDao=new PositionImp();
+public class DepartDeleteServlet extends HttpServlet{
+    DepartmentDeleteDao departmentDeleteDao=new DepartmentDeleteDaoImpl();
+    DepartmentDao departmentDao=new DepartmentImp();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,7 +30,7 @@ public class PositionDeleteServlet extends HttpServlet{
         request.setCharacterEncoding("UTF-8");
         String servletpath = request.getServletPath();
         String MethodName = servletpath.substring(1);
-        MethodName = MethodName.substring(0, MethodName.length() - 15);
+        MethodName = MethodName.substring(0, MethodName.length() - 13);
         String strBackUrl = "http://" + request.getServerName() //服务器地址
                 + ":"
                 + request.getServerPort()           //端口号
@@ -52,21 +50,21 @@ public class PositionDeleteServlet extends HttpServlet{
         }
     }
 
-    private void getAll(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
-        List<PositionDelete> positionAll=positionDeleteDao.getAll();
-        request.setAttribute("positionAll",positionAll);
-        request.getRequestDispatcher("/position_delete_history.jsp").forward(request, response);
+    private void getAll(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException,ParseException {
+        List<DepartmentDelete> departmentDeletes=departmentDeleteDao.getAll();
+        request.setAttribute("departmentAll",departmentDeletes);
+        request.getRequestDispatcher("/department_delete_history.jsp").forward(request, response);
     }
 
-    private void deletePosition(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
+    private void deleteDepart(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
         //前台数据传操作方式和id
         String operation=request.getParameter("operotion");
         int id= Integer.parseInt(request.getParameter("restoreId"));
         if(operation.equals("restore")){
-            PositionDelete pDelete=positionDeleteDao.getOne(id);
-            positionDao.addPosition(pDelete.getP_name(),pDelete.getIntro(), pDelete.getId_position());
+            DepartmentDelete dDelete=departmentDeleteDao.getOne(id);
+            departmentDao.addDepart(dDelete.getD_name(), dDelete.getId_department(), dDelete.getIntro(), dDelete.getAddress(), dDelete.getTel());
         }
-        positionDeleteDao.delete_position_delete(id);
+        departmentDeleteDao.delete_department_delete(id);
         this.getAll(request,response);
     }
 

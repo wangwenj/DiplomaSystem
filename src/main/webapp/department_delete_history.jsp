@@ -1,8 +1,8 @@
 <%@ page import="java.util.List" %>
-<%@ page import="entity.PositionDelete" %>
+<%@ page import="entity.DepartmentDelete" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<PositionDelete> positionAll= (List<PositionDelete>) request.getAttribute("positionAll");
+    List<DepartmentDelete> departmentAll= (List<DepartmentDelete>) request.getAttribute("departmentAll");
 %>
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>员工删除历史</title>
+    <title>部门删除历史</title>
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -32,7 +32,7 @@
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">提示信息</h4>
             </div>
-            <form method="post" action="deletePosition.positionDelete" id="restoreModalForm">
+            <form method="post" action="deleteDepart.departDelete" id="restoreModalForm">
                 <div class="modal-body">
                     <p style="display: inline-block">您确认要恢复&nbsp;
                     <div style="display: inline-block;font-size: larger;color: black;"
@@ -60,7 +60,7 @@
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">提示信息</h4>
             </div>
-            <form method="post" action="deletePosition.positionDelete" id="removeModalForm">
+            <form method="post" action="deleteDepart.departDelete" id="removeModalForm">
                 <div class="modal-body">
                     <p style="display: inline-block">您确认要彻底删除&nbsp;
                     <div style="display: inline-block;font-size: larger;color: black;"
@@ -86,33 +86,37 @@
         <div class="ibox ">
             <div class="ibox-content">
                 <div class="example-wrap">
-                    <h4 class="example-title" style="display: inline-block">职位删除历史</h4>
+                    <h4 class="example-title" style="display: inline-block">部门删除历史</h4>
                     <div class="example">
                         <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                             <thead>
                             <tr>
-                                <th data-field="name">职位</th>
+                                <th data-field="name">部门</th>
                                 <th data-field="id">代码</th>
                                 <th>简介</th>
+                                <th>位置</th>
+                                <th>联系方式</th>
                                 <th>删除时间</th>
                                 <th data-field="operation">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <%
-                                for(PositionDelete position:positionAll ){
+                                for(DepartmentDelete departmentDelete:departmentAll ){
                             %>
                             <tr>
-                                <td><%=position.getP_name()%></td>
-                                <td><%=position.getId_position()%></td>
-                                <td><%=position.getIntro()%></td>
-                                <td><%=position.getDelete_time_position()%></td>
+                                <td><%=departmentDelete.getD_name()%></td>
+                                <td><%=departmentDelete.getId_department()%></td>
+                                <td><%=departmentDelete.getIntro()%></td>
+                                <td><%=departmentDelete.getAddress()%></td>
+                                <td><%=departmentDelete.getTel()%></td>
+                                <td><%=departmentDelete.getDelete_time_depart()%></td>
                                 <td>
-                                    <button type="button" onclick="restoreUser(<%=position.getId_position()%>,this,this.id)" class="btn btn-outline btn-default" id="restore"
+                                    <button type="button" onclick="restoreUser(<%=departmentDelete.getId_department()%>,this,this.id)" class="btn btn-outline btn-default" id="restore"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">恢复
                                         <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" onclick="removeUser(<%=position.getId_position()%>,this,this.id)" class="btn btn-outline btn-default"  id="remove"
+                                    <button type="button" onclick="removeUser(<%=departmentDelete.getId_department()%>,this,this.id)" class="btn btn-outline btn-default"  id="remove"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">彻底删除
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>

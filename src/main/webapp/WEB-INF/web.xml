@@ -72,6 +72,15 @@
         <servlet-name>PositionDeleteServlet</servlet-name>
         <url-pattern>*.positionDelete</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DepartDeleteServlet</servlet-name>
+        <servlet-class>servlet.DepartDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DepartDeleteServlet</servlet-name>
+        <url-pattern>*.departDelete</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>NoticeServlet</servlet-name>
