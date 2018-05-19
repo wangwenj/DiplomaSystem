@@ -5,6 +5,9 @@ import entity.Position;
 import java.util.List;
 
 public interface PositionDao {
+
+    Position getOne(int id);
+
     List<Position> getAllPosition();
 
     int addPosition(String name, String intro, int id);

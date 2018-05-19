@@ -63,5 +63,14 @@
         <servlet-name>UserDeleteServlet</servlet-name>
         <url-pattern>*.userDelete</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PositionDeleteServlet</servlet-name>
+        <servlet-class>servlet.PositionDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PositionDeleteServlet</servlet-name>
+        <url-pattern>*.positionDelete</url-pattern>
+    </servlet-mapping>
 
 </web-app>
