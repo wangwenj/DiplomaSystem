@@ -12,7 +12,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%
-    List<Vacate> vacate = (List<Vacate>) request.getAttribute("oneVacate");
+    Vacate vacate = (Vacate) request.getAttribute("oneVacate");
 
 %>
 <html>
@@ -44,33 +44,32 @@
                         </a>
                     </div>
                 </div>
-                <%
-                    for (Vacate oneVacate : vacate){
-                %>
                 <div class="ibox-content">
                     <form method="post" class="form-horizontal" action="addVacateForm.vacate" id="applyForm">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="name_apply_input" id="name_apply_input">
-                                <%=oneVacate.%><p class="notice"></p>
+                                <input type="text" class="form-control" name="name_apply_input" id="name_apply_input"
+                                value=" <%=vacate.getApply_name()%>"><p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">申请时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input id="time_apply" type="text" class="form-control" name="time_apply"
-                                       data-date-format="yyyy-mm-dd">
+                                       data-date-format="yyyy-mm-dd"
+                                value=" <%=vacate.getTime()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属部门<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control " name="department" id="apply_department_input">
-
+                                <input type="text" class="form-control " name="department" id="apply_department_input"
+                               value="<%=vacate.getApply_depart_name()%>">
                             </div>
                             <label class="col-sm-2 control-label">岗位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control " name="position" id="apply_positon_input">
+                                <input type="text" class="form-control " name="position" id="apply_positon_input"
+                                value="<%=vacate.getApply_posi_name()%>">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -78,53 +77,61 @@
                             <label class="col-sm-2 control-label">开始时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input id="time_start" type="text" class="form-control" name="time_start"
-                                       data-date-format="yyyy-mm-dd">
+                                       data-date-format="yyyy-mm-dd"
+                                value="<%=vacate.getTime_start()%>">
                                 <p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">结束时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input id="time_end" type="text" class="form-control" name="time_end"
                                        data-date-format="yyyy-mm-dd"
-                                       onchange="compareTime()">
+                                       onchange="compareTime()"
+                                value="<%=vacate.getTime_end()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">审批人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control " name="position" id="admin_input">
+                                <input type="text" class="form-control " name="position" id="admin_input"
+                                value=" <%=vacate.getAdmin_name()%>">
                             </div>
                             <label class="col-sm-2 control-label">审批人职位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <input class="form-control " name="admin_position" id="admin_position">
+                                <input class="form-control " name="admin_position" id="admin_position"
+                                value=" <%=vacate.getAdmin_posi_name()%>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">实际天数<label style="color: red">*</label></label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="total_time" id="total_time"
-                                       onchange="countTotalTime()">
+                                       onchange="countTotalTime()"
+                                value=" <%=vacate.getDays()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假原因<label style="color: red">*</label></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="reason_input" id="reason_input">
+                                <input type="text" class="form-control" name="reason_input" id="reason_input"
+                                value=" <%=vacate.getReason()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>
                 </div>
-                <%}%>
+
                 <div class="ibox-content" style="height: 60px">
                     <div class="form-group">
                         <div class="col-sm-5 col-sm-offset-5">
                             <button class="btn btn-primary" style="margin-right: 50px;"
-                                    onclick="submitApplyAction()">确认申请
+                                    onclick="submitApplyAction()">同意申请
                             </button>
-                            <button class="btn btn-white" type="submit">取消</button>
+                            <button class="btn btn-primary" style="margin-right: 50px;"
+                                    onclick="submitApplyAction()">不同意
+                            </button>
                         </div>
                     </div>
 
