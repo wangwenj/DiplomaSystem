@@ -70,6 +70,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">角色:</label></div>
+                        <div class="col-md-10">
+                            <select type="text" class="form-control" id="role_add_input" name="role">
+                                <option value="管理员">管理员</option>
+                                <option value="用户">用户</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="id_add_input" name="id_user"
@@ -287,6 +296,7 @@
                                 <tr>
                                     <th data-field="name">姓名</th>
                                     <th data-field="id">工号</th>
+                                    <th>角色</th>
                                     <th data-field="sex">性别</th>
                                     <th data-field="department">部门</th>
                                     <th data-field="position">职位</th>
@@ -304,6 +314,7 @@
                                     </td>
                                     <td><%=user.getId_user()%>
                                     </td>
+                                    <td><%=user.getRole()%></td>
                                     <td><%=user.getGender()%>
                                     </td>
                                     <td id="<%=user.getId_department()%>"><%=user.getD_name()%>

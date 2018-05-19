@@ -61,11 +61,11 @@ public class UserDeleteServlet extends HttpServlet{
 
     private void deleteUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
         //前台数据传操作方式和id
-        String operation=request.getParameter("operation");
-        int id= Integer.parseInt(request.getParameter("id"));
-        if(operation.equals("恢复")){
-            userDeleteDa0.getOne(id);
-            //userDao_1.add();
+        String operation=request.getParameter("operotion");
+        int id= Integer.parseInt(request.getParameter("restoreId"));
+        if(operation.equals("restore")){
+            UserDelete userDelete=userDeleteDa0.getOne(id);
+            userDao_1.add(userDelete.getId_user(), userDelete.getPassword(), userDelete.getName(), userDelete.getGender(), userDelete.getId_department(),userDelete.getId_position(), userDelete.getTel(), userDelete.getAddress(),userDelete.getRole());
         }
         userDeleteDa0.delete_user_delete(id);
         this.getAll(request,response);

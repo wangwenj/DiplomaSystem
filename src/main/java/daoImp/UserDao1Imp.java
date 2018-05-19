@@ -19,9 +19,9 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     }
 
     @Override
-    public int add(int id_user, String password,String name, String gender, int id_department, int id_position, String tel, String address) {
-        String sql="INSERT INTO USER (id_user,password,name,gender,id_department,id_position,tel,address) VALUES (?,?,?,?,?,?,?,?)";
-        return update(sql,id_user,password,name,gender,id_department,id_position,tel,address);
+    public int add(int id_user, String password,String name, String gender, int id_department, int id_position, String tel, String address,String role) {
+        String sql="INSERT INTO USER (id_user,password,name,gender,id_department,id_position,tel,address,role) VALUES (?,?,?,?,?,?,?,?,?)";
+        return update(sql,id_user,password,name,gender,id_department,id_position,tel,address,role);
 
     }
 
@@ -34,7 +34,7 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
 
     @Override
     public List<User> getAll() {
-        String sql="SELECT `USER`.ID_USER,`USER`.`NAME`,`USER`.TEL,`USER`.INTRO,`USER`.ADDRESS,`USER`.REMARK,`USER`.GENDER,POSITION.ID_POSITION,POSITION.P_NAME,DEPARTMENT.ID_DEPARTMENT,DEPARTMENT.D_NAME FROM ((`USER`INNER JOIN POSITION ON `USER`.ID_POSITION=POSITION.ID_POSITION) INNER JOIN DEPARTMENT ON `USER`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT)";
+        String sql="SELECT `USER`.ID_USER,`USER`.role,`USER`.`NAME`,`USER`.TEL,`USER`.INTRO,`USER`.ADDRESS,`USER`.REMARK,`USER`.GENDER,POSITION.ID_POSITION,POSITION.P_NAME,DEPARTMENT.ID_DEPARTMENT,DEPARTMENT.D_NAME FROM ((`USER`INNER JOIN POSITION ON `USER`.ID_POSITION=POSITION.ID_POSITION) INNER JOIN DEPARTMENT ON `USER`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT)";
         return getForList(sql);
     }
 

@@ -86,8 +86,9 @@ public class StaffManageServlet extends HttpServlet {
         String intro = request.getParameter("intro");
         String remark = request.getParameter("remark");
         String address = request.getParameter("address");
+        String role=request.getParameter("role");
         System.out.println(address);
-        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, address);
+        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, address,role);
         this.getAll(request, response);
         //response.sendRedirect("user_manage.jsp");
 

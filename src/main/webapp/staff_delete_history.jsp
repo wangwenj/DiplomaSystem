@@ -20,7 +20,40 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
 </head>
+
 <body class="gray-bg">
+
+<%--恢复的模态框--%>
+<div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" aria-labelledby="restoreModal">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <form method="post" action="deleteUser.userDelete" id="restoreModalForm">
+                <div class="modal-body">
+                    <p style="display: inline-block">您确认要删除&nbsp;
+                    <div style="display: inline-block;font-size: larger;color: black;"
+                         id="restoreName"></div>&nbsp;吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="text" id="restoreId" style="display: none" name="restoreId">
+                    <input type="text" id="operotion" style="display: none" name="operotion">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <a onclick="document.getElementById('restoreModalForm').submit();"
+                       class="btn btn-success"
+                       data-dismiss="modal">确定</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="ibox ">
@@ -56,11 +89,11 @@
                                 <td><%=user.getTel()%></td>
                                 <td><%=user.getDelete_time()%></td>
                                 <td>
-                                    <button type="button" class="btn btn-outline btn-default" name="restore" id="restore"
+                                    <button type="button" onclick="deleteUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default" id="restore"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">恢复
                                         <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline btn-default" name="Remove_completely" id="Remove_completely"
+                                    <button type="button" onclick="deleteUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default" name="remove_completely" id="remove_completely"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">彻底删除
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>
@@ -90,6 +123,14 @@
 <script>
 
 
+    function deleteUser(id,obj,oper){
+        debugger
+        var tds = $(obj).parent().parent().find('td');
+        $("#restoreName").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#restoreId").val(id);
+        $("#operotion").val(oper)
+        $("#restoreModal").modal("show");
+    }
 
 </script>
 </body>
