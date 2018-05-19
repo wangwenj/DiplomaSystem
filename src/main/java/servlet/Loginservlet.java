@@ -2,6 +2,7 @@ package servlet;
 
 import dao.UserDao_1;
 import daoImp.UserDao1Imp;
+import entity.User;
 
 import javax.mail.Session;
 import javax.servlet.ServletException;
@@ -59,10 +60,11 @@ public class Loginservlet extends HttpServlet {
 //        System.out.println(user_id);
         String password = request.getParameter("password");
         UserDao_1 userDao1 = new UserDao1Imp();
+        User user=userDao1.getOne(user_id);
 //        System.out.println("@@@@@@@@@@"+ userDao1);
         if (userDao1.getOne(user_id).getPassword().equals(password)) {
             HttpSession session = request.getSession();
-            session.setAttribute("userId_current", user_id);
+            session.setAttribute("user", user);
             response.sendRedirect("/index.jsp");
         }
     }

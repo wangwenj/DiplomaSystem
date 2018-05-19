@@ -1,4 +1,5 @@
-<%--
+<%@ page import="entity.User" %>
+<%@ page import="freemarker.debug.Debugger" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/9
@@ -9,6 +10,8 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    User user= (User) session.getAttribute("user");
+    String role=user.getRole();
 %>
 <html>
 
@@ -46,7 +49,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                                <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -72,6 +75,7 @@
                         <span class="nav-label">主页</span>
                     </a>
                 </li>
+                <%if(role.equals("管理员")){%>
                 <li>
                     <a href="#">
                         <i class="fa fa fa-bar-chart-o"></i>
@@ -90,21 +94,24 @@
                         </li>
                     </ul>
                 </li>
-
+                <%}%>
                 <li>
                     <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">考勤管理</span>
                         <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="getAll.vacate">请假</a>
                         </li>
+                        <%if(role.equals("管理员")){%>
                         <li><a class="J_menuItem" href="sign_manage.html">签到管理</a>
                         </li>
                         <li><a class="J_menuItem" href="getAllVacate.vacate">请假管理</a>
                         </li>
+                        <%}%>
                         <li><a class="J_menuItem" href="getAllApply.vacate">申请结果</a>
                         </li>
                     </ul>
                 </li>
+                <%if(role.equals("管理员")){%>
                 <li>
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">公告管理</span><span
                             class="fa arrow"></span></a>
@@ -115,21 +122,19 @@
                         </li>
                     </ul>
                 </li>
+                <%}%>
+
                 <li>
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">公司留言</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="own_message.html">员工留言</a>
                         </li>
+                        <%if(role.equals("管理员")){%>
                         <li><a class="J_menuItem" href="message_manage.html">留言管理</a>
                         </li>
+                        <%}%>
                     </ul>
-                </li>
-                <li>
-                    <a class="J_menuItem" href="address_book.html">
-                        <i class="fa fa-flask"></i>
-                        <span class="nav-label">公司通讯录</span>
-                    </a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">回收站</span><span
