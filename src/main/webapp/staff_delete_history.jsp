@@ -34,7 +34,7 @@
             </div>
             <form method="post" action="deleteUser.userDelete" id="restoreModalForm">
                 <div class="modal-body">
-                    <p style="display: inline-block">您确认要删除&nbsp;
+                    <p style="display: inline-block">您确认要恢复&nbsp;
                     <div style="display: inline-block;font-size: larger;color: black;"
                          id="restoreName"></div>&nbsp;吗？</p>
                 </div>
@@ -51,6 +51,33 @@
     </div>
 </div>
 
+<%--彻底删除的模态框--%>
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModal">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <form method="post" action="deleteUser.userDelete" id="removeModalForm">
+                <div class="modal-body">
+                    <p style="display: inline-block">您确认要彻底删除&nbsp;
+                    <div style="display: inline-block;font-size: larger;color: black;"
+                         id="removeName"></div>&nbsp;吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="text" id="removeId" style="display: none" name="restoreId">
+                    <input type="text" id="remove_operotion" style="display: none" name="operotion">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <a onclick="document.getElementById('removeModalForm').submit();"
+                       class="btn btn-success"
+                       data-dismiss="modal">确定</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 
@@ -89,11 +116,11 @@
                                 <td><%=user.getTel()%></td>
                                 <td><%=user.getDelete_time()%></td>
                                 <td>
-                                    <button type="button" onclick="deleteUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default" id="restore"
+                                    <button type="button" onclick="restoreUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default" id="restore"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">恢复
                                         <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" onclick="deleteUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default" name="remove_completely" id="remove_completely"
+                                    <button type="button" onclick="removeUser(<%=user.getId_user()%>,this,this.id)" class="btn btn-outline btn-default"  id="remove"
                                             style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">彻底删除
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>
@@ -123,13 +150,24 @@
 <script>
 
 
-    function deleteUser(id,obj,oper){
+    //恢复按钮事件
+    function restoreUser(id,obj,oper){
         debugger
         var tds = $(obj).parent().parent().find('td');
         $("#restoreName").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#restoreId").val(id);
         $("#operotion").val(oper)
         $("#restoreModal").modal("show");
+    }
+
+    //彻底删除按钮事件
+    function removeUser(id,obj,oper){
+        debugger
+        var tds = $(obj).parent().parent().find('td');
+        $("#removeName").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
+        $("#removeId").val(id);
+        $("#operotion").val(oper)
+        $("#removeModal").modal("show");
     }
 
 </script>
