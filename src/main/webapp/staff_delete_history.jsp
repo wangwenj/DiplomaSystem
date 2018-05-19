@@ -1,4 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="entity.UserDelete" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    List<UserDelete> userAll= (List<UserDelete>) request.getAttribute("userAll");
+%>
 <html lang="en">
 <head>
 
@@ -23,83 +28,47 @@
                 <div class="example-wrap">
                     <h4 class="example-title" style="display: inline-block">员工删除历史</h4>
                     <div class="example">
-                        <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                            <button type="button" class="btn btn-outline btn-default" name="restore" id="restore"
-                                    style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">恢复
-                                <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline btn-default" name="Remove_completely" id="Remove_completely"
-                                    style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">彻底删除
-                                <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                            </button>
-                        </div>
                         <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                             <thead>
                             <tr>
-                                <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="name">姓名</th>
                                 <th data-field="id">工号</th>
+                                <th>角色</th>
                                 <th data-field="sex">性别</th>
                                 <th data-field="department">部门</th>
                                 <th data-field="position">职位</th>
                                 <th data-field="contact">联系方式</th>
+                                <th>删除时间</th>
+                                <th data-field="operation">操作</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                                for(UserDelete user:userAll ){
+                            %>
                             <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
+                                <td><%=user.getName()%></td>
+                                <td><%=user.getId_user()%></td>
+                                <td><%=user.getRole()%></td>
+                                <td><%=user.getGender()%></td>
+                                <td><%=user.getD_name()%></td>
+                                <td><%=user.getP_name()%></td>
+                                <td><%=user.getTel()%></td>
+                                <td><%=user.getDelete_time()%></td>
+                                <td>
+                                    <button type="button" class="btn btn-outline btn-default" name="restore" id="restore"
+                                            style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">恢复
+                                        <i class="glyphicon glyphicon-backward" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default" name="Remove_completely" id="Remove_completely"
+                                            style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-left-color: whitesmoke">彻底删除
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>王文君</td>
-                                <td>201426010321</td>
-                                <td>女</td>
-                                <td>财务部</td>
-                                <td>部长</td>
-                                <td>18712345612</td>
-                            </tr>
+                            <%
+                                }
+                            %>
                             </tbody>
                         </table>
                     </div>
@@ -117,5 +86,11 @@
 <script src="js/demo/bootstrap-table-demo.min.js"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096"
         charset="UTF-8"></script>
+
+<script>
+
+
+
+</script>
 </body>
 </html>

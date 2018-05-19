@@ -23,7 +23,7 @@ public class UserDeleteDaoImpl extends DAO<UserDelete> implements UserDeleteDa0{
 
     @Override
     public List<UserDelete> getAll() {
-        String sql="SELECT `dustbin_user`.ID_USER,`dustbin_user`.`NAME`,`dustbin_user`.TEL,`dustbin_user`.INTRO,`dustbin_user`.ADDRESS,`dustbin_user`.REMARK,`dustbin_user`.GENDER,POSITION.ID_POSITION,POSITION.P_NAME,DEPARTMENT.ID_DEPARTMENT,DEPARTMENT.D_NAME,dustbin_user.delete_time FROM ((`dustbin_user`INNER JOIN POSITION ON `dustbin_user`.ID_POSITION=POSITION.ID_POSITION) INNER JOIN DEPARTMENT ON `dustbin_user`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT)";
+        String sql="SELECT `dustbin_user`.ID_USER,`dustbin_user`.`NAME`,`dustbin_user`.TEL,`dustbin_user`.INTRO,`dustbin_user`.ADDRESS,`dustbin_user`.REMARK,`dustbin_user`.GENDER,POSITION.ID_POSITION,POSITION.P_NAME,DEPARTMENT.ID_DEPARTMENT,DEPARTMENT.D_NAME,dustbin_user.delete_time,dustbin_user.role FROM ((`dustbin_user`INNER JOIN POSITION ON `dustbin_user`.ID_POSITION=POSITION.ID_POSITION) INNER JOIN DEPARTMENT ON `dustbin_user`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT)";
         return getForList(sql);
     }
 
