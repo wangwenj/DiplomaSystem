@@ -69,7 +69,7 @@ public class VacateServlet extends HttpServlet {
     }
 
     /*
-     * 获取所有请假单信息，点击导航栏链接调用
+     * 获取请假单信息，点击导航栏链接调用,主要用于显示管理员下拉框
      * @wwj
      * */
     private void getAll(HttpServletRequest request,
@@ -171,40 +171,65 @@ public class VacateServlet extends HttpServlet {
         int admin_user_id = userDao_1.countUser(admin_user).getId_user();
         String total_time = request.getParameter("total_time");
         String reason_input = request.getParameter("reason_input");
-        String status="待审批";
-        vacateDao.add(apply_name_id, time_apply, time_start, time_end, admin_user_id,total_time, reason_input ,status);
+        String status = "待审批";
+        vacateDao.add(apply_name_id, time_apply, time_start, time_end, admin_user_id, total_time, reason_input, status);
         this.getAll(request, response);
     }
 
     /*
-     * 获取所有请假单的信息，在请假管理页面显示数据
+     * 根据未审核和登录用户的id获取所有请假单的信息，在请假管理页面显示数据,最后跳转到请假管理页面
      * */
     private void getAllVacate(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
-       int  userId_current= Integer.parseInt( request.getSession().getAttribute("userId_current").toString());
+        int userId_current = Integer.parseInt(request.getSession().getAttribute("userId_current").toString());
         List<Vacate> vacates = vacateDao.getAllVacate(userId_current);
-        //根据id获取department_id,通过id查找name
-       /* for (int i = 0; i < vacates.size(); i++) {
-            String apply_depart_name = departmentDao.findD_name(vacates.get(i).getApply_depart_id());
-            String apply_posi_name=positionDao.findP_name(vacates.get(i).getApply_posi_id());
-            String admin_posi_name=positionDao.findP_name(vacates.get(i).getAdmin_posi_id());
-            vacates.get(i).setApply_depart_name(apply_depart_name);
-            vacates.get(i).setApply_posi_name(apply_posi_name);
-            vacates.get(i).setAdmin_posi_name(admin_posi_name);
-        }*/
         request.setAttribute("allVacates", vacates);
         request.getRequestDispatcher("/note_for_leave_manage.jsp").forward(request, response);
     }
 
+    /*
+     * 管理员获取未审批的请假单详情
+     * */
     private void getVacateForm(HttpServletRequest request,
                                HttpServletResponse response) throws ServletException, IOException, ParseException {
-        int id= Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         Vacate vacate = vacateDao.getVacateForm(id);
         vacate.setApply_depart_name(departmentDao.findD_name(vacate.getApply_depart_id()));
         vacate.setApply_posi_name(positionDao.findP_name(vacate.getApply_posi_id()));
         vacate.setAdmin_posi_name(positionDao.findP_name(vacate.getAdmin_posi_id()));
-        request.setAttribute("oneVacate",vacate);
-        request.getRequestDispatcher("/note_for_leave_handle.jsp").forward(request,response);
+        request.setAttribute("oneVacate", vacate);
+        request.getRequestDispatcher("/note_for_leave_handle.jsp").forward(request, response);
     }
+
+
+    /*
+     * 管理员是否同意请假，选择之后改变状态栏
+     * */
+    private void isOrNotPermit(HttpServletRequest request,
+                               HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String isOrNotPermit = request.getParameter("isOrNotPermit");
+        int id_vacate = Integer.parseInt(request.getParameter("id_vacate"));
+        if (isOrNotPermit.equals("permit")) {
+            vacateDao.updateToPermit(id_vacate);
+            this.getAllVacate(request,response);
+
+        } else {
+            vacateDao.updateToNotPermit(id_vacate);
+            this.getAllVacate(request,response);
+        }
+
+    }
+
+    /*
+     * 获取所有登录用户的申请单
+     * */
+    private void getAllApply(HttpServletRequest request,
+                             HttpServletResponse response) throws ServletException, IOException, ParseException {
+        int userId_current = Integer.parseInt(request.getSession().getAttribute("userId_current").toString());
+        List<Vacate> vacates = vacateDao.getAllApply(userId_current);
+        request.setAttribute("allApply", vacates);
+        request.getRequestDispatcher("/note_for_leave_result.jsp").forward(request, response);
+    }
+
 
 }

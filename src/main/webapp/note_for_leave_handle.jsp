@@ -45,18 +45,19 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="post" class="form-horizontal" action="addVacateForm.vacate" id="applyForm">
+                    <form method="post" class="form-horizontal" action="isOrNotPermit.vacate" id="applyForm">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="name_apply_input" id="name_apply_input"
-                                value=" <%=vacate.getApply_name()%>"><p class="notice"></p>
+                                       value=" <%=vacate.getApply_name()%>">
+                                <p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">申请时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input id="time_apply" type="text" class="form-control" name="time_apply"
                                        data-date-format="yyyy-mm-dd"
-                                value=" <%=vacate.getTime()%>">
+                                       value=" <%=vacate.getTime()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
@@ -64,12 +65,12 @@
                             <label class="col-sm-2 control-label">所属部门<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control " name="department" id="apply_department_input"
-                               value="<%=vacate.getApply_depart_name()%>">
+                                       value="<%=vacate.getApply_depart_name()%>">
                             </div>
                             <label class="col-sm-2 control-label">岗位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control " name="position" id="apply_positon_input"
-                                value="<%=vacate.getApply_posi_name()%>">
+                                       value="<%=vacate.getApply_posi_name()%>">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -78,7 +79,7 @@
                             <div class="col-sm-4">
                                 <input id="time_start" type="text" class="form-control" name="time_start"
                                        data-date-format="yyyy-mm-dd"
-                                value="<%=vacate.getTime_start()%>">
+                                       value="<%=vacate.getTime_start()%>">
                                 <p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">结束时间<label style="color: red">*</label></label>
@@ -86,7 +87,7 @@
                                 <input id="time_end" type="text" class="form-control" name="time_end"
                                        data-date-format="yyyy-mm-dd"
                                        onchange="compareTime()"
-                                value="<%=vacate.getTime_end()%>">
+                                       value="<%=vacate.getTime_end()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
@@ -94,12 +95,12 @@
                             <label class="col-sm-2 control-label">审批人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control " name="position" id="admin_input"
-                                value=" <%=vacate.getAdmin_name()%>">
+                                       value=" <%=vacate.getAdmin_name()%>">
                             </div>
                             <label class="col-sm-2 control-label">审批人职位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input class="form-control " name="admin_position" id="admin_position"
-                                value=" <%=vacate.getAdmin_posi_name()%>">
+                                       value=" <%=vacate.getAdmin_posi_name()%>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -107,7 +108,7 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="total_time" id="total_time"
                                        onchange="countTotalTime()"
-                                value=" <%=vacate.getDays()%>">
+                                       value=" <%=vacate.getDays()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
@@ -115,23 +116,31 @@
                             <label class="col-sm-2 control-label">请假原因<label style="color: red">*</label></label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="reason_input" id="reason_input"
-                                value=" <%=vacate.getReason()%>">
+                                       value=" <%=vacate.getReason()%>">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>
                 </div>
-
+                <form style="display: none;" id="isPermit" method="post" action="isOrNotPermit.vacate">
+                    <input  value="permit" type="text" name="isOrNotPermit">
+                    <input  value="<%=vacate.getId_vacate()%>" type="text" name="id_vacate">
+                </form>
+               <%-- <form style="display: none" id="notPermit" method="post" action="isOrNotPermit.vacate">
+                    <input style="display: none" value="notPermit" type="text" name="isOrNotPermit">
+                    <input style="display: none" value="<%=vacate.getId_vacate()%>" type="text" name="id_vacate">
+                </form>--%>
                 <div class="ibox-content" style="height: 60px">
                     <div class="form-group">
                         <div class="col-sm-5 col-sm-offset-5">
                             <button class="btn btn-primary" style="margin-right: 50px;"
-                                    onclick="submitApplyAction()">同意申请
+                                    onclick="permitAction()">同意申请
                             </button>
                             <button class="btn btn-primary" style="margin-right: 50px;"
-                                    onclick="submitApplyAction()">不同意
+                                    onclick="document.getElementById(notPermit).onsubmit()">不同意
                             </button>
+                            <a href="getAllVacate.vacate" type="button" class="btn btn-default">取消</a>
                         </div>
                     </div>
 
@@ -239,6 +248,12 @@
             }
         });
     });
+
+    function permitAction(){
+        debugger
+        $("#isPermit").submit();
+    }
+
 
 </script>
 </body>

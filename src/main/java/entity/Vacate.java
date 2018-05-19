@@ -34,13 +34,16 @@ public class Vacate {
 
     private String admin_posi_name;//审核人职位名字
 
+    private String status;
+
+
     public Vacate() {
     }
 
     public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval,
                   String reason, String days, String apply_name, String admin_name,
                   int apply_depart_id, int apply_posi_id, int admin_posi_id,
-                  String apply_depart_name,String apply_posi_name,String admin_posi_name) {
+                  String apply_depart_name, String apply_posi_name, String admin_posi_name,String status) {
         this.id_vacate = id_vacate;
         this.id_user = id_user;
         this.time = time;
@@ -54,9 +57,10 @@ public class Vacate {
         this.apply_depart_id = apply_depart_id;
         this.apply_posi_id = apply_posi_id;
         this.admin_posi_id = admin_posi_id;
-        this.apply_depart_name=apply_depart_name;
-        this.apply_posi_name=apply_posi_name;
-        this.admin_posi_name=admin_posi_name;
+        this.apply_depart_name = apply_depart_name;
+        this.apply_posi_name = apply_posi_name;
+        this.admin_posi_name = admin_posi_name;
+        this.status=status;
     }
 
     public int getId_vacate() {
@@ -186,5 +190,13 @@ public class Vacate {
 
     public void setAdmin_posi_name(String admin_posi_name) {
         this.admin_posi_name = admin_posi_name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

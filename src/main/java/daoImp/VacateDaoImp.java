@@ -29,6 +29,7 @@ public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
         return update(sql,apply_name_id,time_apply,time_start,time_end,admin_user_id,reason_input,total_time,status);
     }
 
+
     @Override
     public List<Vacate> getAllVacate(int id) {
         String sql="select * from(Select a.ID_VACATE,a.REASON,a.time,a.TIME_END,a.TIME_START,a.days,a.id_approval,a.id_user,a.status,\n" +
@@ -40,6 +41,16 @@ public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
     }
 
     @Override
+    public List<Vacate> getAllApply(int id) {
+        String sql="select * from(Select a.ID_VACATE,a.REASON,a.time,a.TIME_END,a.TIME_START,a.days,a.id_approval,a.id_user,a.status,\n" +
+                "                b.name as apply_name,b.ID_DEPARTMENT as apply_depart_id,b.ID_POSITION as apply_posi_id,c.ID_POSITION as admin_posi_id,c.name as admin_name\n" +
+                "                from vacate a\n" +
+                "                join user b on a.id_user = b.ID_USER\n" +
+                "                join user c on a.id_approval = c.id_user)as d where id_user=?";
+        return getForList(sql,id);
+    }
+
+    @Override
     public Vacate getVacateForm(int id) {
         String sql="select * from(Select a.ID_VACATE,a.REASON,a.time,a.TIME_END,a.TIME_START,a.days,a.id_approval,a.id_user,\n" +
                 "                b.name as apply_name,b.ID_DEPARTMENT as apply_depart_id,b.ID_POSITION as apply_posi_id,c.ID_POSITION as admin_posi_id,c.name as admin_name\n" +
@@ -47,6 +58,18 @@ public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
                 "                join user b on a.id_user = b.ID_USER\n" +
                 "                join user c on a.id_approval = c.id_user)as d where id_vacate=?";
         return get(sql,id);
+    }
+
+    @Override
+    public int updateToPermit(int id) {
+        String sql="update vacate set status='通过' where id_vacate=?";
+        return update(sql,id);
+    }
+
+    @Override
+    public int updateToNotPermit(int id) {
+        String sql="update vacate set status='未通过' where id_vacate=?";
+        return update(sql,id);
     }
 
 
