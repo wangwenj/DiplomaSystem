@@ -82,4 +82,14 @@
         <url-pattern>*.departDelete</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>NoticeServlet</servlet-name>
+        <servlet-class>servlet.NoticeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NoticeServlet</servlet-name>
+        <url-pattern>*.notice</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
