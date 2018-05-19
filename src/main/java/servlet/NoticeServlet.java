@@ -1,5 +1,7 @@
 package servlet;
 
+import daoImp.NoticeDaoImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NoticeServlet extends HttpServlet {
+    NoticeDaoImpl noticeDao=new NoticeDaoImpl();
     public NoticeServlet() {
         super();
     }
@@ -59,8 +62,8 @@ public class NoticeServlet extends HttpServlet {
         String notice_content=request.getParameter("notice_content");
         int userId_current = Integer.parseInt(request.getSession().getAttribute("userId_current").toString());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
+        String write_date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        noticeDao.submitNotice(notice_title,notice_content,userId_current,write_date);
 
     }
 

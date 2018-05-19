@@ -45,7 +45,7 @@
                 <form method="post" action="submitNotice.notice" id="staff_modal">
                     <div class="form-group row">
                         <div class="col-md-1 modal-label">
-                            <label class="control-label" style="font-size: large; padding-left: 30px;
+                            <label class="control-label" style="font-size: large; padding-left: 20px;
                     margin-top: 8px;">题目</label></div>
                         <div class="col-md-11">
                             <input type="text" class="form-control" id="notice_title" name="notice_title"
