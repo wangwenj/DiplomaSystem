@@ -79,23 +79,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10">
+                        <div class="col-md-1 modal-label"><label class="control-label">工号:</label></div>
+                        <div class="col-md-11">
                             <input type="text" class="form-control" id="id_add_input" name="id_user"
                                    placeholder="请输入1--15个数字"
                                    onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个数字','工号重复','工号可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
-                        <div class="col-md-10">
+                        <div class=" modal-label"><label class="control-label">密码:</label></div>
+                        <div class="col-md-11">
                             <input type="text" class="form-control" name="password"
                                    placeholder="请输入1--15个字符" id="password_add_input" value="2233"
                                    onchange="judgeLength(this.value,15,'#password_add_input','请输入1--15个字符','addModal')">
                             <p class="notice"></p>
                         </div>
-                    </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
                         <div class="col-md-10">
