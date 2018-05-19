@@ -59,6 +59,7 @@
                                 <th data-field="departName" class="col-lg-2">申请人</th>
                                 <th data-field="departId" class="col-lg-2">申请时间</th>
                                 <th data-field="intro" class="col-lg-2">总时长</th>
+                                <th data-field="status" class="col-lg-2">状态</th>
                                 <th data-field="option" class="col-lg-2">操作</th>
                             </tr>
                             </thead>
@@ -72,6 +73,8 @@
                                 <td><%=vacate.getTime()%>
                                 </td>
                                 <td><%=vacate.getDays()%>
+                                </td>
+                                <td>未审批
                                 </td>
                                 <td>
                                     <a href="getVacateForm.vacate?id=<%=vacate.getId_vacate()%>" type="button" class="btn btn-outline btn-default">
