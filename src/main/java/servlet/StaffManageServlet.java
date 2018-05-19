@@ -1,9 +1,11 @@
 package servlet;
 
 import dao.UserDao_1;
+import dao.UserDeleteDa0;
 import daoImp.DepartmentImp;
 import daoImp.PositionImp;
 import daoImp.UserDao1Imp;
+import daoImp.UserDeleteDaoImpl;
 import entity.Department;
 import entity.Position;
 import entity.User;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class StaffManageServlet extends HttpServlet {
@@ -26,6 +30,8 @@ public class StaffManageServlet extends HttpServlet {
     DepartmentImp departmentImp = new DepartmentImp();
 
     PositionImp positionImp = new PositionImp();
+
+    UserDeleteDa0 userDeleteDa0=new UserDeleteDaoImpl();
 
     public StaffManageServlet() {
         super();
@@ -103,7 +109,6 @@ public class StaffManageServlet extends HttpServlet {
         request.setAttribute("positions", positions);
         request.setAttribute("departments", departments);
         request.getRequestDispatcher("/user_manage.jsp").forward(request, response);
-
     }
 
     /*
@@ -141,7 +146,10 @@ public class StaffManageServlet extends HttpServlet {
     private void deleteUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteUserId"));
-        System.out.println(id);
+        User user=userDao_1.countId(id);//获取删除的用户的信息
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        userDeleteDa0.add_user_delete(user.getId_user(),user.getPassword(),user.getName(), user.getGender(), user.getId_department(), user.getId_position(),user.getTel(),user.getAddress(),user.getIntro(),user.getRemark(),date,user.getRole());
         userDao_1.deleteUser(id);
         this.getAll(request, response);
     }
