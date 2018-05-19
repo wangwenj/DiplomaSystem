@@ -216,8 +216,8 @@
                 var apply_info=JSON.parse(result);//转成json对象
                 var apply_info_content=apply_info.apply_info;//后面内容是数组
                 var content=apply_info_content[0];//数组第一个
-                var d_name=content.d_name;
-                var p_name=content.p_name;
+                var d_name=content.apply_depart_name;
+                var p_name=content.apply_posi_name;
 
                 debugger
                 $("#apply_department_input").val(d_name);
@@ -236,7 +236,7 @@
                 debugger
                 var admin_user_info=JSON.parse(result);
                 var admin_user_info_content=admin_user_info.admin_user_info;
-                var p_name=admin_user_info_content[0].p_name;
+                var p_name=admin_user_info_content[0].admin_posi_name;
                 $("#admin_position").val(p_name);
             }
         });

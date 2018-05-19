@@ -126,7 +126,7 @@ public class VacateServlet extends HttpServlet {
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("name_apply");
 
-        Vacate apply_info = vacateDao.getInfo(name);
+        Vacate apply_info = vacateDao.getApplyInfo(name);
         response.setContentType("text/html; charset=utf-8");
         //调用JSONArray.fromObject方法把array中的对象转化为JSON格式的数组
         JSONArray json = JSONArray.fromObject(apply_info);
@@ -147,7 +147,7 @@ public class VacateServlet extends HttpServlet {
                                   HttpServletResponse response) throws ServletException, IOException, ParseException {
 
         String admin_user_name = request.getParameter("admin_user_id");
-        Vacate admin_user_info = vacateDao.getInfo(admin_user_name);
+        Vacate admin_user_info = vacateDao.getAdminInfo(admin_user_name);
         response.setContentType("text/html; charset=utf-8");
         //调用JSONArray.fromObject方法把array中的对象转化为JSON格式的数组
         JSONArray json = JSONArray.fromObject(admin_user_info);

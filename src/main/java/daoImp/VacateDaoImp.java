@@ -10,10 +10,17 @@ import java.util.List;
 public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
 
     @Override
-    public Vacate getInfo(String name) {
-        String sql="select `POSITION`.P_NAME,`DEPARTMENT`.D_NAME FROM ((user INNER JOIN `DEPARTMENT` ON `USER`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT) INNER JOIN `POSITION` ON `POSITION`.`ID_POSITION`=`USER`.ID_POSITION) where `USER`.`NAME`=?";
+    public Vacate getApplyInfo(String name) {
+        String sql="select `POSITION`.P_NAME as apply_posi_name,`DEPARTMENT`.D_NAME as apply_depart_name FROM ((user INNER JOIN `DEPARTMENT` ON `USER`.ID_DEPARTMENT=DEPARTMENT.ID_DEPARTMENT) INNER JOIN `POSITION` ON `POSITION`.`ID_POSITION`=`USER`.ID_POSITION) where `USER`.`NAME`=?";
         Vacate userInfo=(Vacate)get(sql,name);
         return userInfo;
+    }
+
+    @Override
+    public Vacate getAdminInfo(String name) {
+        String sql="select `POSITION`.P_NAME as admin_posi_name  from  user INNER JOIN `POSITION` ON `POSITION`.`ID_POSITION`=`USER`.ID_POSITION  where `USER`.`NAME`=?";
+        Vacate adminInfo=(Vacate)get(sql,name);
+        return adminInfo;
     }
 
     @Override
