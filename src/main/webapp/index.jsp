@@ -109,7 +109,7 @@
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">公告管理</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="edit_notice.html">编写公告</a>
+                        <li><a class="J_menuItem" href="edit_notice.notice">编写公告</a>
                         </li>
                         <li><a class="J_menuItem" href="audit_notice.html">公告审核</a>
                         </li>
@@ -158,7 +158,8 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <div style="margin-right: 50px;margin-top: 8px;">
                         <button type="button" class="btn btn-outline btn-default"
-                                style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">
+                                style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke"
+                        onclick="">
                             签到
                             <i class="glyphicon glyphicon-log-in" aria-hidden="true"></i>
                         </button>
