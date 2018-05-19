@@ -101,6 +101,8 @@
                         </li>
                         <li><a class="J_menuItem" href="getAllVacate.vacate">请假管理</a>
                         </li>
+                        <li><a class="J_menuItem" href="getAllApply.vacate">申请结果</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
