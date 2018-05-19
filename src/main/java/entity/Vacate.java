@@ -6,7 +6,9 @@ public class Vacate {
 
     private int id_user;
 
-    private String time;
+    private String apply_name;//申请人的姓名
+
+    private String time;//申请时间
 
     private String time_start;
 
@@ -14,18 +16,23 @@ public class Vacate {
 
     private int id_approval;
 
+    private String admin_name;//审批人姓名
+
     private String reason;
 
     private String days;
 
-    private String p_name;
+    private int apply_depart_id;
 
-    private String d_name;
+    private int apply_posi_id;
+
+    private int admin_posi_id;
 
     public Vacate() {
     }
 
-    public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval, String reason, String days, String p_name, String d_name) {
+    public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval,
+                  String reason, String days, String apply_name,String admin_name,int apply_depart_id,int apply_posi_id,int admin_posi_id) {
         this.id_vacate = id_vacate;
         this.id_user = id_user;
         this.time = time;
@@ -34,8 +41,11 @@ public class Vacate {
         this.id_approval = id_approval;
         this.reason = reason;
         this.days = days;
-        this.p_name = p_name;
-        this.d_name = d_name;
+        this.apply_name = apply_name;
+        this.admin_name=admin_name;
+        this.apply_depart_id=apply_depart_id;
+        this.apply_posi_id=apply_posi_id;
+        this.admin_posi_id=admin_posi_id;
     }
 
     public int getId_vacate() {
@@ -102,19 +112,44 @@ public class Vacate {
         this.days = days;
     }
 
-    public String getP_name() {
-        return p_name;
+
+    public String getApply_name() {
+        return apply_name;
     }
 
-    public void setP_name(String p_name) {
-        this.p_name = p_name;
+    public void setApply_name(String apply_name) {
+        this.apply_name = apply_name;
     }
 
-    public String getD_name() {
-        return d_name;
+    public String getAdmin_name() {
+        return admin_name;
     }
 
-    public void setD_name(String d_name) {
-        this.d_name = d_name;
+    public void setAdmin_name(String admin_name) {
+        this.admin_name = admin_name;
+    }
+
+    public int getApply_depart_id() {
+        return apply_depart_id;
+    }
+
+    public void setApply_depart_id(int apply_depart_id) {
+        this.apply_depart_id = apply_depart_id;
+    }
+
+    public int getApply_posi_id() {
+        return apply_posi_id;
+    }
+
+    public void setApply_posi_id(int apply_posi_id) {
+        this.apply_posi_id = apply_posi_id;
+    }
+
+    public int getAdmin_posi_id() {
+        return admin_posi_id;
+    }
+
+    public void setAdmin_posi_id(int admin_posi_id) {
+        this.admin_posi_id = admin_posi_id;
     }
 }

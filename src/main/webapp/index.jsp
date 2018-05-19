@@ -99,7 +99,7 @@
                         </li>
                         <li><a class="J_menuItem" href="sign_manage.html">签到管理</a>
                         </li>
-                        <li><a class="J_menuItem" href="note_for_leave_manage.html">请假管理</a>
+                        <li><a class="J_menuItem" href="getAllVacate.vacate">请假管理</a>
                         </li>
                     </ul>
                 </li>

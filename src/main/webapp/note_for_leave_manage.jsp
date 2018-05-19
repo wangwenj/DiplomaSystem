@@ -1,4 +1,4 @@
-<%--
+<%@ page import="entity.Vacate" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/18
@@ -11,7 +11,6 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%
-    List<Position> positions = (List<Position>) request.getAttribute("positions");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>职位管理</title>
+    <title>请假管理</title>
 
     <link rel="shortcut icon" href="WEB-INF/favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -40,185 +39,39 @@
     </style>
 </head>
 <body class="gray-bg">
-
-<%--增加的模态框--%>
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">增加职位</h4>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="addPosition.posi" id="add_modal">
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">职位:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" name="d_name" id="name_add_input"
-                                   placeholder="请输入1--15个字符"
-                                   onchange="checkRepeat('name','add',15,'judgeRepeat_P_name.posi','addModal','请输入1--15个字符','职位名称重复','职位名称可用')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">代码:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" name="d_id" id="id_add_input"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','add',15,'judgeRepeat_P_id.posi','addModal','请输入1--15个数字','职位代码重复','职位代码可用')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">简介:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" name="d_intro" id="intro_add_input"
-                                   placeholder="请输入1--50个字符"
-                                   onchange="judgeLength(this.value,50,'#intro_add_input','请输入1--50个字符','addModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="submitAddAction()">确认
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<%--修改的模态框--%>
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">修改职位</h4>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="updatePosition.posi" id="update_modal">
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">职位:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="name_update_input" name="m_name"
-                                   placeholder="请输入1--15个字符"
-                                   onchange="checkRepeat('name','update',15,'judgeRepeat_P_name.posi','updateModal','请输入1--15个字符','部门名字重复','部门名字可用')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">代码:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="id_update_input" name="m_id"
-                                   placeholder="请输入1--15个数字" )
-                                   readonly>
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 modal-label"><label class="control-label">简介:</label></div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="intro_update_input" name="m_intro"
-                                   placeholder="请输入1--100个字符"
-                                   onchange="judgeLength(this.value,50,'#intro_update_input','请输入1--50个字符','updateModal','格式正确')">
-                            <p class="notice"></p>
-                        </div>
-                    </div>
-
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="submitUpdateAction()">确认
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<%--删除的模态框--%>
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
-    <div class="modal-dialog">
-        <div class="modal-content message_align">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <h4 class="modal-title">提示信息</h4>
-            </div>
-            <form method="post" action="deletePosition.posi" id="deleteModalForm">
-                <div class="modal-body">
-                    <p style="display: inline-block">您确认要删除&nbsp;
-                    <div style="display: inline-block;font-size: larger;color: black;"
-                         id="delete_name"></div>&nbsp;吗？</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="text" id="deleteId" style="display: none" name="deleteId">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <a onclick="document.getElementById('deleteModalForm').submit();"
-                       class="btn btn-success"
-                       data-dismiss="modal">确定</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="ibox ">
             <div class="ibox-content">
                 <div class="example-wrap">
-                    </button><h4 class="example-title" style="display: inline-block;">部门管理</h4>
+                    </button><h4 class="example-title" style="display: inline-block;">请假管理</h4>
                     <div class="example">
                         <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                            <button class="btn btn-outline btn-default"
-                                    data-toggle="modal"
-                                    data-target="#addModal"
-                                    style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">
-                                增加
-                                <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                            </button>
+
 
                         </div>
                         <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                             <thead>
                             <tr>
-                                <th data-field="departName" class="col-lg-2">部门</th>
-                                <th data-field="departId" class="col-lg-2">代码</th>
-                                <th data-field="intro" class="col-lg-2">简介</th>
+                                <th data-field="departName" class="col-lg-2">申请人</th>
+                                <th data-field="departId" class="col-lg-2">申请时间</th>
+                                <th data-field="intro" class="col-lg-2">总时长</th>
                                 <th data-field="option" class="col-lg-2">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <%
-                                for (Position position : positions) {
-                            %>
                             <tr>
-                                <td><%=position.getP_name()%>
-                                </td>
-                                <td><%=position.getId_position()%>
-                                </td>
-                                <td><%=position.getIntro()%>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline btn-default"
-                                            onclick="updateAction(this)">
-                                        修改
+                                <td id="apply_name"></td>
+                                <td id="apply_time"></td>
+                                <td id="total_time"></td>
+                                <td id="option">
+                                    <a href="getVacateForm.vacate?id=<%%>" type="button" class="btn btn-outline btn-default">
+                                        查看详情
                                         <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline btn-default"
-                                            onclick="deleteAction(this,<%=position.getId_position()%>)">
-                                        删除
-                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                    </button>
+                                    </a>
+
                                 </td>
                             </tr>
-                            <%
-                                }
-                            %>
                             </tbody>
                         </table>
                     </div>
