@@ -1,6 +1,4 @@
-<%@ page import="entity.Position" %>
-<%@ page import="entity.Department" %>
-<%@ page import="entity.User" %>
+<%@ page import="entity.Vacate" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
@@ -14,11 +12,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%
-    List<Position> positions = (List<Position>) request.getAttribute("positions");
-    List<Department> departments = (List<Department>) request.getAttribute("departments");
-    List<User> userAll = (List<User>) request.getAttribute("userAll");
-    List<User> managers = (List<User>) request.getAttribute("managers");
-    User user_apply= (User) request.getAttribute("user_apply");
+    List<Vacate> vacate = (List<Vacate>) request.getAttribute("oneVacate");
+
 %>
 <html>
 <head>
@@ -49,13 +44,16 @@
                         </a>
                     </div>
                 </div>
+                <%
+                    for (Vacate oneVacate : vacate){
+                %>
                 <div class="ibox-content">
                     <form method="post" class="form-horizontal" action="addVacateForm.vacate" id="applyForm">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="name_apply_input" id="name_apply_input">
-                                <p class="notice"></p>
+                                <%=oneVacate.%><p class="notice"></p>
                             </div>
                             <label class="col-sm-2 control-label">申请时间<label style="color: red">*</label></label>
                             <div class="col-sm-4">
@@ -94,15 +92,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">审批人<label style="color: red">*</label></label>
                             <div class="col-sm-4">
-                                <%--<input type="text" class="form-control " name="position" id="admin_input">--%>
-                                    <select class="form-control " name="admin_user" id="admin_input">
-                                        <option value="">请选择</option>
-                                        <%for (int j = 0; j < managers.size(); j++) { %>
-                                        <option value="<%=managers.get(j).getName()%>">
-                                            <%=managers.get(j).getName()%>
-                                        </option>
-                                        <% }%>
-                                    </select>
+                                <input type="text" class="form-control " name="position" id="admin_input">
                             </div>
                             <label class="col-sm-2 control-label">审批人职位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
@@ -120,14 +110,15 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">请假原因<label style="color: red">*</label></label>
                             <div class="col-sm-10">
-                                <input  type="text" class="form-control" name="reason_input" id="reason_input">
+                                <input type="text" class="form-control" name="reason_input" id="reason_input">
                                 <p class="notice"></p>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>
                 </div>
-                <div class="ibox-content"  style="height: 60px">
+                <%}%>
+                <div class="ibox-content" style="height: 60px">
                     <div class="form-group">
                         <div class="col-sm-5 col-sm-offset-5">
                             <button class="btn btn-primary" style="margin-right: 50px;"
@@ -203,21 +194,21 @@
             if (reason_input == "") setWrongNotice("#reason_input", "请输入1--100字的理由", "不能为空", null);
         }
     }
-    
-    $("#name_apply_input").change(function(){
 
-        var name_apply=this.value;
+    $("#name_apply_input").change(function () {
+
+        var name_apply = this.value;
         $.ajax({
-            url:"getUserApplyInfo.vacate",
-            type:"POST",
-            data:{"name_apply":name_apply},
-            success:function (result) {
+            url: "getUserApplyInfo.vacate",
+            type: "POST",
+            data: {"name_apply": name_apply},
+            success: function (result) {
                 debugger
-                var apply_info=JSON.parse(result);//转成json对象
-                var apply_info_content=apply_info.apply_info;//后面内容是数组
-                var content=apply_info_content[0];//数组第一个
-                var d_name=content.d_name;
-                var p_name=content.p_name;
+                var apply_info = JSON.parse(result);//转成json对象
+                var apply_info_content = apply_info.apply_info;//后面内容是数组
+                var content = apply_info_content[0];//数组第一个
+                var d_name = content.d_name;
+                var p_name = content.p_name;
 
                 debugger
                 $("#apply_department_input").val(d_name);
@@ -226,17 +217,17 @@
         });
     });
 
-    $("#admin_input").change(function(){
-        var admin_user_id=this.value;
+    $("#admin_input").change(function () {
+        var admin_user_id = this.value;
         $.ajax({
-            url:"getUserAdminInfo.vacate",
-            type:"POST",
-            data:{"admin_user_id":admin_user_id},
-            success:function(result){
+            url: "getUserAdminInfo.vacate",
+            type: "POST",
+            data: {"admin_user_id": admin_user_id},
+            success: function (result) {
                 debugger
-                var admin_user_info=JSON.parse(result);
-                var admin_user_info_content=admin_user_info.admin_user_info;
-                var p_name=admin_user_info_content[0].p_name;
+                var admin_user_info = JSON.parse(result);
+                var admin_user_info_content = admin_user_info.admin_user_info;
+                var p_name = admin_user_info_content[0].p_name;
                 $("#admin_position").val(p_name);
             }
         });

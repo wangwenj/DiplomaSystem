@@ -24,15 +24,23 @@ public class Vacate {
 
     private int apply_depart_id;
 
+    private String apply_depart_name;//申请部门名字
+
     private int apply_posi_id;
 
+    private String apply_posi_name;//申请职位名字
+
     private int admin_posi_id;
+
+    private String admin_posi_name;//审核人职位名字
 
     public Vacate() {
     }
 
     public Vacate(int id_vacate, int id_user, String time, String time_start, String time_end, int id_approval,
-                  String reason, String days, String apply_name,String admin_name,int apply_depart_id,int apply_posi_id,int admin_posi_id) {
+                  String reason, String days, String apply_name, String admin_name,
+                  int apply_depart_id, int apply_posi_id, int admin_posi_id,
+                  String apply_depart_name,String apply_posi_name,String admin_posi_name) {
         this.id_vacate = id_vacate;
         this.id_user = id_user;
         this.time = time;
@@ -42,10 +50,13 @@ public class Vacate {
         this.reason = reason;
         this.days = days;
         this.apply_name = apply_name;
-        this.admin_name=admin_name;
-        this.apply_depart_id=apply_depart_id;
-        this.apply_posi_id=apply_posi_id;
-        this.admin_posi_id=admin_posi_id;
+        this.admin_name = admin_name;
+        this.apply_depart_id = apply_depart_id;
+        this.apply_posi_id = apply_posi_id;
+        this.admin_posi_id = admin_posi_id;
+        this.apply_depart_name=apply_depart_name;
+        this.apply_posi_name=apply_posi_name;
+        this.admin_posi_name=admin_posi_name;
     }
 
     public int getId_vacate() {
@@ -151,5 +162,29 @@ public class Vacate {
 
     public void setAdmin_posi_id(int admin_posi_id) {
         this.admin_posi_id = admin_posi_id;
+    }
+
+    public String getApply_depart_name() {
+        return apply_depart_name;
+    }
+
+    public void setApply_depart_name(String apply_depart_name) {
+        this.apply_depart_name = apply_depart_name;
+    }
+
+    public String getApply_posi_name() {
+        return apply_posi_name;
+    }
+
+    public void setApply_posi_name(String apply_posi_name) {
+        this.apply_posi_name = apply_posi_name;
+    }
+
+    public String getAdmin_posi_name() {
+        return admin_posi_name;
+    }
+
+    public void setAdmin_posi_name(String admin_posi_name) {
+        this.admin_posi_name = admin_posi_name;
     }
 }

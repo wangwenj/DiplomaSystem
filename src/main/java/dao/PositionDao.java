@@ -15,5 +15,7 @@ public interface PositionDao {
 
     Position checkRepeatP_Id(int id);
 
+    String findP_name(int id);
+
     void deletePosition(int id);
 }

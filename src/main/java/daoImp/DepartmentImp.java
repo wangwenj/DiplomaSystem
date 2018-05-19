@@ -38,6 +38,12 @@ public class DepartmentImp extends DAO<Department> implements DepartmentDao {
     }
 
     @Override
+    public String findD_name(int id) {
+        String sql="select d_name from department where id_department=?";
+        return getForValue(sql,id);
+    }
+
+    @Override
     public void deleteDepart(int id) {
         String sql="delete from department where id_department=?";
         update(sql,id);

@@ -15,5 +15,7 @@ public interface DepartmentDao {
 
     Department checkRepeatD_Id(int id);
 
+    String findD_name(int id);
+
     void deleteDepart(int id);
 }

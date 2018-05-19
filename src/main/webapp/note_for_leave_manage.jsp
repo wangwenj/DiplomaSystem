@@ -1,4 +1,5 @@
-<%@ page import="entity.Vacate" %><%--
+<%@ page import="entity.Vacate" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/18
@@ -10,7 +11,9 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+
 <%
+    List<Vacate> vacates= (List<Vacate>) request.getAttribute("allVacates");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,18 +63,27 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <%
+                                for (Vacate vacate : vacates) {
+                            %>
                             <tr>
-                                <td id="apply_name"></td>
-                                <td id="apply_time"></td>
-                                <td id="total_time"></td>
-                                <td id="option">
-                                    <a href="getVacateForm.vacate?id=<%%>" type="button" class="btn btn-outline btn-default">
+                                <td><%=vacate.getApply_name()%>
+                                </td>
+                                <td><%=vacate.getTime()%>
+                                </td>
+                                <td><%=vacate.getDays()%>
+                                </td>
+                                <td>
+                                    <a href="getVacateForm.vacate?id=<%=vacate.getId_vacate()%>" type="button" class="btn btn-outline btn-default">
                                         查看详情
                                         <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                     </a>
 
                                 </td>
                             </tr>
+                            <%
+                                }
+                            %>
                             </tbody>
                         </table>
                     </div>

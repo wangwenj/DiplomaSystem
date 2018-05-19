@@ -38,6 +38,12 @@ public class PositionImp extends DAO<Position> implements PositionDao {
     }
 
     @Override
+    public String findP_name(int id) {
+        String sql="select p_name from position where id_position=?";
+        return getForValue(sql,id);
+    }
+
+    @Override
     public void deletePosition(int id) {
         String sql = "delete from position where id_position=?";
         update(sql, id);

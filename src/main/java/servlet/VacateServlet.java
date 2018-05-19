@@ -171,8 +171,8 @@ public class VacateServlet extends HttpServlet {
         int admin_user_id = userDao_1.countUser(admin_user).getId_user();
         String total_time = request.getParameter("total_time");
         String reason_input = request.getParameter("reason_input");
-
-        vacateDao.add(apply_name_id, time_apply, time_start, time_end, admin_user_id, reason_input, total_time);
+        String status="待审批";
+        vacateDao.add(apply_name_id, time_apply, time_start, time_end, admin_user_id,total_time, reason_input ,status);
         this.getAll(request, response);
     }
 
@@ -182,7 +182,28 @@ public class VacateServlet extends HttpServlet {
     private void getAllVacate(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<Vacate> vacates = vacateDao.getAllVacate();
-
-
+        //根据id获取department_id,通过id查找name
+       /* for (int i = 0; i < vacates.size(); i++) {
+            String apply_depart_name = departmentDao.findD_name(vacates.get(i).getApply_depart_id());
+            String apply_posi_name=positionDao.findP_name(vacates.get(i).getApply_posi_id());
+            String admin_posi_name=positionDao.findP_name(vacates.get(i).getAdmin_posi_id());
+            vacates.get(i).setApply_depart_name(apply_depart_name);
+            vacates.get(i).setApply_posi_name(apply_posi_name);
+            vacates.get(i).setAdmin_posi_name(admin_posi_name);
+        }*/
+        request.setAttribute("allVacates", vacates);
+        request.getRequestDispatcher("/note_for_leave_manage.jsp").forward(request, response);
     }
+
+    private void getVacateForm(HttpServletRequest request,
+                               HttpServletResponse response) throws ServletException, IOException, ParseException {
+        int id= Integer.parseInt(request.getParameter("id"));
+        Vacate vacate = vacateDao.getVacateForm(id);
+        vacate.setApply_depart_name(departmentDao.findD_name(vacate.getApply_depart_id()));
+        vacate.setApply_posi_name(positionDao.findP_name(vacate.getApply_posi_id()));
+        vacate.setAdmin_posi_name(positionDao.findP_name(vacate.getAdmin_posi_id()));
+        request.setAttribute("oneVacate",vacate);
+        request.getRequestDispatcher("/note_for_leave_handle.jsp").forward(request,response);
+    }
+
 }
