@@ -30,13 +30,13 @@ public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
     }
 
     @Override
-    public List<Vacate> getAllVacate() {
-        String sql="Select a.ID_VACATE,a.REASON,a.time,a.TIME_END,a.TIME_START,a.days,a.id_approval,a.id_user,\n" +
+    public List<Vacate> getAllVacate(int id) {
+        String sql="select * from(Select a.ID_VACATE,a.REASON,a.time,a.TIME_END,a.TIME_START,a.days,a.id_approval,a.id_user,a.status,\n" +
                 "                b.name as apply_name,b.ID_DEPARTMENT as apply_depart_id,b.ID_POSITION as apply_posi_id,c.ID_POSITION as admin_posi_id,c.name as admin_name\n" +
                 "                from vacate a\n" +
                 "                join user b on a.id_user = b.ID_USER\n" +
-                "                join user c on a.id_approval = c.id_user";
-        return getForList(sql);
+                "                join user c on a.id_approval = c.id_user)as d where status='待审批' and id_approval=?";
+        return getForList(sql,id);
     }
 
     @Override

@@ -280,7 +280,7 @@
                     <div class="example-wrap">
                         <h4 class="example-title">用户管理</h4>
                         <div class="example">
-                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group" >
                                 <button class="btn btn-outline btn-default"
                                         data-toggle="modal"
                                         data-target="#addModal"
@@ -291,7 +291,7 @@
 
 
                             </div>
-                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
+                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true" data-method="post">
                                 <thead>
                                 <tr>
                                     <th data-field="name">姓名</th>
@@ -434,6 +434,8 @@
             if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "ModifyStaff");
         }
     }
+
+
 
 </script>
 </body>

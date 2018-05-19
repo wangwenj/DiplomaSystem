@@ -181,7 +181,8 @@ public class VacateServlet extends HttpServlet {
      * */
     private void getAllVacate(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
-        List<Vacate> vacates = vacateDao.getAllVacate();
+       int  userId_current= Integer.parseInt( request.getSession().getAttribute("userId_current").toString());
+        List<Vacate> vacates = vacateDao.getAllVacate(userId_current);
         //根据id获取department_id,通过id查找name
        /* for (int i = 0; i < vacates.size(); i++) {
             String apply_depart_name = departmentDao.findD_name(vacates.get(i).getApply_depart_id());
