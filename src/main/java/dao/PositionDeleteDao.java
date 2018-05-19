@@ -1,6 +1,6 @@
 package dao;
 
-import entity.PositonDelete;
+import entity.PositionDelete;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface PositionDeleteDao {
 
     void delete_position_delete(int id_position);
 
-    List<PositonDelete> getAll();
+    List<PositionDelete> getAll();
 
-    PositonDelete getOne(int id_position);
+    PositionDelete getOne(int id_position);
 }

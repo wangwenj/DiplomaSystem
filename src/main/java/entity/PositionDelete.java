@@ -1,15 +1,15 @@
 package entity;
 
-public class PositonDelete {
+public class PositionDelete {
     private  int id_position;
     private String p_name;
     private String intro;
     private String delete_time_position;
 
-    public PositonDelete() {
+    public PositionDelete() {
     }
 
-    public PositonDelete(int id_position, String p_name, String intro, String delete_time_position) {
+    public PositionDelete(int id_position, String p_name, String intro, String delete_time_position) {
         this.id_position = id_position;
         this.p_name = p_name;
         this.intro = intro;

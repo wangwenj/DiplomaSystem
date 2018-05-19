@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class UserDao1Imp extends DAO<User> implements UserDao_1 {
     @Override
-    public User getOne(String id_user) {
+    public User getOne(int id_user) {
         String sql="select * from USER where id_user=?";
-        User userEntity1 =(User)get(sql,id_user);
+        User userEntity1 =get(sql,id_user);
         return userEntity1;
     }
 

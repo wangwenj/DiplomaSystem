@@ -173,7 +173,7 @@
         <div class="ibox ">
             <div class="ibox-content">
                 <div class="example-wrap">
-                    </button><h4 class="example-title" style="display: inline-block;">部门管理</h4>
+                    </button><h4 class="example-title" style="display: inline-block;">职位管理</h4>
                     <div class="example">
                         <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                             <button class="btn btn-outline btn-default"
@@ -188,7 +188,7 @@
                         <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                             <thead>
                             <tr>
-                                <th data-field="departName" class="col-lg-2">部门</th>
+                                <th data-field="departName" class="col-lg-2">职位</th>
                                 <th data-field="departId" class="col-lg-2">代码</th>
                                 <th data-field="intro" class="col-lg-2">简介</th>
                                 <th data-field="option" class="col-lg-2">操作</th>
