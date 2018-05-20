@@ -1,16 +1,17 @@
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Message" %>
-<%@ page import="dao.MessageDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<Message> messageList= (List<Message>) request.getAttribute("messageList");
+    List<Message> manageMessageList= (List<Message>) request.getAttribute("manageMessageList");
 %>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>员工留言</title>
+
+    <title>留言管理</title>
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -25,40 +26,33 @@
         <div class="ibox ">
             <div class="ibox-content">
                 <div class="example-wrap">
-                    <h1 class="example-title">员工留言</h1>
+                    <h2 class="example-title">留言管理</h2>
                     <div class="example">
-                        <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-                            <a type="button" class="btn btn-outline btn-default"
-                                    style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke" href="writeButton.message">写留言
-                                <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                            </a>
-                        </div>
                         <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>id</th>
+                                <th>留言人</th>
+                                <th>时间</th>
                                 <th>留言内容</th>
-                                <th>留言时间</th>
-                                <th>回复人</th>
-                                <th>回复时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <%for(Message message:messageList){%>
+                                <%for(Message message:manageMessageList){%>
 
                                 <td><%=message.getId_message()%></td>
-                                <td><%=message.getWrite_content()%></td>
+                                <td><%=message.getWrite_name()%></td>
                                 <td><%=message.getWrite_time()%></td>
-                                <td><%=message.getReply_name()%></td>
-                                <td><%=message.getReply_time()%></td>
+                                <td><%=message.getWrite_content()%></td>
                                 <td>
-                                    <a href="deleteMessage.message?id=<%=message.getId_message()%>" type="button" class="btn btn-outline btn-default">
-                                        删除
+                                    <a type="button" href="replyButton.message?id=<%=message.getId_message()%>"  class="btn btn-outline btn-default">
+                                        回复
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </a>
                                 </td>
+
                                 <%}%>
                             </tr>
                             </tbody>

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 
 <head>
@@ -31,16 +32,19 @@
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h3>编写公告</h3>
+                    <h3>编写留言</h3>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
                     </div>
                 </div>
-                <form method="post" action="submitNotice.notice" id="staff_modal">
+                <form method="post" action="replyMessage.message" id="staff_modal">
+                    <div>
+                        <input type="text" style="display: none" name="id_message_reply" value="<%=(int)request.getAttribute("id_message")%>">
+                    </div>
                     <div class="ibox-content">
-                        <textarea id="editor" placeholder="这里输入内容" autofocus name="notice_content">
+                        <textarea id="editor" placeholder="这里输入内容" autofocus name="reply_content">
                         </textarea>
                     </div>
                 </form>
@@ -50,11 +54,9 @@
     </div>
     <div align="center">
         <form action="" method="">
-            <input type="button" value="取消" class="btn btn-primary"
-                   style="width: 80px;line-height: 20px;margin-right: 50px;">
-            <a type="submit" value="提交留言" class="btn btn-primary" style="margin-right:50px;"
-               onclick="document.getElementById(staff_modal).submit()">
-            </a>
+            <a onclick="document.getElementById('staff_modal').submit();"
+               class="btn btn-success"
+               data-dismiss="modal">确定</a>
         </form>
     </div>
 </div>

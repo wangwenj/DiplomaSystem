@@ -90,6 +90,14 @@
         <servlet-name>NoticeServlet</servlet-name>
         <url-pattern>*.notice</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+        <servlet-name>MessageServlet</servlet-name>
+        <servlet-class>servlet.MessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MessageServlet</servlet-name>
+        <url-pattern>*.message</url-pattern>
+    </servlet-mapping>
 
 </web-app>

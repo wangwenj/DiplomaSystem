@@ -126,10 +126,10 @@
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">公司留言</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="own_message.jsp">员工留言</a>
+                        <li><a class="J_menuItem" href="getAllToStaff.message">员工留言</a>
                         </li>
                         <%if(role.equals("管理员")){%>
-                        <li><a class="J_menuItem" href="message_manage.jsp">留言管理</a>
+                        <li><a class="J_menuItem" href="getAllToManage.message">留言管理</a>
                         </li>
                         <%}%>
                     </ul>
