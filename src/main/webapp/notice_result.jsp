@@ -1,18 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: winnifrede
-  Date: 2018/5/20
-  Time: 上午2:12
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="entity.Notice" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    Notice notice= (Notice) request.getAttribute("notice");
+%>
 <html>
 
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>编写留言</title>
+    <title>公告详情</title>
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -31,7 +30,7 @@
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h3>编写公告</h3>
+                    <h1>公告详情</h1>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -39,9 +38,17 @@
                     </div>
                 </div>
                 <form method="post" action="submitNotice.notice" id="staff_modal">
+                    <div class="form-group row">
+
+                        <div class="col-md-1 modal-label">
+                            <label class="control-label" style="font-size: large; padding-left: 20px;
+                    margin-top: 8px;">题目</label></div>
+                        <div class="col-md-11">
+                            <input type="text" class="form-control" id="notice_title" name="notice_title" value="<%=notice.getTitle()%>">
+                        </div>
+                    </div>
                     <div class="ibox-content">
-                        <textarea id="editor" placeholder="这里输入内容" autofocus name="notice_content">
-                        </textarea>
+                        <textarea id="editor" autofocus name="notice_content"><%=notice.getContent()%></textarea>
                     </div>
                 </form>
             </div>
@@ -50,11 +57,8 @@
     </div>
     <div align="center">
         <form action="" method="">
-            <input type="button" value="取消" class="btn btn-primary"
-                   style="width: 80px;line-height: 20px;margin-right: 50px;">
-            <a type="submit" value="提交留言" class="btn btn-primary" style="margin-right:50px;"
-               onclick="document.getElementById(staff_modal).submit()">
-            </a>
+            <a href="dealNotice.notice?id=<%=notice.getId_announcement()%>&oper=通过"  class="btn btn-success" data-dismiss="modal">通过</a>
+            <a href="dealNotice.notice?id=<%=notice.getId_announcement()%>&oper=未通过"  class="btn btn-success" data-dismiss="modal">不通过</a>
         </form>
     </div>
 </div>
@@ -76,4 +80,3 @@
 
 
 </html>
-

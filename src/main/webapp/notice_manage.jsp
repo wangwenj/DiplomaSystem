@@ -1,4 +1,5 @@
-<%--
+<%@ page import="entity.Notice" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/20
@@ -9,6 +10,7 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    List<Notice> notices= (List<Notice>) request.getAttribute("notices");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +39,9 @@
             margin-bottom: 0px;
         }
     </style>
+
+
+
 </head>
 <body class="gray-bg">
 
@@ -46,7 +51,7 @@
             <div class="ibox ">
                 <div class="ibox-content">
                     <div class="example-wrap">
-                        <h4 class="example-title">用户管理</h4>
+                        <h1 class="example-title">公告管理</h1>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group" >
 
@@ -54,42 +59,31 @@
                             <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true" data-method="post">
                                 <thead>
                                 <tr>
+                                    <th hidden>id</th>
                                     <th data-field="name">撰写人</th>
                                     <th data-field="id">撰写时间</th>
-                                    <th>公告题目</th>
+                                    <th>状态</th>
                                     <th data-field="sex">公告内容</th>
-                                    <th data-field="option">操作</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <%
-                                    for (User user : userAll) {
+                                    for (Notice notice : notices) {
                                 %>
                                 <tr>
-                                    <td><%=user.getName()%>
-                                    </td>
-                                    <td><%=user.getId_user()%>
-                                    </td>
-                                    <td><%=user.getRole()%></td>
-                                    <td><%=user.getGender()%>
-                                    </td>
+                                    <td><%=notice.getId_announcement()%></td>
+                                    <td><%=notice.getWrite_name()%></td>
+                                    <td><%=notice.getTime_submit()%></td>
+                                    <td><%=notice.getStatus()%> </td>
                                     <td>
-                                        <button type="button" class="btn btn-outline btn-default"
-                                                onclick="deleteUser(this,<%=user.getId_user()%>)">
-                                            删除
-                                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline btn-default"
-                                                onclick="deleteUser(this,<%=user.getId_user()%>)">
-                                            通过
-                                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline btn-default"
-                                                onclick="deleteUser(this,<%=user.getId_user()%>)">
-                                            未通过
-                                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                        </button>
+                                        <a href="getDetais.notice?id=<%=notice.getId_announcement()%>" type="button" class="btn btn-outline btn-default">
+                                            查看详情
+                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
+                                        </a>
+
                                     </td>
+
                                 </tr>
                                 <%
                                     }
@@ -114,80 +108,17 @@
         charset="UTF-8"></script>
 <script src="js/wwj.js"></script>
 <script>
-    var http = require("http");
-    var jsdom = require("jsdom");
-    var window = jsdom.jsdom().defaultView;
-    var $ = require('jquery')(window);
-    <!--modal框-->
-    $('#Modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var title = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text(title + '员工信息')
-        // modal.find('.modal-body input').val(title)
-    })
 
-    // 点击修改的确认按钮，给模态框加载信息并且弹出模态框
-    function update(obj, depId, posiId) {
-        var tds = $(obj).parent().parent().find('td');
-        $("#name_update_input").val((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#name_update_input").next(".notice").text(null);
-        $("#m_id_user").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_gender").val(tds.eq(2).text().replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_tel").val(tds.eq(5).text().replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_tel").next(".notice").text(null);
-        $("#m_address").val(tds.eq(6).text().replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_address").next(".notice").text(null);
-        $("#uptDep" + depId).attr("selected", true);
-        $("#uptPosi" + posiId).attr("selected", true);
-        $('#ModifyStaff').modal('show');
-    }
 
-    //点击删除按钮，给模态框传入此时的id值，显示该用户name
-    function deleteUser(obj, userId) {
-        var tds = $(obj).parent().parent().find('td');
-        $("#user_name").text((tds.eq(0).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $("#deleteUserId").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
-        $('#deleteModal').modal('show');
-    }
+    $(document).on("click",".details",function () {
+        //1、查询该电影信息
+        getMovie($(this).attr("detail-id"));
 
-    //判断增加的所有输入框是否为空
-    function submitAddAction() {
-        var name_input = $("#name_add_input").val();
-        var id_input = $("#id_add_input").val();
-        var pass_input = $("#password_add_input").val();
-        var tel_input = $("#tel_add_input").val();
-        var address_input = $("#address_add_input").val();
-        if (name_input !== "" && id_input !== "" && pass_input !== "" && tel_input !== "" && address_input !== "") {
-            $('#staff_modal').submit();
-        }
-        else {
-            if (name_input == "") setWrongNotice("#name_add_input", "请输入1--15个字符", "不能为空", "addModal");
-            if (id_input == "") setWrongNotice("#id_add_input", "请输入1--15个数字", "不能为空", "addModal");
-            if (pass_input == "") setWrongNotice("#password_add_input", "请输入1--15个字符", "不能为空", "addModal");
-            if (tel_input == "") setWrongNotice("#tel_add_input", "请输入1--15个数字", "不能为空", "addModal");
-            if (address_input == "") setWrongNotice("#address_add_input", "请输入1--50个字符", "不能为空", "addModal");
-        }
-    }
+        $("#contentModalLabel").modal({
+            backdrop:"static"
+        });
 
-    //判断更新的所有输入框是否为空
-    function submitUpdateAction() {
-        var name_input = $("#name_update_input").val();
-        var tel_input = $("#m_tel").val();
-        var address_input = $("#m_address").val();
-        debugger
-        if (name_input !== "" && tel_input !== "" && address_input !== "") {
-            $('#modify_modal').submit();
-        }
-        else {
-            if (name_input == "") setWrongNotice("#name_update_input", "请输入1--15个字符", "不能为空", "ModifyStaff");
-            if (tel_input == "") setWrongNotice("#m_tel", "请输入1--15个数字", "不能为空", "ModifyStaff");
-            if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "ModifyStaff");
-        }
-    }
-
+    });
 </script>
 </body>
 </html>
