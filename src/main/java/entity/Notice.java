@@ -3,10 +3,10 @@ package entity;
 public class Notice {
     private int id_announcement;
     private int id_user;
+    private String content;
     private String time_submit;
     private int id_admin;
     private String time_approval;
-    private String content;
     private String title;
     private String status;
     private String write_name;
@@ -15,13 +15,13 @@ public class Notice {
     public Notice() {
     }
 
-    public Notice(int id_announcement, int id_user, String time_submit, int id_admin, String time_approval, String content, String title, String status, String write_name, String reply_name) {
+    public Notice(int id_announcement, int id_user, String content, String time_submit, int id_admin, String time_approval, String title, String status, String write_name, String reply_name) {
         this.id_announcement = id_announcement;
         this.id_user = id_user;
+        this.content = content;
         this.time_submit = time_submit;
         this.id_admin = id_admin;
         this.time_approval = time_approval;
-        this.content = content;
         this.title = title;
         this.status = status;
         this.write_name = write_name;
@@ -42,6 +42,14 @@ public class Notice {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getTime_submit() {
@@ -66,14 +74,6 @@ public class Notice {
 
     public void setTime_approval(String time_approval) {
         this.time_approval = time_approval;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getTitle() {

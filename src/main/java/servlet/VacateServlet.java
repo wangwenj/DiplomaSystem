@@ -181,7 +181,8 @@ public class VacateServlet extends HttpServlet {
      * */
     private void getAllVacate(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException, ParseException {
-        int userId_current = Integer.parseInt(request.getSession().getAttribute("userId_current").toString());
+        User currentUser= (User) request.getSession().getAttribute("user");
+        int userId_current =currentUser.getId_user();
         List<Vacate> vacates = vacateDao.getAllVacate(userId_current);
         request.setAttribute("allVacates", vacates);
         request.getRequestDispatcher("/note_for_leave_manage.jsp").forward(request, response);
