@@ -91,5 +91,23 @@
         <url-pattern>*.notice</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SignInOutServlet</servlet-name>
+        <servlet-class>servlet.SignInOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignInOutServlet</servlet-name>
+        <url-pattern>*.signInOut</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MessageServlet</servlet-name>
+        <servlet-class>servlet.MessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MessageServlet</servlet-name>
+        <url-pattern>*.message</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

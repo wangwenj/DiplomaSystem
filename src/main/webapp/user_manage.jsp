@@ -287,7 +287,6 @@
                                     <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                 </button>
 
-
                             </div>
                             <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true" data-method="post">
                                 <thead>

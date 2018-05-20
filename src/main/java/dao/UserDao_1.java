@@ -9,7 +9,7 @@ import java.util.List;
  * Created by ${mjy} on 2018/5/6.
  */
 public interface UserDao_1 {
-    User getOne(int id_user);
+    User getOne(int id_user);//通过user_id获取user这个实体类
     
 
     int add(int id_user, String password, String name, String gender, int id_department, int id_position, String tel, String address,String role);

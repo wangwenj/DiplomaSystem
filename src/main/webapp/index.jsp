@@ -36,6 +36,7 @@
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -102,7 +103,7 @@
                         <li><a class="J_menuItem" href="getAll.vacate">请假</a>
                         </li>
                         <%if(role.equals("管理员")){%>
-                        <li><a class="J_menuItem" href="sign_manage.html">签到管理</a>
+                        <li><a class="J_menuItem" href="getAll.signInOut">签到管理</a>
                         </li>
                         <li><a class="J_menuItem" href="getAllVacate.vacate">请假管理</a>
                         </li>
@@ -164,12 +165,13 @@
                     <div style="margin-right: 50px;margin-top: 8px;">
                         <button type="button" class="btn btn-outline btn-default"
                                 style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke"
-                        onclick="">
+                        onclick="sign('1')">
                             签到
                             <i class="glyphicon glyphicon-log-in" aria-hidden="true"></i>
                         </button>
                         <button type="button" class="btn btn-outline btn-default"
-                                style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke">
+                                style="background-color: #1ab394;color: whitesmoke;border-color:#1ab394;border-right-color: whitesmoke"
+                        onclick="sign('0')">
                             签退
                             <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i>
                         </button>
@@ -212,6 +214,39 @@
 <script src="js/hplus.min.js?v=4.1.0"></script>
 <script type="text/javascript" src="js/contabs.min.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/wwj.js"></script>
+<script>
+    function sign(operate){
+        debugger
+        $.ajax({
+            url: "sign.signInOut",
+            data: {"operation": operate},
+            dataType: "text",
+            type: "post",
+            success: function (result) {
+                debugger
+                var x = parseInt(result);
+                if (x == 1) {
+                    signInSuccess();
+                }
+                else {
+                    signOutSuccess();
+                }
+            },
+            error: function (xhr, status, errMsg) {
+                alert("数据传输失败!");
+            }
+
+        });
+    }
+    function signInSuccess(){
+        alert("签到成功");
+    }
+    function signOutSuccess(){
+        alert("签退成功");
+    }
+
+</script>
 </body>
 
 
