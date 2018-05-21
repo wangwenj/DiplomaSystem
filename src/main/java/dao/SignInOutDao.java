@@ -16,4 +16,6 @@ public interface SignInOutDao {
     SignInOut find(SignInOut sign);
 
     List<SignInOut> getAll();
+
+    List<SignInOut> getOneWeekSign(String dayFrom, String dayTo);
 }

@@ -1,8 +1,17 @@
+
+<%--
+  Created by IntelliJ IDEA.
+  User: winnifrede
+  Date: 2018/5/20
+  Time: 上午2:12
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Message" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<Message> manageMessageList= (List<Message>) request.getAttribute("manageMessageList");
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <html lang="en">
 <head>

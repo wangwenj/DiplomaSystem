@@ -2,17 +2,13 @@
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
-  Date: 2018/5/20
-  Time: 上午10:44
+  Date: 2018/5/21
+  Time: 13:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-<%
-    List<SignInOut> signList = (List<SignInOut>) request.getAttribute("signList");
+    List<SignInOut> userSignList = (List<SignInOut>) request.getAttribute("userSignList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +102,7 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    for (SignInOut sign : signList) {
+                                    for (SignInOut sign : userSignList) {
                                 %>
                                 <tr>
                                     <td id="signOperation"><%=sign.getOperation_name()%>
@@ -186,7 +182,7 @@
             var status = $("<td></td>").append(item.status);
             var deleteButton = $("<button></button>").addClass("btn btn-outline btn-default")
                 .append("删除").append($("<i></i>").addClass("glyphicon glyphicon-trash"));
-            deleteButton.bind("click",deleteUser(this, item.id));
+            deleteButton.bind("click", deleteUser(this, item.id));
             $("<tr></tr>").append(operation_name).append(user_name).append(sign_time)
                 .append(status).append(deleteButton).appendTo("#signTable tbody");
 
@@ -195,6 +191,7 @@
 
     function signWeek(){
         $(window).attr('location','/sign_manage_week.jsp');
+        document.getElementById('signWeek').submit();
     }
 
 </script>

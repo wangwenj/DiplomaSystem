@@ -42,6 +42,13 @@ public class SignInOutDaoImpl extends DAO<SignInOut> implements SignInOutDao {
         return getForList(sql);
     }
 
+    @Override
+    public List<SignInOut> getOneWeekSign(String dayFrom, String dayTo) {
+        String sql="select * from sign_in_out where day_str between ? and ? order by sign_time, user_id, operation DESC";
+        return getForList(sql, dayFrom, dayTo);
+    }
+
+
     // @Override
     // public int upsert(SigninOut sign) {
     // String sql =
