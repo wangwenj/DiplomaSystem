@@ -17,7 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 public class NoticeServlet extends HttpServlet {
-    NoticeDaoImpl noticeDao=new NoticeDaoImpl();
+    NoticeDaoImpl noticeDao = new NoticeDaoImpl();
+
     public NoticeServlet() {
         super();
     }
@@ -54,44 +55,50 @@ public class NoticeServlet extends HttpServlet {
     }
 
     private void edit_notice(HttpServletRequest request,
-                                HttpServletResponse response) throws ServletException, IOException, ParseException{
+                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         request.getRequestDispatcher("/edit_notice.jsp").forward(request, response);
     }
 
     private void submitNotice(HttpServletRequest request,
-                             HttpServletResponse response) throws ServletException, IOException, ParseException{
-        String notice_title=request.getParameter("notice_title");
-        String notice_content=request.getParameter("notice_content");
+                              HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String notice_title = request.getParameter("notice_title");
+        String notice_content = request.getParameter("notice_content");
 
         User user = (User) request.getSession().getAttribute("user");
-        int id_user_current=user.getId_user();
+        int id_user_current = user.getId_user();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String write_date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-        noticeDao.submitNotice(id_user_current,notice_content, write_date, notice_title,"未审阅");
-        this.edit_notice(request,response);
+        noticeDao.submitNotice(id_user_current, notice_content, write_date, notice_title, "未审阅");
+        this.edit_notice(request, response);
     }
 
-    private void getAll(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
-        List<Notice> notices=noticeDao.getAll("未审阅");
-        request.setAttribute("notices",notices);
-        request.getRequestDispatcher("/notice_manage.jsp").forward(request,response);
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+        List<Notice> notices = noticeDao.getAll("未审阅");
+        request.setAttribute("notices", notices);
+        request.getRequestDispatcher("/notice_manage.jsp").forward(request, response);
     }
 
-    private void getDetais(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
-        int id_announcement= Integer.parseInt(request.getParameter("id"));
-        Notice notice=noticeDao.getDetails(id_announcement);
-        System.out.println(notice.getContent()+"公告内容");
-        request.setAttribute("notice",notice);
-        request.getRequestDispatcher("/notice_result.jsp").forward(request,response);
+    private void getDetais(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+        int id_announcement = Integer.parseInt(request.getParameter("id"));
+        Notice notice = noticeDao.getDetails(id_announcement);
+        System.out.println(notice.getContent() + "公告内容");
+        request.setAttribute("notice", notice);
+        request.getRequestDispatcher("/notice_result.jsp").forward(request, response);
     }
 
-    private void dealNotice(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
-        int id_announcement= Integer.parseInt(request.getParameter("id"));
-        String oper=request.getParameter("oper");
+    private void dealNotice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+        int id_announcement = Integer.parseInt(request.getParameter("id"));
+        String oper = request.getParameter("oper");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-        User user= (User) request.getSession().getAttribute("user");
-        noticeDao.dealNotice(id_announcement,user.getId_user(),date,oper);
-        this.getAll(request,response);
+        User user = (User) request.getSession().getAttribute("user");
+        noticeDao.dealNotice(id_announcement, user.getId_user(), date, oper);
+        this.getAll(request, response);
+    }
+
+    private void indexNotice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+        List<Notice> noticePassList=noticeDao.getAllPass("通过");
+        request.setAttribute("noticePassList",noticePassList);
+        request.getRequestDispatcher("/index_notice.jsp").forward(request, response);
     }
 }

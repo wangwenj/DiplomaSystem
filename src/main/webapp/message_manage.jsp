@@ -59,7 +59,7 @@
                                 <td>
                                     <a type="button" href="replyButton.message?id=<%=message.getId_message()%>"  class="btn btn-outline btn-default">
                                         回复
-                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                     </a>
                                 </td>
 

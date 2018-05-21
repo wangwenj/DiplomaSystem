@@ -65,8 +65,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">代码:</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="d_id" id="id_add_input"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','add',15,'judgeRepeat_P_id.posi','addModal','请输入1--15个数字','职位代码重复','职位代码可用')">
+                                   placeholder="请输入1--11个数字"
+                                   onchange="checkRepeat('id','add',15,'judgeRepeat_P_id.posi','addModal','请输入1--11个数字','职位代码重复','职位代码可用')">
                             <p class="notice"></p>
                         </div>
                     </div>

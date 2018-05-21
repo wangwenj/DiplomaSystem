@@ -40,7 +40,7 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
 
     @Override
     public List<User> getAllManager() {
-        String sql="select * from user where role='管理员'";
+        String sql="select * from user where role='管理员' or role='超级管理员'";
         return getForList(sql);
     }
 

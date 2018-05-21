@@ -15,4 +15,6 @@ public interface NoticeDao {
 
     int dealNotice(int id_announcement,int id_admin,String time_approval,String oper);
 
+    List<Notice> getAllPass(String status);
+
 }

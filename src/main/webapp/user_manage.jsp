@@ -79,21 +79,23 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-1 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-11">
+                        <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
+                        <div class="col-md-10">
                             <input type="text" class="form-control" id="id_add_input" name="id_user"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--15个数字','工号重复','工号可用')">
+                                   placeholder="请输入1--11个数字"
+                                   onchange="checkRepeat('id','add',15,'judgeUserId.staff','addModal','请输入1--11个数字','工号重复','工号可用')">
                             <p class="notice"></p>
                         </div>
                     </div>
-                        <div class=" modal-label"><label class="control-label">密码:</label></div>
-                        <div class="col-md-11">
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
+                        <div class="col-md-10">
                             <input type="text" class="form-control" name="password"
                                    placeholder="请输入1--15个字符" id="password_add_input" value="2233"
                                    onchange="judgeLength(this.value,15,'#password_add_input','请输入1--15个字符','addModal')">
                             <p class="notice"></p>
                         </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
                         <div class="col-md-10">
@@ -278,7 +280,7 @@
                     <div class="example-wrap">
                         <h4 class="example-title">用户管理</h4>
                         <div class="example">
-                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group" >
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                                 <button class="btn btn-outline btn-default"
                                         data-toggle="modal"
                                         data-target="#addModal"
@@ -288,7 +290,8 @@
                                 </button>
 
                             </div>
-                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true" data-method="post">
+                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true"
+                                   data-method="post">
                                 <thead>
                                 <tr>
                                     <th data-field="name">姓名</th>
@@ -311,7 +314,8 @@
                                     </td>
                                     <td><%=user.getId_user()%>
                                     </td>
-                                    <td><%=user.getRole()%></td>
+                                    <td><%=user.getRole()%>
+                                    </td>
                                     <td><%=user.getGender()%>
                                     </td>
                                     <td id="<%=user.getId_department()%>"><%=user.getD_name()%>
@@ -362,6 +366,18 @@
     var jsdom = require("jsdom");
     var window = jsdom.jsdom().defaultView;
     var $ = require('jquery')(window);
+
+    $(document).ready(function(){
+        $('#exampleTableEvents').bootstrapTable({
+            showRefresh: false,
+        });
+    });
+  /*  $(function(){
+        $('#exampleTableEvents').bootstrapTable({
+            showRefresh: false,
+        });
+    });*/
+
     <!--modal框-->
     $('#Modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -431,7 +447,6 @@
             if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "ModifyStaff");
         }
     }
-
 
 
 </script>

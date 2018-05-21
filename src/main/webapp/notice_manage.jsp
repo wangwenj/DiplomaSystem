@@ -10,6 +10,8 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+<%
     List<Notice> notices= (List<Notice>) request.getAttribute("notices");
 %>
 <!DOCTYPE html>
@@ -41,7 +43,6 @@
     </style>
 
 
-
 </head>
 <body class="gray-bg">
 
@@ -53,10 +54,11 @@
                     <div class="example-wrap">
                         <h1 class="example-title">公告管理</h1>
                         <div class="example">
-                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group" >
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
 
                             </div>
-                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true" data-method="post">
+                            <table id="exampleTableEvents" data-height="auto" data-mobile-responsive="true"
+                                   data-method="post">
                                 <thead>
                                 <tr>
                                     <th hidden>id</th>
@@ -72,12 +74,17 @@
                                     for (Notice notice : notices) {
                                 %>
                                 <tr>
-                                    <td><%=notice.getId_announcement()%></td>
-                                    <td><%=notice.getWrite_name()%></td>
-                                    <td><%=notice.getTime_submit()%></td>
-                                    <td><%=notice.getStatus()%> </td>
+                                    <td><%=notice.getId_announcement()%>
+                                    </td>
+                                    <td><%=notice.getWrite_name()%>
+                                    </td>
+                                    <td><%=notice.getTime_submit()%>
+                                    </td>
+                                    <td><%=notice.getStatus()%>
+                                    </td>
                                     <td>
-                                        <a href="getDetais.notice?id=<%=notice.getId_announcement()%>" type="button" class="btn btn-outline btn-default">
+                                        <a href="getDetais.notice?id=<%=notice.getId_announcement()%>" type="button"
+                                           class="btn btn-outline btn-default">
                                             查看详情
                                             <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                         </a>
@@ -110,12 +117,12 @@
 <script>
 
 
-    $(document).on("click",".details",function () {
+    $(document).on("click", ".details", function () {
         //1、查询该电影信息
         getMovie($(this).attr("detail-id"));
 
         $("#contentModalLabel").modal({
-            backdrop:"static"
+            backdrop: "static"
         });
 
     });

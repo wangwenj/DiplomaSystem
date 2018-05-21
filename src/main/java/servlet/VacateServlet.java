@@ -222,7 +222,7 @@ public class VacateServlet extends HttpServlet {
     }
 
     /*
-     * 获取所有登录用户的申请单
+     * 获取向该用户申请的申请单
      * */
     private void getAllApply(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException, ParseException {
