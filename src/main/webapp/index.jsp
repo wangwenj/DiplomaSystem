@@ -1,5 +1,6 @@
 <%@ page import="entity.User" %>
-<%@ page import="freemarker.debug.Debugger" %><%--
+<%@ page import="freemarker.debug.Debugger" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/9
@@ -35,6 +36,79 @@
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 
+<%--修改个人资料模态框--%>
+<div class="modal fade animated" id="modifyMyself" tabindex="-1" role="dialog" aria-labelledby="modify">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modify">修改员工</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="modifyStaff.staff" id="modify_modal">
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="name_update_input" name="name" readonly>
+                            <p class="notice"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_id_user" name="id_user"
+                                                      readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="gender" id="m_gender" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="m_department" id="m_depart_name" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">职位</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="m_position" id="m_posi_name" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="m_tel" name="m_tel"
+                                   placeholder="请输入1--11个数字"
+                                   onchange="judgeLengthAndIsNum(this.value,11,'#m_tel','请输入1--11个数字','ModifyStaff','格式正确')">
+
+                            <p class="notice"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address"
+                                                      placeholder="请输入1--50个字符"
+                                                      onchange="judgeLength(this.value,50,'#m_address','请输入1--50个字符','modifyMyself','格式正确')">
+
+                            <p class="notice"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="submitUpdateAction();">确认
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -47,18 +121,12 @@
                         <span><img alt="image" class="img-circle" src="img/profile_small.jpg"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
+                               <span class="block m-t-xs"><strong class="font-bold"><%=user.getName()%></strong></span>
+                                <span class="text-muted text-xs block"><%=user.getP_name()%><b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
-                            </li>
-                            <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                            </li>
-                            <li><a class="J_menuItem" href="contacts.html">联系我们</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                            <li><a class="J_menuItem" data-toggle="modal" data-target="#modifyMyself">个人资料</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="login.jsp">安全退出</a>
@@ -249,6 +317,20 @@
     }
     function signOutSuccess(){
         alert("签退成功");
+    }
+
+    /*提交更新之后的操作*/
+    function submitUpdateAction() {
+        var tel_input = $("#m_tel").val();
+        var address_input = $("#m_address").val();
+        debugger
+        if (tel_input !== "" && address_input !== "") {
+            $('#modify_modal').submit();
+        }
+        else {
+            if (tel_input == "") setWrongNotice("#m_tel", "请输入1--11个数字", "不能为空", "modifyMyself");
+            if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "modifyMyself");
+        }
     }
 
 </script>

@@ -219,8 +219,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">联系方式</label></div>
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="m_tel" name="m_tel"
-                                   placeholder="请输入1--15个数字"
-                                   onchange="judgeLengthAndIsNum(this.value,15,'#m_tel','请输入1--15个数字','ModifyStaff','格式正确')">
+                                   placeholder="请输入1--11个数字"
+                                   onchange="judgeLengthAndIsNum(this.value,11,'#m_tel','请输入1--11个数字','ModifyStaff','格式正确')">
 
                             <p class="notice"></p>
                         </div>
@@ -278,7 +278,7 @@
             <div class="ibox ">
                 <div class="ibox-content">
                     <div class="example-wrap">
-                        <h4 class="example-title">用户管理</h4>
+                        <h2 class="example-title">用户管理</h2>
                         <div class="example">
                             <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
                                 <button class="btn btn-outline btn-default"
@@ -396,9 +396,9 @@
         $("#name_update_input").next(".notice").text(null);
         $("#m_id_user").val((tds.eq(1).text()).replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_gender").val(tds.eq(2).text().replace(/(^\s*)|(\s*$)/g, ""));
-        $("#m_tel").val(tds.eq(5).text().replace(/(^\s*)|(\s*$)/g, ""));
+        $("#m_tel").val(tds.eq(6).text().replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_tel").next(".notice").text(null);
-        $("#m_address").val(tds.eq(6).text().replace(/(^\s*)|(\s*$)/g, ""));
+        $("#m_address").val(tds.eq(7).text().replace(/(^\s*)|(\s*$)/g, ""));
         $("#m_address").next(".notice").text(null);
         $("#uptDep" + depId).attr("selected", true);
         $("#uptPosi" + posiId).attr("selected", true);

@@ -1,6 +1,8 @@
 package servlet;
 
+import dao.PositionDao;
 import dao.UserDao_1;
+import daoImp.PositionImp;
 import daoImp.UserDao1Imp;
 import entity.User;
 
@@ -60,11 +62,14 @@ public class Loginservlet extends HttpServlet {
 //        System.out.println(user_id);
         String password = request.getParameter("password");
         UserDao_1 userDao1 = new UserDao1Imp();
+        PositionDao positionDao=new PositionImp();
         User user=userDao1.getOne(user_id);
+        user.setP_name(positionDao.findP_name(user.getId_position()));
 //        System.out.println("@@@@@@@@@@"+ userDao1);
         if (userDao1.getOne(user_id).getPassword().equals(password)) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            request.setAttribute("user",user);
             response.sendRedirect("/index.jsp");
         }
     }
