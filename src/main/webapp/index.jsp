@@ -69,7 +69,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="index_notice.html">
+                    <a class="J_menuItem" href="indexNotice.notice">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">主页</span>
                     </a>
@@ -184,7 +184,7 @@
             </button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    <a href="indexNotice.notice" class="active J_menuTab" data-id="index_v1.html">首页</a>
                 </div>
             </nav>
 
@@ -192,7 +192,7 @@
             <a href="login.jsp" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_notice.html" frameborder="0"
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="indexNotice.notice" frameborder="0"
                     data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">

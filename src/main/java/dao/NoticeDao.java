@@ -14,4 +14,5 @@ public interface NoticeDao {
     Notice getDetails(int id);
 
     int dealNotice(int id_announcement,int id_admin,String time_approval,String oper);
+
 }

@@ -31,4 +31,5 @@ public class NoticeDaoImpl extends DAO<Notice> implements NoticeDao{
         String sql="update announcement set id_admin=?,time_approval=?,status=? where id_announcement=?";
         return update(sql,id_admin,time_approval,status,id_announcement);
     }
+
 }
