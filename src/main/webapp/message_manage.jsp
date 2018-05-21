@@ -12,6 +12,7 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    List<Message> manageMessageList= (List<Message>) request.getAttribute("manageMessageList");
 %>
 <html lang="en">
 <head>

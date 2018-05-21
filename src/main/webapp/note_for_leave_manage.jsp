@@ -1,5 +1,6 @@
 <%@ page import="entity.Vacate" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: winnifrede
   Date: 2018/5/18
