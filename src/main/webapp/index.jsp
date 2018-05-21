@@ -74,7 +74,7 @@
                         <span class="nav-label">主页</span>
                     </a>
                 </li>
-                <%if(role.equals("管理员")){%>
+                <%if(role.equals("管理员")||role.equals("超级管理员")){%>
                 <li>
                     <a href="#">
                         <i class="fa fa fa-bar-chart-o"></i>
@@ -100,7 +100,7 @@
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="getAll.vacate">请假</a>
                         </li>
-                        <%if(role.equals("管理员")){%>
+                        <%if(role.equals("管理员")||role.equals("超级管理员")){%>
                         <li><a class="J_menuItem" href="getAll.signInOut">签到管理</a>
                         </li>
                         <li><a class="J_menuItem" href="getAllVacate.vacate">请假管理</a>
@@ -110,18 +110,23 @@
                         </li>
                     </ul>
                 </li>
-                <%if(role.equals("管理员")){%>
-                <li>
+
+                <li><%if(role.equals("管理员")||role.equals("超级管理员")){%>
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">公告管理</span><span
                             class="fa arrow"></span></a>
+                    <%}%>
                     <ul class="nav nav-second-level">
+                        <%if(role.equals("管理员")||role.equals("超级管理员")){%>
                         <li><a class="J_menuItem" href="edit_notice.notice">编写公告</a>
                         </li>
+                        <%}%>
+                        <%if(role.equals("超级管理员")){%>
                         <li><a class="J_menuItem" href="getAll.notice">公告审核</a>
                         </li>
+                        <%}%>
                     </ul>
                 </li>
-                <%}%>
+
 
                 <li>
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">公司留言</span><span
@@ -129,12 +134,13 @@
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="getAllToStaff.message">员工留言</a>
                         </li>
-                        <%if(role.equals("管理员")){%>
+                        <%if(role.equals("管理员")||role.equals("超级管理员")){%>
                         <li><a class="J_menuItem" href="getAllToManage.message">留言管理</a>
                         </li>
                         <%}%>
                     </ul>
                 </li>
+                <%if(role.equals("管理员")||role.equals("超级管理员")){%>
                 <li>
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">回收站</span><span
                             class="fa arrow"></span></a>
@@ -147,6 +153,7 @@
                         </li>
                     </ul>
                 </li>
+                <%}%>
             </ul>
         </div>
     </nav>

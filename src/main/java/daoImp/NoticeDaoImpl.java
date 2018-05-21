@@ -15,9 +15,9 @@ public class NoticeDaoImpl extends DAO<Notice> implements NoticeDao{
     }
 
     @Override
-    public List<Notice> getAll() {
-        String sql="select id_announcement,name as write_name,time_submit,title,content,status from announcement inner join user on user.id_user=announcement.id_user";
-        return getForList(sql);
+    public List<Notice> getAll(String status) {
+        String sql="select id_announcement,name as write_name,time_submit,title,content,status from announcement inner join user on user.id_user=announcement.id_user where status=?";
+        return getForList(sql,status);
     }
 
     @Override

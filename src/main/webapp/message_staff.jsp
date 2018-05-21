@@ -41,26 +41,27 @@
                                 <th>留言时间</th>
                                 <th>回复人</th>
                                 <th>回复时间</th>
+                                <th>回复内容</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <%for(Message message:messageList){%>
                             <tr>
-                                <%for(Message message:messageList){%>
-
                                 <td><%=message.getId_message()%></td>
                                 <td><%=message.getWrite_content()%></td>
                                 <td><%=message.getWrite_time()%></td>
                                 <td><%=message.getReply_name()%></td>
                                 <td><%=message.getReply_time()%></td>
+                                <td><%=message.getReply_content()%></td>
                                 <td>
                                     <a href="deleteMessage.message?id=<%=message.getId_message()%>" type="button" class="btn btn-outline btn-default">
                                         删除
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </a>
                                 </td>
-                                <%}%>
                             </tr>
+                            <%}%>
                             </tbody>
                         </table>
                     </div>
