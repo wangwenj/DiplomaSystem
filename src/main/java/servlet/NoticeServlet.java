@@ -72,7 +72,7 @@ public class NoticeServlet extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException, ParseException{
-        List<Notice> notices=noticeDao.getAll();
+        List<Notice> notices=noticeDao.getAll("未审阅");
         request.setAttribute("notices",notices);
         request.getRequestDispatcher("/notice_manage.jsp").forward(request,response);
     }

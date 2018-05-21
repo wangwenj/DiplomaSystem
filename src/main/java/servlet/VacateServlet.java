@@ -226,7 +226,9 @@ public class VacateServlet extends HttpServlet {
      * */
     private void getAllApply(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException, ParseException {
-        int userId_current = Integer.parseInt(request.getSession().getAttribute("userId_current").toString());
+        User user= (User) request.getSession().getAttribute("user");
+
+        int userId_current = user.getId_user();
         List<Vacate> vacates = vacateDao.getAllApply(userId_current);
         request.setAttribute("allApply", vacates);
         request.getRequestDispatcher("/note_for_leave_result.jsp").forward(request, response);

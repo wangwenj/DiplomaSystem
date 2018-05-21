@@ -9,7 +9,7 @@ import java.util.List;
 public interface NoticeDao {
     int submitNotice(int id_user,String content,String time_submit,String title,String status);//提交公告
 
-    List<Notice> getAll();
+    List<Notice> getAll(String status);
 
     Notice getDetails(int id);
 
