@@ -46,7 +46,7 @@ public class VacateDaoImp extends DAO<Vacate> implements VacateDao{
                 "                b.name as apply_name,b.ID_DEPARTMENT as apply_depart_id,b.ID_POSITION as apply_posi_id,c.ID_POSITION as admin_posi_id,c.name as admin_name\n" +
                 "                from vacate a\n" +
                 "                join user b on a.id_user = b.ID_USER\n" +
-                "                join user c on a.id_approval = c.id_user)as d where id_approval=?";
+                "                join user c on a.id_approval = c.id_user)as d where id_user=?";
         return getForList(sql,id);
     }
 

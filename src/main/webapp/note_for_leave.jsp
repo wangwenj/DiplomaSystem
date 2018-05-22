@@ -107,6 +107,7 @@
                             <label class="col-sm-2 control-label">审批人职位<label style="color: red">*</label></label>
                             <div class="col-sm-4">
                                 <input class="form-control " name="admin_position" id="admin_position">
+                                <p class="notice"></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -190,8 +191,9 @@
         var time_end = $("#time_end").val();
         var total_time = $("#total_time").val();
         var reason_input = $("#reason_input").val();
+        var admin_position=$("#admin_position").val();
         debugger
-        if (name_apply !== "" && time_apply !== "" && time_start !== "" && time_end !== "" && total_time !== "" && reason_input !== "") {
+        if (name_apply !== "" && time_apply !== "" && time_start !== "" && time_end !== "" && total_time !== "" && reason_input !== ""&&admin_position!=="") {
             $('#applyForm').submit();
         }
         else {
@@ -201,6 +203,7 @@
             if (time_end == "") setWrongNotice("#time_end", "请选择请假结束时间", "不能为空", null);
             if (total_time == "") setWrongNotice("#total_time", "正确输入请假起始时间，自动生成总时间", "正确输入请假起始时间，自动生成总时间", null);
             if (reason_input == "") setWrongNotice("#reason_input", "请输入1--100字的理由", "不能为空", null);
+            if (admin_position == "") setWrongNotice("#admin_position", "请选择审批人，审批人职位自动填充", "不能为空", null);
         }
     }
     

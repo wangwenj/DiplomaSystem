@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
@@ -36,6 +37,7 @@ public class Loginservlet extends HttpServlet {
             throws ServletException, IOException {
         //以下为解决乱码
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String servletpath = request.getServletPath();
         String MethodName = servletpath.substring(1);
         MethodName = MethodName.substring(0, MethodName.length() - 6);
@@ -77,6 +79,12 @@ public class Loginservlet extends HttpServlet {
             session.setAttribute("user", user);
             request.setAttribute("user",user);
             response.sendRedirect("/index.jsp");
+        }else{
+            response.setContentType("text/html;charset=utf-8");
+            PrintWriter out=response.getWriter();
+            out.print("<script language='javascript'>alert('用户名或者密码不正确');window.location.href='login.jsp';</script>");
+//            request.getRequestDispatcher("/login.jsp").forward(request, response);
+
         }
     }
 

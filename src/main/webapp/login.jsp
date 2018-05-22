@@ -10,6 +10,10 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+<%
+    String msg = (String) request.getAttribute("msg");
+
+%>
 <!DOCTYPE html>
 <html>
 
@@ -41,11 +45,13 @@
         <form action="signin.login" method="post" id="testform">
             <div class="form-group">
                 <input type="text" class="form-control" name="id_user" id="id_user" placeholder="用户名" required="">
+                <p class="notice"></p>
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" name="password" id="password" placeholder="密码" required="">
+                <p class="notice" style="color: green">*请输入用户名和密码</p>
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            <button  type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
 
         </form>
@@ -54,6 +60,26 @@
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<script src="js/wwj.js"></script>
+<script>
+    /*function submitAddAction() {
+        debugger
+        var id_user = $("#id_user").val();
+        var password = $("#password").val();
+        var msg=<%=msg%>;
+        debugger
+        if(msg==false){
+            setWrongNotice("#password", "请输入密码", "用户名或密码不对", "addModal");
+        }
+        if (id_user !== "" && password) {
+            $('#testform').submit();
+        }
+        else {
+            if (id_user == "") setWrongNotice("#id_user", "请输入用户名(工号)", "不能为空", "addModal");
+            if (password == "") setWrongNotice("#password", "请输入密码", "不能为空", "addModal");
+    }}*/
+
+</script>
 </body>
 
 
