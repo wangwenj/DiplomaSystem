@@ -25,13 +25,13 @@ import java.util.List;
 
 public class StaffManageServlet extends HttpServlet {
 
-     UserDao_1 userDao_1 = new UserDao1Imp();
+    UserDao_1 userDao_1 = new UserDao1Imp();
 
     DepartmentImp departmentImp = new DepartmentImp();
 
     PositionImp positionImp = new PositionImp();
 
-    UserDeleteDa0 userDeleteDa0=new UserDeleteDaoImpl();
+    UserDeleteDa0 userDeleteDa0 = new UserDeleteDaoImpl();
 
     public StaffManageServlet() {
         super();
@@ -70,9 +70,9 @@ public class StaffManageServlet extends HttpServlet {
     }
 
     /*
-    * 增加员工信息
-    * @wwj
-    * */
+     * 增加员工信息
+     * @wwj
+     * */
     private void addStaff(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException, ParseException {
 
@@ -86,18 +86,18 @@ public class StaffManageServlet extends HttpServlet {
         String intro = request.getParameter("intro");
         String remark = request.getParameter("remark");
         String address = request.getParameter("address");
-        String role=request.getParameter("role");
+        String role = request.getParameter("role");
         System.out.println(address);
-        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, address,role);
+        userDao_1.add(user_id, password, name, gender, id_department, id_position, tel, address, role);
         this.getAll(request, response);
         //response.sendRedirect("user_manage.jsp");
 
     }
 
     /*
-    * 获取所有用户信息，点击导航栏链接调用
-    * @wwj
-    * */
+     * 获取所有用户信息，点击导航栏链接调用
+     * @wwj
+     * */
     private void getAll(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException, ParseException {
         List<User> userAll = userDao_1.getAll();
@@ -147,25 +147,25 @@ public class StaffManageServlet extends HttpServlet {
     private void deleteUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("deleteUserId"));
-        User user=userDao_1.countId(id);//获取删除的用户的信息
+        User user = userDao_1.countId(id);//获取删除的用户的信息
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-        userDeleteDa0.add_user_delete(user.getId_user(),user.getPassword(),user.getName(), user.getGender(), user.getId_department(), user.getId_position(),user.getTel(),user.getAddress(),user.getIntro(),user.getRemark(),date,user.getRole());
+        userDeleteDa0.add_user_delete(user.getId_user(), user.getPassword(), user.getName(), user.getGender(), user.getId_department(), user.getId_position(), user.getTel(), user.getAddress(), user.getIntro(), user.getRemark(), date, user.getRole());
         userDao_1.deleteUser(id);
         this.getAll(request, response);
     }
 
     /*
-    * 判断用户的姓名是否重复（建议方法名和查重有关）,ajax请求
-    * @wwj
-    * */
+     * 判断用户的姓名是否重复（建议方法名和查重有关）,ajax请求
+     * @wwj
+     * */
     private void getOneUser(HttpServletRequest request,
                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         String name = request.getParameter("parameter");
         System.out.println("获取的名字---" + name);
-        User user =(User) userDao_1.countUser(name);
+        User user = (User) userDao_1.countUser(name);
         System.out.println(user);
-        if (user==null) {
+        if (user == null) {
             System.out.println("成功获取该name的数量，返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
@@ -177,14 +177,14 @@ public class StaffManageServlet extends HttpServlet {
     }
 
     /*
-    * 判断用户的id是否重复（建议方法名和查重有关），ajax请求
-    * @wwj
-    * */
+     * 判断用户的id是否重复（建议方法名和查重有关），ajax请求
+     * @wwj
+     * */
     private void judgeUserId(HttpServletRequest request,
-                            HttpServletResponse response) throws ServletException, IOException, ParseException{
+                             HttpServletResponse response) throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("parameter"));
-        User user=(User)userDao_1.countId(id);
-        if (user==null) {
+        User user = (User) userDao_1.countId(id);
+        if (user == null) {
             System.out.println("成功获取该id的数量，返回100");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("100");
@@ -195,5 +195,15 @@ public class StaffManageServlet extends HttpServlet {
         }
 
     }
+
+
+    private void getAllTelInfo(HttpServletRequest request,
+                               HttpServletResponse response) throws ServletException, IOException, ParseException {
+
+        List<User> users = userDao_1.getAllTelInfo();
+        request.setAttribute("allTelInfo",users);
+        request.getRequestDispatcher("/tel_information.jsp").forward(request, response);
+    }
+
 
 }

@@ -195,6 +195,12 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a class="J_menuItem" href="getAllTelInfo.staff">
+                        <i class="fa fa-phone"></i>
+                        <span class="nav-label">通讯录</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">公司留言</span><span

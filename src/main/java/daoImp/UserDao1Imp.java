@@ -67,4 +67,10 @@ public class UserDao1Imp extends DAO<User> implements UserDao_1 {
         String sql="select * from user where name=?";
         return get(sql,name);
     }
+
+    @Override
+    public List<User> getAllTelInfo() {
+        String sql="select * from user";
+        return getForList(sql);
+    }
 }

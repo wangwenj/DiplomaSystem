@@ -27,4 +27,6 @@ public interface UserDao_1 {
     User countId(int id);
 
     User checkUserExist(String name);
+
+    List<User> getAllTelInfo();
 }
