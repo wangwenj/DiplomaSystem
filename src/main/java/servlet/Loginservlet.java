@@ -1,9 +1,12 @@
 package servlet;
 
+import dao.DepartmentDao;
 import dao.PositionDao;
 import dao.UserDao_1;
+import daoImp.DepartmentImp;
 import daoImp.PositionImp;
 import daoImp.UserDao1Imp;
+import entity.Department;
 import entity.User;
 
 import javax.mail.Session;
@@ -18,6 +21,7 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 
 public class Loginservlet extends HttpServlet {
+    UserDao_1 userDao_1 = new UserDao1Imp();
 
     public Loginservlet() {
         super();
@@ -63,8 +67,10 @@ public class Loginservlet extends HttpServlet {
         String password = request.getParameter("password");
         UserDao_1 userDao1 = new UserDao1Imp();
         PositionDao positionDao=new PositionImp();
+        DepartmentDao departmentDao=new DepartmentImp();
         User user=userDao1.getOne(user_id);
         user.setP_name(positionDao.findP_name(user.getId_position()));
+        user.setD_name(departmentDao.findD_name(user.getId_department()));
 //        System.out.println("@@@@@@@@@@"+ userDao1);
         if (userDao1.getOne(user_id).getPassword().equals(password)) {
             HttpSession session = request.getSession();
@@ -72,6 +78,30 @@ public class Loginservlet extends HttpServlet {
             request.setAttribute("user",user);
             response.sendRedirect("/index.jsp");
         }
+    }
+
+    private void modifyStaff2(HttpServletRequest request,
+                              HttpServletResponse response) throws ServletException, IOException, ParseException {
+
+        int id = Integer.parseInt(request.getParameter("id_user"));
+        System.out.println("id为：" + id);
+        String name = request.getParameter("name");
+        String gender = request.getParameter("gender");
+//        System.out.println(gender);
+        int id_department = Integer.parseInt(request.getParameter("m_department"));
+//        System.out.println("部门id"+id_department);
+
+        int id_position = Integer.parseInt(request.getParameter("m_position"));
+        System.out.println("职位id" + id_position);
+
+        String tel = request.getParameter("m_tel");
+        String address = request.getParameter("address");
+        System.out.println(name + "==" + gender + "==" + id_department + "==" + id_position);
+        userDao_1.updateUser(name, gender, id_department, id_position, tel, address, id);
+        this.signin(request, response);
+        //request.getRequestDispatcher("/user_manage.jsp").forward(request, response);
+
+
     }
 
 }

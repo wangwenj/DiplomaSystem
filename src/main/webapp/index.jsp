@@ -44,36 +44,48 @@
                 <h4 class="modal-title" id="modify">修改员工</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="modifyStaff.staff" id="modify_modal">
+                <form method="post" action="modifyStaff2.login" id="modify_modal">
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">姓名:</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="name_update_input" name="name" readonly>
+                            <input type="text" class="form-control" id="name_update_input" name="name" readonly
+                            value="<%=user.getName()%>">
                             <p class="notice"></p>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">工号:</label></div>
-                        <div class="col-md-10"><input type="text" class="form-control" id="m_id_user" name="id_user"
-                                                      readonly>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_id_user" name="id_user" readonly
+                        value="<%=user.getId_user()%>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 modal-label"><label class="control-label">密码:</label></div>
+                        <div class="col-md-10"><input type="text" class="form-control" id="m_password" name="password"
+                                                      value="<%=user.getPassword()%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">性别</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="gender" id="m_gender" readonly>
+                            <input type="text" class="form-control" name="gender" id="m_gender" readonly
+                                   value="<%=user.getGender()%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">部门</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="m_department" id="m_depart_name" readonly>
+                            <input type="text" value="<%=user.getId_department()%>" style="display: none" name="m_department">
+                            <input type="text" class="form-control" name="m_depart_name" id="m_depart_name" readonly
+                                   value="<%=user.getD_name()%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 modal-label"><label class="control-label">职位</label></div>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="m_position" id="m_posi_name" readonly>
+                            <input type="text" value="<%=user.getId_position()%>" style="display: none" name="m_position">
+                            <input type="text" class="form-control" name="m_posi_name" id="m_posi_name" readonly
+                            value="<%=user.getP_name()%>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -81,7 +93,8 @@
                         <div class="col-md-10">
                             <input type="text" class="form-control" id="m_tel" name="m_tel"
                                    placeholder="请输入1--11个数字"
-                                   onchange="judgeLengthAndIsNum(this.value,11,'#m_tel','请输入1--11个数字','ModifyStaff','格式正确')">
+                                   onchange="judgeLengthAndIsNum(this.value,11,'#m_tel','请输入1--11个数字','ModifyStaff','格式正确')"
+                                   value="<%=user.getTel()%>">
 
                             <p class="notice"></p>
                         </div>
@@ -90,7 +103,8 @@
                         <div class="col-md-2 modal-label"><label class="control-label">地址</label></div>
                         <div class="col-md-10"><input type="text" class="form-control" id="m_address" name="address"
                                                       placeholder="请输入1--50个字符"
-                                                      onchange="judgeLength(this.value,50,'#m_address','请输入1--50个字符','modifyMyself','格式正确')">
+                                                      onchange="judgeLength(this.value,50,'#m_address','请输入1--50个字符','modifyMyself','格式正确')"
+                                                      value="<%=user.getAddress()%>">
 
                             <p class="notice"></p>
                         </div>
@@ -126,7 +140,7 @@
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" data-toggle="modal" data-target="#modifyMyself">个人资料</a>
+                            <li><a class="J_menuItem" data-toggle="modal" onclick="modifyMyself()">个人资料</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="login.jsp">安全退出</a>
@@ -337,6 +351,13 @@
             if (tel_input == "") setWrongNotice("#m_tel", "请输入1--11个数字", "不能为空", "modifyMyself");
             if (address_input == "") setWrongNotice("#m_address", "请输入1--50个字符", "不能为空", "modifyMyself");
         }
+    }
+
+//   个人资料
+    function modifyMyself(){
+        $('#modifyMyself').modal('show');
+
+
     }
 
 </script>
